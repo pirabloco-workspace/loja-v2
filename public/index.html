@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PiraBloco® - Oficial</title>
     <style>
-        /* --- ESTILOS VISUAIS (DNA PIRABLOCO) --- */
+        /* --- 1. DNA VISUAL PIRABLOCO --- */
         :root {
             --pb-dark: #195961;
             --pb-mid: #378fae;
             --pb-light: #b3ecec;
             --pb-action: #2A9D8F;
             --pb-gray: #f4f4f4;
+            --pb-red: #e74c3c;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); }
-        
-        /* Header */
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); padding-bottom: 20px; }
+        img { display: block; max-width: 100%; }
+
+        /* --- 2. HEADER FIXO --- */
         .pb-header {
             background-color: var(--pb-dark); height: 60px; width: 100%;
             position: sticky; top: 0; z-index: 1000;
@@ -26,44 +28,94 @@
         .pb-brand { font-size: 1.4rem; font-weight: 800; color: var(--pb-light); }
         .pb-brand span { color: #76c7c0; }
         
-        /* Container e Grid */
-        .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 80vh; }
+        /* --- 3. BANNER ROTATIVO (NOVO) --- */
+        .pb-banner-container {
+            width: 100%; position: relative; overflow: hidden;
+            background: #ddd; min-height: 150px; /* Evita pulo de layout */
+        }
+        .pb-banner-track {
+            display: flex; transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        .pb-banner-slide {
+            min-width: 100%; box-sizing: border-box;
+        }
+        .pb-banner-slide img {
+            width: 100%; height: auto; object-fit: cover;
+        }
+        /* Bolinhas de navegação */
+        .pb-dots {
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px;
+        }
+        .pb-dot {
+            width: 10px; height: 10px; background: rgba(255,255,255,0.5);
+            border-radius: 50%; cursor: pointer; transition: 0.3s;
+        }
+        .pb-dot.active { background: #fff; transform: scale(1.2); }
+
+        /* --- 4. LAYOUT DA LOJA --- */
+        .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 60vh; }
+        
         .pb-search-box {
             display: flex; background: #fff; border-radius: 25px;
-            padding: 5px 15px; margin-bottom: 20px;
+            padding: 5px 15px; margin: 20px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .pb-search-box input { flex: 1; border: none; padding: 10px; font-size: 1rem; }
-        
+
         .pb-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
         }
         @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* Card de Produto */
+        /* --- 5. CARD DE PRODUTO (TURBINADO) --- */
         .pb-card {
-            background: #fff; border-radius: 10px; overflow: hidden;
+            background: #fff; border-radius: 12px; overflow: hidden;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
             border: 1px solid #76c7c0;
             display: flex; flex-direction: column;
+            position: relative;
         }
-        .pb-img-box { height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 10px; }
+        .pb-img-box {
+            height: 160px; background: #fff; padding: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
         .pb-img-box img { width: 100%; height: 100%; object-fit: contain; }
         
-        .pb-info { padding: 10px; text-align: center; flex: 1; display: flex; flex-direction: column; }
-        .pb-name { color: var(--pb-dark); font-size: 0.9rem; margin-bottom: 5px; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .pb-price { color: var(--pb-action); font-weight: 800; font-size: 1.1rem; margin: 5px 0; }
-        .pb-estoque { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
-        .pb-btn {
-            background: var(--pb-action); color: #fff; border: none;
-            padding: 8px; width: 100%; border-radius: 20px;
-            font-weight: bold; margin-top: auto; cursor: pointer;
+        .pb-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
+        .pb-name {
+            color: var(--pb-dark); font-size: 0.9rem; margin-bottom: 5px;
+            height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
         }
-        .pb-btn:disabled { background: #ccc; cursor: not-allowed; }
-        
-        /* Menu Lateral */
+        .pb-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
+        .pb-price { color: var(--pb-action); font-weight: 800; font-size: 1.2rem; }
+
+        /* CONTROLE DE QUANTIDADE (+/-) */
+        .pb-actions { margin-top: auto; padding-top: 10px; }
+        .pb-qty-box {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #f0f0f0; border-radius: 20px; margin-bottom: 8px;
+            padding: 2px;
+        }
+        .pb-qty-btn {
+            width: 30px; height: 30px; border: none; background: #fff;
+            border-radius: 50%; color: var(--pb-dark); font-weight: bold; font-size: 1.2rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .pb-qty-btn:active { transform: scale(0.9); }
+        .pb-qty-val { font-weight: bold; color: #333; min-width: 20px; text-align: center; }
+
+        .pb-btn-buy {
+            background: var(--pb-action); color: #fff; border: none;
+            padding: 10px; width: 100%; border-radius: 20px;
+            font-weight: bold; cursor: pointer; transition: background 0.2s;
+        }
+        .pb-btn-buy:active { background: #1f7a6f; }
+        .pb-btn-buy:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* --- 6. MENU LATERAL --- */
         .pb-sidebar {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
             background: #fff; z-index: 2000; transition: left 0.3s ease;
@@ -75,6 +127,24 @@
             background: rgba(0,0,0,0.5); z-index: 1500; display: none;
         }
         .pb-overlay.active { display: block; }
+        
+        /* --- 7. RODAPÉ OFICIAL --- */
+        .pb-footer {
+            background-color: #195961; color: #FFFFFF; padding: 40px 20px;
+            font-family: sans-serif; border-top: 4px solid #76c7c0; margin-top: 30px;
+        }
+        .pb-footer-grid {
+            display: flex; justify-content: space-around; flex-wrap: wrap;
+            max-width: 1000px; margin: 0 auto; gap: 20px;
+        }
+        .pb-logo-ft { color: #b3ecec; font-size: 1.5rem; margin: 0; }
+        .pb-logo-ft span { color: #76c7c0; }
+        .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
+        .pb-col a { color: #b3ecec; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
+        .pb-legal {
+            text-align: center; margin-top: 30px; padding-top: 20px;
+            border-top: 1px solid #378fae; font-size: 0.8rem; color: #b3ecec;
+        }
     </style>
 </head>
 <body>
@@ -85,10 +155,31 @@
         </div>
         <div class="pb-brand">Pira<span>Bloco</span>®</div>
         <div style="position:relative;">
-            <span style="background:red; color:white; font-size:0.7rem; position:absolute; top:-5px; right:-5px; padding:2px 5px; border-radius:10px;">0</span>
+            <span id="cart-badge" style="background:var(--pb-red); color:white; font-size:0.7rem; position:absolute; top:-5px; right:-5px; padding:2px 5px; border-radius:10px;">0</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         </div>
     </header>
+
+    <section class="pb-banner-container">
+        <div class="pb-banner-track" id="bannerTrack">
+            <div class="pb-banner-slide">
+                <picture>
+                    <source media="(max-width: 600px)" srcset="imagens/banners/banner-pb1-mobile.svg">
+                    <img src="imagens/banners/banner-pb1.svg" alt="Bem-vindo ao PiraBloco">
+                </picture>
+            </div>
+            <div class="pb-banner-slide">
+                <picture>
+                    <source media="(max-width: 600px)" srcset="imagens/banners/banner-pb2-mobile.svg">
+                    <img src="imagens/banners/banner-pb2.svg" alt="Ofertas Especiais">
+                </picture>
+            </div>
+        </div>
+        <div class="pb-dots">
+            <div class="pb-dot active" onclick="app.mudarBanner(0)"></div>
+            <div class="pb-dot" onclick="app.mudarBanner(1)"></div>
+        </div>
+    </section>
 
     <div class="pb-overlay" id="overlay" onclick="app.toggleMenu()"></div>
     <aside class="pb-sidebar" id="sidebar">
@@ -98,26 +189,27 @@
         <div style="padding:20px;">
             <p style="padding:10px; border-bottom:1px solid #eee;">🏠 Início</p>
             <p style="padding:10px; border-bottom:1px solid #eee;">📦 Meus Pedidos</p>
+            <p style="padding:10px; border-bottom:1px solid #eee;">👤 Minha Conta</p>
         </div>
     </aside>
 
     <main class="pb-container">
         <div class="pb-search-box">
-            <input type="text" id="searchInput" placeholder="Buscar blocos..." oninput="app.filtrar()">
-            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Buscar blocos, kits ou peças..." oninput="app.filtrar()">
+            <span style="font-size:1.2rem; color:#ccc;">🔍</span>
         </div>
 
-        <h3 style="color:#195961; margin: 10px 0;">Vitrine Oficial</h3>
+        <h3 style="color:#195961; margin: 10px 0; border-left: 4px solid #2A9D8F; padding-left: 10px;">Destaques da Galáxia</h3>
         
         <div id="grid" class="pb-grid">
-            <p style="grid-column: span 2; text-align:center; padding:20px;">Carregando...</p>
+            <p style="grid-column: span 2; text-align:center; padding:40px; color:#666;">Carregando sistema...</p>
         </div>
     </main>
 
     <footer class="pb-footer">
         <div class="pb-footer-grid">
             <div class="pb-col">
-                <h3 class="pb-logo">PiraBloco<span>®</span></h3>
+                <h3 class="pb-logo-ft">PiraBloco<span>®</span></h3>
                 <p>Sua loja oficial de blocos de montar.</p>
             </div>
             <div class="pb-col">
@@ -131,68 +223,91 @@
             <p>CNPJ: 65.101.505/0001-98 | Inscrição Estadual: 158.100.899.115</p>
             <p>| &copy; 2026 Todos os direitos reservados.</p>
         </div>
-        <style>
-            .pb-footer {
-                background-color: #195961; /* Cor Mestra Escura */
-                color: #FFFFFF;
-                padding: 40px 20px;
-                font-family: sans-serif;
-                border-top: 4px solid #76c7c0; /* Turquesa Suave */
-                margin-top: 30px;
-            }
-            .pb-footer-grid {
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
-                max-width: 1000px;
-                margin: 0 auto;
-                gap: 20px;
-            }
-            .pb-logo { color: #b3ecec; font-size: 1.5rem; margin: 0; }
-            .pb-logo span { color: #76c7c0; }
-            .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
-            .pb-col p { font-size: 0.9rem; color: #b3ecec; }
-            .pb-col a { color: #b3ecec; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
-            .pb-legal {
-                text-align: center;
-                margin-top: 30px;
-                padding-top: 20px;
-                border-top: 1px solid #378fae;
-                font-size: 0.8rem;
-                color: #b3ecec;
-            }
-            @media (max-width: 600px) { .pb-footer-grid { flex-direction: column; text-align: center; } }
-        </style>
     </footer>
 
     <script>
         const app = {
             dados: [],
+            carrinho: 0,
+            bannerIndex: 0,
+            quantidades: {}, // Armazena qtd selecionada por SKU temporariamente
 
             async init() {
-                console.log("Iniciando PiraBloco...");
-                await this.buscarProdutosDaPastaPublic();
+                console.log("Iniciando PiraBloco V2...");
+                this.iniciarBannerLoop();
+                await this.buscarProdutos();
             },
 
-            async buscarProdutosDaPastaPublic() {
+            // --- LÓGICA DO BANNER ---
+            iniciarBannerLoop() {
+                setInterval(() => {
+                    this.bannerIndex = (this.bannerIndex === 0) ? 1 : 0;
+                    this.atualizarBanner();
+                }, 5000); // Troca a cada 5 segundos
+            },
+            
+            mudarBanner(index) {
+                this.bannerIndex = index;
+                this.atualizarBanner();
+            },
+
+            atualizarBanner() {
+                const track = document.getElementById('bannerTrack');
+                const dots = document.querySelectorAll('.pb-dot');
+                
+                track.style.transform = `translateX(-${this.bannerIndex * 100}%)`;
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === this.bannerIndex);
+                });
+            },
+
+            // --- LÓGICA DE DADOS ---
+            async buscarProdutos() {
                 const grid = document.getElementById('grid');
                 try {
-                    const resposta = await fetch('./produtos.json?v=' + new Date().getTime());
-                    if (!resposta.ok) throw new Error("Arquivo não encontrado");
-                    const jsonRaw = await resposta.json();
+                    const r = await fetch('./produtos.json?v=' + Date.now());
+                    if (!r.ok) throw new Error("JSON Off");
+                    const jsonRaw = await r.json();
 
-                    // CORREÇÃO CRÍTICA: Converte o Objeto JSON em Lista
-                    this.dados = Object.values(jsonRaw).filter(item => item.nome && item.ativo === true);
-                    
-                    console.log("Sucesso! " + this.dados.length + " produtos carregados.");
+                    // Converte Objeto para Lista e tira o Lixo (_meta)
+                    this.dados = Object.values(jsonRaw).filter(i => i.nome && i.ativo === true);
                     this.renderizar(this.dados);
 
-                } catch (erro) {
-                    console.error("Erro:", erro);
-                    grid.innerHTML = "<p style='color:red; text-align:center; grid-column:span 2;'>Erro ao ler produtos.json</p>";
+                } catch (e) {
+                    console.error(e);
+                    grid.innerHTML = "<p style='color:red; text-align:center; grid-column:span 2'>Erro ao carregar blocos.</p>";
                 }
             },
 
+            // --- CONTROLE DE QUANTIDADE (+/-) ---
+            alterarQtd(sku, delta, estoqueMax) {
+                // Se ainda não tem no objeto, inicia com 1
+                if (!this.quantidades[sku]) this.quantidades[sku] = 1;
+                
+                const novaQtd = this.quantidades[sku] + delta;
+                
+                // Validação: não pode ser menor que 1 nem maior que estoque
+                if (novaQtd >= 1 && novaQtd <= estoqueMax) {
+                    this.quantidades[sku] = novaQtd;
+                    // Atualiza só o numerozinho na tela
+                    const display = document.getElementById(`qtd-display-${sku}`);
+                    if(display) display.innerText = novaQtd;
+                }
+            },
+
+            adicionarAoCarrinho(sku, nome) {
+                const qtd = this.quantidades[sku] || 1;
+                this.carrinho += qtd;
+                document.getElementById('cart-badge').innerText = this.carrinho;
+                alert(`Adicionado: ${qtd}x ${nome}`);
+                
+                // Reset visual para 1
+                this.quantidades[sku] = 1;
+                const display = document.getElementById(`qtd-display-${sku}`);
+                if(display) display.innerText = 1;
+            },
+
+            // --- RENDERIZAÇÃO ---
             renderizar(lista) {
                 const grid = document.getElementById('grid');
                 grid.innerHTML = "";
@@ -203,33 +318,56 @@
                 }
 
                 lista.forEach(p => {
-                    // Tratamento da imagem
+                    // ID único para controle
+                    const sku = p.skuBase || "ID" + Math.random().toString(36).substr(2, 5);
+                    
+                    // Imagem
                     let imgUrl = "https://placehold.co/200?text=Sem+Foto";
                     if (p.imagens && p.imagens.pasta) {
                         const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
-                        const ext = p.imagens.ext || "webp";
-                        const sku = p.skuBase || "IMG"; 
-                        imgUrl = `${pasta}/${sku}.${ext}`;
+                        imgUrl = `${pasta}/${sku}.${p.imagens.ext || 'webp'}`;
                     } else if (typeof p.imagem === 'string') {
                          imgUrl = p.imagem;
                     }
 
-                    // Preço e Botão
+                    // Preço
                     let preco = p.precoCentavos ? (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : "0,00";
-                    const semEstoque = p.estoque <= 0;
+                    
+                    // Estoque
+                    const estoque = p.estoque || 0;
+                    const semEstoque = estoque <= 0;
+
+                    // HTML dos Botões de Ação
+                    let htmlAcoes = "";
+                    if (semEstoque) {
+                        htmlAcoes = `<button class="pb-btn-buy" disabled style="background:#ccc">ESGOTADO</button>`;
+                    } else {
+                        htmlAcoes = `
+                            <div class="pb-qty-box">
+                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', -1, ${estoque})">-</button>
+                                <span class="pb-qty-val" id="qtd-display-${sku}">1</span>
+                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', 1, ${estoque})">+</button>
+                            </div>
+                            <button class="pb-btn-buy" onclick="app.adicionarAoCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>
+                        `;
+                    }
 
                     grid.innerHTML += `
                         <div class="pb-card">
                             <div class="pb-img-box">
-                                <img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Foto+Indisponível'">
+                                <img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Foto'">
                             </div>
                             <div class="pb-info">
+                                <div class="pb-meta">
+                                    <span>${p.tema || 'LEGO'}</span>
+                                    <span>${estoque} un.</span>
+                                </div>
                                 <h3 class="pb-name">${p.nome}</h3>
-                                <p class="pb-estoque">${p.estoque} un.</p>
                                 <p class="pb-price">R$ ${preco}</p>
-                                <button class="pb-btn" style="${semEstoque ? 'background:#ccc;' : ''}" ${semEstoque ? 'disabled' : ''} onclick="alert('Adicionado!')">
-                                    ${semEstoque ? "ESGOTADO" : "COMPRAR"}
-                                </button>
+                                
+                                <div class="pb-actions">
+                                    ${htmlAcoes}
+                                </div>
                             </div>
                         </div>
                     `;
@@ -243,8 +381,10 @@
             },
 
             toggleMenu() {
-                document.getElementById('sidebar').classList.toggle('active');
-                document.getElementById('overlay').classList.toggle('active');
+                const sb = document.getElementById('sidebar');
+                const ov = document.getElementById('overlay');
+                sb.classList.toggle('active');
+                ov.classList.toggle('active');
             }
         };
 
