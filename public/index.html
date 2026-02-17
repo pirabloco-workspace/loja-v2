@@ -55,11 +55,13 @@
         .pb-info { padding: 10px; text-align: center; flex: 1; display: flex; flex-direction: column; }
         .pb-name { color: var(--pb-dark); font-size: 0.9rem; margin-bottom: 5px; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .pb-price { color: var(--pb-action); font-weight: 800; font-size: 1.1rem; margin: 5px 0; }
+        .pb-estoque { font-size: 0.8rem; color: #666; margin-bottom: 5px; }
         .pb-btn {
             background: var(--pb-action); color: #fff; border: none;
             padding: 8px; width: 100%; border-radius: 20px;
             font-weight: bold; margin-top: auto; cursor: pointer;
         }
+        .pb-btn:disabled { background: #ccc; cursor: not-allowed; }
         
         /* Menu Lateral */
         .pb-sidebar {
@@ -108,19 +110,13 @@
         <h3 style="color:#195961; margin: 10px 0;">Vitrine Oficial</h3>
         
         <div id="grid" class="pb-grid">
-            <p style="grid-column: span 2; text-align:center; padding:20px;">Carregando produtos da pasta public...</p>
+            <p style="grid-column: span 2; text-align:center; padding:20px;">Carregando produtos...</p>
         </div>
     </main>
 
     <script>
         const app = {
-            dados: [], // Vai receber o JSON aqui
-            
-            // Dados de Backup (Caso o JSON falhe, para não ficar vazio)
-            backup: [
-                { nome: "Exemplo: Falcon", preco: "0,00", imagem: "" },
-                { nome: "Exemplo: Castelo", preco: "0,00", imagem: "" }
-            ],
+            dados: [],
 
             async init() {
                 console.log("Iniciando PiraBloco...");
@@ -130,26 +126,27 @@
             async buscarProdutosDaPastaPublic() {
                 const grid = document.getElementById('grid');
                 try {
-                    // Tenta ler produtos.json na mesma pasta (public)
-                    // O ?v= mata o cache para garantir que leia o arquivo novo
                     const resposta = await fetch('./produtos.json?v=' + new Date().getTime());
                     
                     if (!resposta.ok) throw new Error("Arquivo não encontrado");
                     
-                    this.dados = await resposta.json();
-                    console.log("Sucesso! Carregado " + this.dados.length + " produtos do JSON.");
+                    const jsonRaw = await resposta.json();
+
+                    // --- A CORREÇÃO MÁGICA ---
+                    // O JSON é um Objeto, transformamos em Lista ignorando o "_meta"
+                    this.dados = Object.values(jsonRaw).filter(item => item.nome && item.ativo === true);
+                    
+                    console.log("Sucesso! " + this.dados.length + " produtos carregados.");
                     this.renderizar(this.dados);
 
                 } catch (erro) {
-                    console.error("Erro ao ler JSON:", erro);
+                    console.error("Erro:", erro);
                     grid.innerHTML = `
                         <div style="grid-column: span 2; text-align:center; color:red; border:1px solid red; padding:10px;">
-                            <p>Erro ao carregar 'produtos.json'.</p>
+                            <p>Erro ao ler dados.</p>
                             <small>${erro.message}</small>
                         </div>
                     `;
-                    // Opcional: Renderizar backup se quiser
-                    // this.renderizar(this.backup); 
                 }
             },
 
@@ -163,26 +160,44 @@
                 }
 
                 lista.forEach(p => {
-                    // Tratamento da imagem conforme sua lógica de arquivos locais
-                    let imgUrl = p.imagem;
-                    if (imgUrl && !imgUrl.startsWith('http')) {
-                        imgUrl = "/storage/emulated/0/pirabloco/imagens/itens/" + imgUrl;
+                    // 1. Tratamento da Imagem (Pasta local do seu celular)
+                    // Seu JSON usa "imagens": { "pasta": "...", "ext": "..." }
+                    let imgUrl = "https://placehold.co/200?text=Sem+Foto";
+                    
+                    if (p.imagens && p.imagens.pasta) {
+                        // Monta o caminho local: /storage/.../pasta/sku.ext
+                        const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
+                        const ext = p.imagens.ext || "webp";
+                        // Tenta usar o ID (chave) se disponível, ou skuBase
+                        const sku = p.skuBase || "IMG"; 
+                        imgUrl = `${pasta}/${sku}.${ext}`;
+                    } else if (typeof p.imagem === 'string') {
+                         imgUrl = p.imagem;
                     }
-                    if (!imgUrl) imgUrl = "https://placehold.co/200?text=Sem+Foto";
 
-                    // Normalização de preço (caso venha como número ou string)
-                    let precoDisplay = p.preco;
-                    if(!precoDisplay && p.variantes) precoDisplay = (p.variantes[0].precoCentavos / 100).toFixed(2);
+                    // 2. Tratamento do Preço (Centavos -> Reais)
+                    let precoFormatado = "0,00";
+                    if (p.precoCentavos) {
+                        precoFormatado = (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                    }
+
+                    // 3. Controle de Estoque
+                    const semEstoque = p.estoque <= 0;
+                    const btnTexto = semEstoque ? "ESGOTADO" : "COMPRAR";
+                    const btnStyle = semEstoque ? "background:#ccc;" : "";
 
                     grid.innerHTML += `
                         <div class="pb-card">
                             <div class="pb-img-box">
-                                <img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Erro+Img'">
+                                <img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Foto+Indisponível'">
                             </div>
                             <div class="pb-info">
                                 <h3 class="pb-name">${p.nome}</h3>
-                                <p class="pb-price">R$ ${precoDisplay}</p>
-                                <button class="pb-btn" onclick="alert('Adicionado: ${p.nome}')">COMPRAR</button>
+                                <p class="pb-estoque">${p.estoque} un. disponíveis</p>
+                                <p class="pb-price">R$ ${precoFormatado}</p>
+                                <button class="pb-btn" style="${btnStyle}" ${semEstoque ? 'disabled' : ''} onclick="alert('Adicionado: ${p.nome}')">
+                                    ${btnTexto}
+                                </button>
                             </div>
                         </div>
                     `;
