@@ -1,17 +1,102 @@
-<footer class="pb-footer">
-    <div class="footer-content">
-        <p><strong>PiraBloco®</strong> - Construindo Sonhos, Peça por Peça.</p>
-        <p>CNPJ: <span id="cnpj-display">00.000.000/0001-00</span></p> <p>&copy; 2026 Todos os direitos reservados.</p>
+<footer class="pb-footer-container">
+    <div class="pb-footer-content">
+        <div class="pb-footer-section">
+            <h3 class="pb-footer-logo">PiraBloco<span>®</span></h3>
+            <p class="pb-footer-tagline">Construindo sonhos, peça por peça. O universo LEGO ao seu alcance.</p>
+        </div>
+
+        <div class="pb-footer-section">
+            <h4>Institucional</h4>
+            <ul>
+                <li><a href="#">Sobre Nós</a></li>
+                <li><a href="#">Políticas de Envio</a></li>
+                <li><a href="#">Termos e Condições</a></li>
+            </ul>
+        </div>
+
+        <div class="pb-footer-section">
+            <h4>Suporte</h4>
+            <ul>
+                <li><a href="#">Central de Ajuda</a></li>
+                <li><a href="#">Fale Conosco</a></li>
+                <li><a href="#">Rastrear Pedido</a></li>
+            </ul>
+        </div>
     </div>
+
+    <div class="pb-footer-bottom">
+        <div class="pb-legal-info">
+            <p><strong>Felipe Hypolito Fagionato</strong></p>
+            <p>CNPJ: 65.101.505/0001-98</p>
+            <p>Piracicaba - SP | &copy; 2026 PiraBloco Oficial. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
     <style>
-        .pb-footer {
-            text-align: center;
-            padding: 20px;
-            background: #333;
-            color: #fff;
-            margin-top: 30px;
-            font-size: 0.9rem;
+        .pb-footer-container {
+            background-color: #121212;
+            color: #ffffff;
+            padding: 40px 20px 20px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 50px;
+            border-top: 4px solid #FFD700;
         }
-        .pb-footer strong { color: #FFD700; } /* Ouro PiraBloco */
+        .pb-footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .pb-footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        .pb-footer-logo {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .pb-footer-logo span { font-size: 0.8rem; vertical-align: top; }
+        .pb-footer-tagline { color: #aaa; line-height: 1.6; font-size: 0.9rem; }
+        
+        .pb-footer-section h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        .pb-footer-section ul { list-style: none; padding: 0; }
+        .pb-footer-section ul li { margin-bottom: 10px; }
+        .pb-footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .pb-footer-section ul li a:hover { color: #FFD700; }
+
+        .pb-footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        .pb-legal-info p {
+            font-size: 0.8rem;
+            color: #888;
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+        .pb-legal-info strong { color: #bbb; }
+
+        /* Ajuste Responsivo para Celular */
+        @media (max-width: 768px) {
+            .pb-footer-content { flex-direction: column; text-align: center; }
+            .pb-footer-section { min-width: 100%; }
+        }
     </style>
 </footer>
