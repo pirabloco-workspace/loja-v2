@@ -1,111 +1,75 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PiraBloco® | Oficial</title>
-  <link rel="icon" href="favicon.ico">
-  
-  <style>
-    body { margin: 0; background: #f2f2f2; font-family: sans-serif; }
-    /* Loader Centralizado */
-    #pbLoader {
-      position: fixed; inset: 0; background: #fff; z-index: 9999;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .loader-logo { font-size: 24px; font-weight: 900; color: #1c5e68; margin-bottom: 10px; }
-    .loader-logo span { color: #449bb2; }
-    .loader-text { font-size: 12px; color: #666; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 50% { opacity: 0.5; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PiraBloco® - Peças e Minifiguras LEGO</title>
+    
+    <link rel="stylesheet" href="style.html">
+    
+    <style>
+        /* Ajuste para evitar que o conteúdo suma debaixo do header fixo */
+        body { padding-top: 0; }
+        #header-placeholder { width: 100%; }
+        .main-content { min-height: 80vh; }
+    </style>
 </head>
 <body>
 
-  <div id="pbLoader">
-    <div class="loader-logo">Pira<span>Bloco</span>®</div>
-    <div class="loader-text">Montando suas peças...</div>
-  </div>
+    <div id="header-placeholder"></div>
 
-  <div id="pbHeader"></div>
-  <div id="pbBody"></div>
-  <div id="pbFooter"></div>
+    <div class="main-content">
+        <div class="pb-bannerWrap">
+            <div class="pb-banner">
+                <div class="pb-bannerTrack">
+                    <div class="pb-bannerSlide"><img src="imagens/banner1.webp" alt="Promoção 1"></div>
+                    <div class="pb-bannerSlide"><img src="imagens/banner2.webp" alt="Promoção 2"></div>
+                    <div class="pb-bannerSlide"><img src="imagens/banner3.webp" alt="Promoção 3"></div>
+                </div>
+                <div class="pb-dots">
+                    <div class="pb-dot is-active"></div>
+                    <div class="pb-dot"></div>
+                    <div class="pb-dot"></div>
+                </div>
+            </div>
+        </div>
 
-  <script>
-    // Configuração de Caminho
-    const BASE = new URL(".", location.href).pathname;
+        <div class="pb-controls">
+            <div class="pb-searchBox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="pb-searchInput" placeholder="Buscar peças ou sets...">
+            </div>
+            <button class="pb-soldBtn" id="toggleSold">
+                <span>MOSTRAR VENDIDOS</span>
+            </button>
+        </div>
 
-    // Função de Carregamento Universal
-    async function load(file, elementId) {
-      try {
-        // Adiciona ?v=tempo para evitar cache velho
-        const response = await fetch(BASE + file + "?v=" + Date.now());
-        if (!response.ok) throw new Error("404: " + file);
+        <div class="pb-gridWrap">
+            <div class="pb-productsGrid" id="productsGrid">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Função para carregar o cabeçalho dinamicamente
+        async function loadHeader() {
+            try {
+                const response = await fetch('cabecalho.html');
+                const data = await response.text();
+                document.getElementById('header-placeholder').innerHTML = data;
+                
+                // IMPORTANTE: Após carregar o cabeçalho, precisamos garantir 
+                // que as funções de abrir o menu funcionem.
+                // Se o script do menu estiver dentro do cabecalho.html, ele rodará sozinho.
+            } catch (error) {
+                console.error('Erro ao carregar o cabeçalho:', error);
+            }
+        }
         
-        const html = await response.text();
-        
-        // Se for Estilo (CSS)
-        if (file.includes("style")) {
-           const styleTag = document.createElement("style");
-           // Remove tags <style> se vierem no texto para não duplicar
-           styleTag.textContent = html.replace(/<\/?style>/g, ""); 
-           document.head.appendChild(styleTag);
-           return;
-        }
+        // Inicia o carregamento
+        loadHeader();
+    </script>
 
-        // Se for Script (JS)
-        if (file.includes("js")) {
-           const scriptTag = document.createElement("script");
-           scriptTag.src = BASE + file + "?v=" + Date.now();
-           document.body.appendChild(scriptTag);
-           return;
-        }
-
-        // Se for HTML (Header, Body, Footer)
-        if (elementId) {
-           const container = document.getElementById(elementId);
-           // Truque para executar scripts que venham dentro do HTML importado
-           const parser = new DOMParser();
-           const doc = parser.parseFromString(html, "text/html");
-           
-           // Injeta o CSS do arquivo
-           doc.querySelectorAll("style").forEach(s => document.head.appendChild(s));
-           
-           // Injeta o HTML limpo
-           const cleanContent = doc.body.innerHTML; 
-           container.innerHTML = cleanContent;
-
-           // Re-executa os scripts inline
-           doc.querySelectorAll("script").forEach(oldScript => {
-             const newScript = document.createElement("script");
-             if(oldScript.src) newScript.src = oldScript.src;
-             else newScript.textContent = oldScript.textContent;
-             if(oldScript.type) newScript.type = oldScript.type;
-             document.body.appendChild(newScript);
-           });
-        }
-
-      } catch (err) {
-        console.error("Falha ao carregar:", file, err);
-      }
-    }
-
-    // Ordem de Montagem (Sincronizada)
-    (async () => {
-      // 1. Carrega o Visual (Style + Header)
-      await Promise.all([
-        load("style.html"), 
-        load("cabecalho.html", "pbHeader")
-      ]);
-
-      // 2. Remove o Loader assim que o topo estiver pronto
-      document.getElementById("pbLoader").style.display = "none";
-
-      // 3. Carrega o Resto (Body, Footer, Script)
-      await load("body.html", "pbBody");
-      await load("rodape.html", "pbFooter");
-      await load("script.js"); 
-    })();
-  </script>
 </body>
 </html>
-
