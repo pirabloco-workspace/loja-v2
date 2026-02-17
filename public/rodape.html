@@ -1,102 +1,47 @@
-<footer class="pb-footer-container">
-    <div class="pb-footer-content">
-        <div class="pb-footer-section">
-            <h3 class="pb-footer-logo">PiraBloco<span>®</span></h3>
-            <p class="pb-footer-tagline">Construindo sonhos, peça por peça. O universo LEGO ao seu alcance.</p>
+<footer class="pb-footer">
+    <div class="pb-footer-grid">
+        <div class="pb-col">
+            <h3 class="pb-logo">PiraBloco<span>®</span></h3>
+            <p>Sua loja oficial de blocos de montar.</p>
         </div>
-
-        <div class="pb-footer-section">
+        <div class="pb-col">
             <h4>Institucional</h4>
-            <ul>
-                <li><a href="#">Sobre Nós</a></li>
-                <li><a href="#">Políticas de Envio</a></li>
-                <li><a href="#">Termos e Condições</a></li>
-            </ul>
-        </div>
-
-        <div class="pb-footer-section">
-            <h4>Suporte</h4>
-            <ul>
-                <li><a href="#">Central de Ajuda</a></li>
-                <li><a href="#">Fale Conosco</a></li>
-                <li><a href="#">Rastrear Pedido</a></li>
-            </ul>
+            <a href="#">Sobre a Empresa</a>
+            <a href="#">Privacidade</a>
         </div>
     </div>
-
-    <div class="pb-footer-bottom">
-        <div class="pb-legal-info">
-            <p><strong>Felipe Hypolito Fagionato</strong></p>
-            <p>CNPJ: 65.101.505/0001-98</p>
-            <p>Piracicaba - SP | &copy; 2026 PiraBloco Oficial. Todos os direitos reservados.</p>
-        </div>
+    <div class="pb-legal">
+        <p><strong>65.101.505 FELIPE HYPOLITO FAGIONATO</strong></p>
+        <p>CNPJ: 65.101.505/0001-98 | Inscrição: 158.100.899.115</p>
+        <p>Piracicaba - SP | &copy; 2026 Todos os direitos reservados.</p>
     </div>
-
     <style>
-        .pb-footer-container {
-            background-color: #121212;
-            color: #ffffff;
-            padding: 40px 20px 20px 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-top: 50px;
-            border-top: 4px solid #FFD700;
+        .pb-footer {
+            background-color: #195961; /* Cor Mestra Escura */
+            color: #FFFFFF;
+            padding: 40px 20px;
+            font-family: sans-serif;
+            border-top: 4px solid #76c7c0; /* Turquesa Suave */
         }
-        .pb-footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .pb-footer-grid {
             display: flex;
+            justify-content: space-around;
             flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 20px;
         }
-        .pb-footer-section {
-            flex: 1;
-            min-width: 250px;
-        }
-        .pb-footer-logo {
-            font-size: 1.8rem;
-            color: #FFD700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .pb-footer-logo span { font-size: 0.8rem; vertical-align: top; }
-        .pb-footer-tagline { color: #aaa; line-height: 1.6; font-size: 0.9rem; }
-        
-        .pb-footer-section h4 {
-            color: #FFD700;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-        .pb-footer-section ul { list-style: none; padding: 0; }
-        .pb-footer-section ul li { margin-bottom: 10px; }
-        .pb-footer-section ul li a {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        .pb-footer-section ul li a:hover { color: #FFD700; }
-
-        .pb-footer-bottom {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
+        .pb-logo { color: #b3ecec; font-size: 1.5rem; margin: 0; }
+        .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
+        .pb-col a { color: #b3ecec; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
+        .pb-legal {
             text-align: center;
-        }
-        .pb-legal-info p {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #378fae;
             font-size: 0.8rem;
-            color: #888;
-            margin: 5px 0;
-            line-height: 1.4;
+            color: #b3ecec;
         }
-        .pb-legal-info strong { color: #bbb; }
-
-        /* Ajuste Responsivo para Celular */
-        @media (max-width: 768px) {
-            .pb-footer-content { flex-direction: column; text-align: center; }
-            .pb-footer-section { min-width: 100%; }
-        }
+        @media (max-width: 600px) { .pb-footer-grid { flex-direction: column; text-align: center; } }
     </style>
 </footer>
