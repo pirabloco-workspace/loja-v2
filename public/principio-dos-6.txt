@@ -1,31 +1,48 @@
-PRINCÍPIO DOS 6 - PROTOCOLO SUPREMO PIRABLOCO
+PRINCÍPIO DOS 6 - PROTOCOLO SUPREMO PIRABLOCO (VERSÃO INTEGRAL)
 
 1. A HIERARQUIA DOS 6 ELEMENTOS (SHELL FETCH):
-   A Index.html (A Maestra) deve carregar os componentes nesta ordem exata:
-   
-   1º STYLE.HTML: O VISUAL. Define as cores e layout antes de tudo.
-   2º CABECALHO.HTML: O CÉREBRO. Injetado em #header-mount. Contém Login e Carrinho.
-   3º BODY.HTML: A VITRINE. Injetado em #main-mount. Contém Banners e Produtos.
-   4º RODAPE.HTML: A CONFIANÇA. Injetado em #footer-mount. Contém o CNPJ e Copyright.
-   5º SCRIPT.JS: O MOTOR. Processa a lógica após os 4 HTMLs estarem carregados.
-   6º INDEX.HTML: A CASCA. O arquivo pai que orquestra tudo.
+A Index.html (A Maestra) orquestra o carregamento nesta ordem exata:
+1º STYLE.HTML: O Visual. Injetado primeiro para definir cores e layout.
+2º CABECALHO.HTML: O Cérebro (Hub). Gerencia login, foto do usuário e carrinho.
+3º BODY.HTML: A Vitrine. Espaço dinâmico para banners e grade de produtos.
+4º RODAPE.HTML: A Confiança. Exibição obrigatória de dados legais e CNPJ.
+5º SCRIPT.JS: O Motor. Processa a lógica após a montagem estrutural.
+6º INDEX.HTML: A Casca. Onde reside a inicialização central do Firebase.
 
-2. PALETA DE CORES OFICIAL (IDENTIDADE VISUAL):
-   - [span_1](start_span)[span_2](start_span)COR MESTRA (Institucional): #195961[span_1](end_span)[span_2](end_span)
-   - [span_3](start_span)[span_4](start_span)DEGRADÊ/BRILHO: #378fae, #76c7c0, #b3ecec[span_3](end_span)[span_4](end_span)
-   - [span_5](start_span)AÇÃO (Botões/CTA): #2A9D8F (Hover: #21867a)[span_5](end_span)
-   - [span_6](start_span)NEUTROS: #000000 (Contornos), #FFFFFF (Fundo), #F4F4F4 (Cards)[span_6](end_span)
+2. CONECTIVIDADE E SDK (CDN & NPM):
+O Firebase deve ser inicializado na Index.html seguindo estes padrões integrais:
 
-3. FUNÇÕES ESPECÍFICAS E SEGURANÇA:
-   - CABECALHO (HUB): Gerencia estado do usuário. Scripts isolados (IIFE).
-   - RODAPE (LEGITIMIDADE): CNPJ 65.101.505/0001-98 obrigatório e visível.
-   - BODY (DINÂMICO): IDs fixos para injeção de dados via Script.js.
+* Padrão CDN (Uso Direto na Index):
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+</script>
 
-4. REGRA ANTI-LOOP (PROTEÇÃO DE MEMÓRIA):
-   - A Index.html é a ÚNICA que faz fetch de estrutura.
-   - Nenhum componente pode tentar carregar a Index dentro de si.
+* Padrão NPM (Desenvolvimento Local):
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-5. DADOS E DIRETÓRIOS:
-   - Caminho Imagens: /storage/emulated/0/pirabloco/imagens/itens/
-   - Caminho Projeto: ~/loja-v2/public/
-   - Repositório: https://github.com/pirabloco-workspace/loja-v2
+* Configuração Oficial (Projeto pirabloco-2026):
+- API Key: AIzaSyC7Z3gljoH3sqc2I2UaBOUD5ukGiEbYifA
+- Auth Domain: pirabloco-2026.firebaseapp.com
+- ProjectId: pirabloco-2026
+- Storage Bucket: pirabloco-2026.firebasestorage.app
+- MessagingSenderId: 64181399925
+- AppId: 1:64181399925:web:7d1c60ce929ee53bf4a33c
+- MeasurementId: G-CJ267LTHHT
+
+3. PALETA DE CORES OFICIAL (DNA VISUAL):
+- Cor Mestra (Institucional): Turquesa Profundo (#195961)
+- Degradê de Brilho: Azul Petróleo (#378fae), Turquesa Suave (#76c7c0) e Gelo/Ciano (#b3ecec)
+- Cores de Ação (Botões): Turquesa Vibrante (#2A9D8F) e Hover (#21867a)
+- Neutros: Preto Absoluto (#000000) e Branco Puro (#FFFFFF)
+
+4. REGRAS DE SEGURANÇA E LEGITIMIDADE:
+- Anti-Loop: Componentes (1 a 4) são passivos e não podem chamar a Index.html.
+- Dados Legais: 65.101.505 FELIPE HYPOLITO FAGIONATO | CNPJ: 65.101.505/0001-98.
+- Isolamento: Scripts internos devem ser isolados (IIFE) para não travar o motor.
+
+5. DIRETÓRIOS E LINKS:
+- Imagens: /storage/emulated/0/pirabloco/imagens/itens/
+- Repositório: https://github.com/pirabloco-workspace/loja-v2
+- Workspace: ~/loja-v2/public/
