@@ -14,7 +14,7 @@
             --pb-gray: #f4f4f4;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); padding-bottom: 60px; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); }
         
         /* Header */
         .pb-header {
@@ -27,7 +27,7 @@
         .pb-brand span { color: #76c7c0; }
         
         /* Container e Grid */
-        .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; }
+        .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 80vh; }
         .pb-search-box {
             display: flex; background: #fff; border-radius: 25px;
             padding: 5px 15px; margin-bottom: 20px;
@@ -110,9 +110,60 @@
         <h3 style="color:#195961; margin: 10px 0;">Vitrine Oficial</h3>
         
         <div id="grid" class="pb-grid">
-            <p style="grid-column: span 2; text-align:center; padding:20px;">Carregando produtos...</p>
+            <p style="grid-column: span 2; text-align:center; padding:20px;">Carregando...</p>
         </div>
     </main>
+
+    <footer class="pb-footer">
+        <div class="pb-footer-grid">
+            <div class="pb-col">
+                <h3 class="pb-logo">PiraBloco<span>®</span></h3>
+                <p>Sua loja oficial de blocos de montar.</p>
+            </div>
+            <div class="pb-col">
+                <h4>Institucional</h4>
+                <a href="#">Sobre a Empresa</a>
+                <a href="#">Privacidade</a>
+            </div>
+        </div>
+        <div class="pb-legal">
+            <p><strong> PiraBloco®</strong></p>
+            <p>CNPJ: 65.101.505/0001-98 | Inscrição Estadual: 158.100.899.115</p>
+            <p>| &copy; 2026 Todos os direitos reservados.</p>
+        </div>
+        <style>
+            .pb-footer {
+                background-color: #195961; /* Cor Mestra Escura */
+                color: #FFFFFF;
+                padding: 40px 20px;
+                font-family: sans-serif;
+                border-top: 4px solid #76c7c0; /* Turquesa Suave */
+                margin-top: 30px;
+            }
+            .pb-footer-grid {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                max-width: 1000px;
+                margin: 0 auto;
+                gap: 20px;
+            }
+            .pb-logo { color: #b3ecec; font-size: 1.5rem; margin: 0; }
+            .pb-logo span { color: #76c7c0; }
+            .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
+            .pb-col p { font-size: 0.9rem; color: #b3ecec; }
+            .pb-col a { color: #b3ecec; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
+            .pb-legal {
+                text-align: center;
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #378fae;
+                font-size: 0.8rem;
+                color: #b3ecec;
+            }
+            @media (max-width: 600px) { .pb-footer-grid { flex-direction: column; text-align: center; } }
+        </style>
+    </footer>
 
     <script>
         const app = {
@@ -127,13 +178,10 @@
                 const grid = document.getElementById('grid');
                 try {
                     const resposta = await fetch('./produtos.json?v=' + new Date().getTime());
-                    
                     if (!resposta.ok) throw new Error("Arquivo não encontrado");
-                    
                     const jsonRaw = await resposta.json();
 
-                    // --- A CORREÇÃO MÁGICA ---
-                    // O JSON é um Objeto, transformamos em Lista ignorando o "_meta"
+                    // CORREÇÃO CRÍTICA: Converte o Objeto JSON em Lista
                     this.dados = Object.values(jsonRaw).filter(item => item.nome && item.ativo === true);
                     
                     console.log("Sucesso! " + this.dados.length + " produtos carregados.");
@@ -141,12 +189,7 @@
 
                 } catch (erro) {
                     console.error("Erro:", erro);
-                    grid.innerHTML = `
-                        <div style="grid-column: span 2; text-align:center; color:red; border:1px solid red; padding:10px;">
-                            <p>Erro ao ler dados.</p>
-                            <small>${erro.message}</small>
-                        </div>
-                    `;
+                    grid.innerHTML = "<p style='color:red; text-align:center; grid-column:span 2;'>Erro ao ler produtos.json</p>";
                 }
             },
 
@@ -160,31 +203,20 @@
                 }
 
                 lista.forEach(p => {
-                    // 1. Tratamento da Imagem (Pasta local do seu celular)
-                    // Seu JSON usa "imagens": { "pasta": "...", "ext": "..." }
+                    // Tratamento da imagem
                     let imgUrl = "https://placehold.co/200?text=Sem+Foto";
-                    
                     if (p.imagens && p.imagens.pasta) {
-                        // Monta o caminho local: /storage/.../pasta/sku.ext
                         const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
                         const ext = p.imagens.ext || "webp";
-                        // Tenta usar o ID (chave) se disponível, ou skuBase
                         const sku = p.skuBase || "IMG"; 
                         imgUrl = `${pasta}/${sku}.${ext}`;
                     } else if (typeof p.imagem === 'string') {
                          imgUrl = p.imagem;
                     }
 
-                    // 2. Tratamento do Preço (Centavos -> Reais)
-                    let precoFormatado = "0,00";
-                    if (p.precoCentavos) {
-                        precoFormatado = (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-                    }
-
-                    // 3. Controle de Estoque
+                    // Preço e Botão
+                    let preco = p.precoCentavos ? (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : "0,00";
                     const semEstoque = p.estoque <= 0;
-                    const btnTexto = semEstoque ? "ESGOTADO" : "COMPRAR";
-                    const btnStyle = semEstoque ? "background:#ccc;" : "";
 
                     grid.innerHTML += `
                         <div class="pb-card">
@@ -193,10 +225,10 @@
                             </div>
                             <div class="pb-info">
                                 <h3 class="pb-name">${p.nome}</h3>
-                                <p class="pb-estoque">${p.estoque} un. disponíveis</p>
-                                <p class="pb-price">R$ ${precoFormatado}</p>
-                                <button class="pb-btn" style="${btnStyle}" ${semEstoque ? 'disabled' : ''} onclick="alert('Adicionado: ${p.nome}')">
-                                    ${btnTexto}
+                                <p class="pb-estoque">${p.estoque} un.</p>
+                                <p class="pb-price">R$ ${preco}</p>
+                                <button class="pb-btn" style="${semEstoque ? 'background:#ccc;' : ''}" ${semEstoque ? 'disabled' : ''} onclick="alert('Adicionado!')">
+                                    ${semEstoque ? "ESGOTADO" : "COMPRAR"}
                                 </button>
                             </div>
                         </div>
