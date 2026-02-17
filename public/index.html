@@ -27,13 +27,7 @@
         }
         .pb-brand { font-size: 1.4rem; font-weight: 800; color: var(--pb-light); }
         .pb-brand span { color: #76c7c0; }
-        
-        /* Área de Ícones (User + Cart) */
-        .pb-header-icons { display: flex; align-items: center; gap: 15px; }
-        .pb-user-icon { 
-            color: var(--pb-light); cursor: pointer; display: flex; align-items: center; 
-        }
-        
+
         /* --- 3. BANNER --- */
         .pb-banner-container { width: 100%; position: relative; overflow: hidden; background: #ddd; min-height: 150px; }
         .pb-banner-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
@@ -81,7 +75,7 @@
             height: 160px; background: #fff; padding: 10px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
-        .pb-img-box img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+        .pb-img-box img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; /* Garante que o clique vá para a div pai */ }
         
         .pb-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
         .pb-name {
@@ -106,10 +100,10 @@
         }
         .pb-btn-buy:disabled { background: #ccc; }
 
-        /* --- 7. MODAL --- */
+        /* --- 7. MODAL DE PRODUTO (CORRIGIDO) --- */
         .pb-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 9999;
+            background: rgba(0,0,0,0.8); z-index: 9999; /* Z-index alto para garantir */
             display: none; justify-content: center; align-items: center; padding: 10px;
         }
         .pb-modal-content {
@@ -128,11 +122,13 @@
             display: flex; align-items: center; justify-content: center;
         }
         .pb-modal-body { display: flex; flex-direction: column; }
+        
         .pb-gallery { background: #f9f9f9; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .pb-main-img { height: 250px; width: 100%; object-fit: contain; margin-bottom: 15px; }
         .pb-thumbs { display: flex; gap: 10px; overflow-x: auto; width: 100%; padding-bottom: 5px; justify-content: center; }
         .pb-thumb { width: 60px; height: 60px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; object-fit: cover; }
         .pb-thumb.active { border-color: var(--pb-action); }
+
         .pb-details { padding: 20px; }
         .pb-modal-title { font-size: 1.5rem; color: var(--pb-dark); margin-bottom: 10px; }
         .pb-modal-desc { color: #555; line-height: 1.5; margin-bottom: 20px; font-size: 0.95rem; }
@@ -143,7 +139,7 @@
             .pb-details { width: 50%; }
         }
 
-        /* --- 8. SIDEBAR & USER --- */
+        /* --- 8. SIDEBAR --- */
         .pb-sidebar {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
             background: #fff; z-index: 2000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.3);
@@ -152,18 +148,6 @@
         .pb-overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
         .pb-overlay-menu.active { display: block; }
         
-        /* Botão Entrar no Menu */
-        .pb-menu-login {
-            background: var(--pb-dark); color: white; padding: 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center;
-        }
-        .pb-btn-login-menu {
-            background: var(--pb-action); color: white; border: none;
-            padding: 10px 25px; border-radius: 20px; font-weight: bold;
-            margin-top: 10px; cursor: pointer; width: 100%;
-        }
-
         .pb-footer { background-color: #195961; color: #FFFFFF; padding: 40px 20px; margin-top: 30px; border-top: 4px solid #76c7c0; }
         .pb-footer-grid { display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; gap: 20px; }
         .pb-legal { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #378fae; font-size: 0.8rem; color: #b3ecec; }
@@ -174,44 +158,24 @@
     <header class="pb-header">
         <div onclick="app.toggleMenu()" style="cursor:pointer; padding:5px;"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#b3ecec" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
         <div class="pb-brand">Pira<span>Bloco</span>®</div>
-        
-        <div class="pb-header-icons">
-            <div class="pb-user-icon" onclick="alert('Login em breve!')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            </div>
-            <div style="position:relative;">
-                <span id="cart-badge" style="background:var(--pb-red); color:white; font-size:0.7rem; position:absolute; top:-5px; right:-5px; padding:2px 5px; border-radius:10px;">0</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            </div>
+        <div style="position:relative;">
+            <span id="cart-badge" style="background:var(--pb-red); color:white; font-size:0.7rem; position:absolute; top:-5px; right:-5px; padding:2px 5px; border-radius:10px;">0</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
         </div>
     </header>
 
     <section class="pb-banner-container">
         <div class="pb-banner-track" id="bannerTrack">
-            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb1-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb1.svg"></picture></div>
-            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb2-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb2.svg"></picture></div>
+            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="imagens/banners/banner-pb1-mobile.svg"><img src="imagens/banners/banner-pb1.svg"></picture></div>
+            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="imagens/banners/banner-pb2-mobile.svg"><img src="imagens/banners/banner-pb2.svg"></picture></div>
         </div>
         <div class="pb-dots"><div class="pb-dot active" onclick="app.mudarBanner(0)"></div><div class="pb-dot" onclick="app.mudarBanner(1)"></div></div>
     </section>
 
     <div class="pb-overlay-menu" id="overlay" onclick="app.toggleMenu()"></div>
     <aside class="pb-sidebar" id="sidebar">
-        <div class="pb-menu-login">
-            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <p style="margin:5px 0 0 0; font-size:0.9rem;">Bem-vindo, Visitante</p>
-            <button class="pb-btn-login-menu" onclick="alert('Sistema de login em desenvolvimento')">ENTRAR / CADASTRAR</button>
-        </div>
-        
-        <div style="background:#195961; color:white; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #378fae;">
-            <h3 style="margin:0">Menu</h3>
-            <span onclick="app.toggleMenu()" style="font-size:1.5rem; cursor:pointer;">&times;</span>
-        </div>
-        
-        <div style="padding:20px;">
-            <p style="padding:10px; border-bottom:1px solid #eee;">🏠 Início</p>
-            <p style="padding:10px; border-bottom:1px solid #eee;">📦 Meus Pedidos</p>
-            <p style="padding:10px; border-bottom:1px solid #eee;">⚙️ Configurações</p>
-        </div>
+        <div style="background:#195961; color:white; padding:20px; display:flex; justify-content:space-between;"><h3>Menu</h3><span onclick="app.toggleMenu()" style="font-size:1.5rem;">&times;</span></div>
+        <div style="padding:20px;"><p>🏠 Início</p><p>📦 Meus Pedidos</p></div>
     </aside>
 
     <main class="pb-container">
@@ -277,6 +241,7 @@
 
             async init() {
                 this.loopBanner();
+                // Fecha modal ao clicar fora (vinculo direto)
                 document.getElementById('modalProduto').addEventListener('click', (e) => {
                     if (e.target.id === 'modalProduto') this.fecharModal();
                 });
@@ -339,7 +304,7 @@
                     div.className = 'pb-card';
                     div.innerHTML = `
                         <div class="pb-img-box" style="cursor:pointer;">
-                            <img src="${imgUrl}" onerror="this.src='https://placehold.co/200?text=Carregando...'">
+                            <img src="${imgUrl}" onerror="this.src='https://placehold.co/200?text=Foto'">
                         </div>
                         <div class="pb-info">
                             <div class="pb-meta"><span>${p.tema||'LEGO'}</span><span>${estoque} un.</span></div>
@@ -348,6 +313,7 @@
                             <div class="pb-actions">${acoes}</div>
                         </div>`;
                     
+                    // VINCULO DIRETO DO CLICK (Garantia que funciona)
                     div.querySelector('.pb-img-box').addEventListener('click', () => {
                         app.abrirModal(sku);
                     });
@@ -386,7 +352,7 @@
             },
 
             abrirModal(sku) {
-                console.log("Abrindo modal para:", sku);
+                console.log("Abrindo modal para:", sku); // Debug
                 const p = this.dados.find(i => i.skuBase === sku);
                 if(!p) return;
                 
@@ -452,17 +418,13 @@
                 }
             },
 
-            // --- LÓGICA DE IMAGEM DO GITHUB (CORRIGIDA) ---
             gerarUrlImagem(p, num) {
-                const baseUrl = "https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/";
-                
                 if (p.imagens && p.imagens.pasta) {
-                    const pasta = p.imagens.pasta; // ex: "imagens/itens"
+                    const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
                     const sku = p.skuBase || "IMG";
                     const ext = p.imagens.ext || "webp";
-                    // Padrão do GitHub: SKU-1.webp, SKU-2.webp
-                    const sufixo = "-" + num; 
-                    return `${baseUrl}${pasta}/${sku}${sufixo}.${ext}`;
+                    const sufixo = num === 1 ? "" : "-" + num;
+                    return `${pasta}/${sku}${sufixo}.${ext}`;
                 }
                 return p.imagem || "https://placehold.co/200";
             },
