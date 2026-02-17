@@ -49,7 +49,7 @@
         .pb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* --- 5. PAGINAÇÃO INTELIGENTE --- */
+        /* --- 5. PAGINAÇÃO --- */
         .pb-pagination {
             display: flex; justify-content: center; align-items: center; gap: 5px;
             margin-top: 40px; padding: 10px; flex-wrap: wrap;
@@ -75,7 +75,7 @@
             height: 160px; background: #fff; padding: 10px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
-        .pb-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .pb-img-box img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; /* Garante que o clique vá para a div pai */ }
         
         .pb-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
         .pb-name {
@@ -100,36 +100,37 @@
         }
         .pb-btn-buy:disabled { background: #ccc; }
 
-        /* --- 7. MODAL DE PRODUTO (NOVO) --- */
+        /* --- 7. MODAL DE PRODUTO (CORRIGIDO) --- */
         .pb-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 2000; display: none;
-            justify-content: center; align-items: center; padding: 10px;
+            background: rgba(0,0,0,0.8); z-index: 9999; /* Z-index alto para garantir */
+            display: none; justify-content: center; align-items: center; padding: 10px;
         }
         .pb-modal-content {
             background: #fff; width: 100%; max-width: 800px; max-height: 90vh;
             border-radius: 15px; overflow-y: auto; position: relative;
             display: flex; flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease-out;
         }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
         .pb-close-modal {
             position: absolute; top: 10px; right: 15px; font-size: 2rem;
             color: #333; cursor: pointer; z-index: 10;
+            background: rgba(255,255,255,0.8); border-radius: 50%; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
         }
         .pb-modal-body { display: flex; flex-direction: column; }
         
-        /* Galeria Modal */
         .pb-gallery { background: #f9f9f9; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .pb-main-img { height: 250px; width: 100%; object-fit: contain; margin-bottom: 15px; }
         .pb-thumbs { display: flex; gap: 10px; overflow-x: auto; width: 100%; padding-bottom: 5px; justify-content: center; }
-        .pb-thumb {
-            width: 60px; height: 60px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; object-fit: cover;
-        }
+        .pb-thumb { width: 60px; height: 60px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; object-fit: cover; }
         .pb-thumb.active { border-color: var(--pb-action); }
 
-        /* Detalhes Modal */
         .pb-details { padding: 20px; }
         .pb-modal-title { font-size: 1.5rem; color: var(--pb-dark); margin-bottom: 10px; }
-        .pb-modal-sku { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
         .pb-modal-desc { color: #555; line-height: 1.5; margin-bottom: 20px; font-size: 0.95rem; }
         
         @media(min-width: 768px) {
@@ -138,7 +139,7 @@
             .pb-details { width: 50%; }
         }
 
-        /* --- 8. SIDEBAR & FOOTER --- */
+        /* --- 8. SIDEBAR --- */
         .pb-sidebar {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
             background: #fff; z-index: 2000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.3);
@@ -146,7 +147,7 @@
         .pb-sidebar.active { left: 0; }
         .pb-overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
         .pb-overlay-menu.active { display: block; }
-
+        
         .pb-footer { background-color: #195961; color: #FFFFFF; padding: 40px 20px; margin-top: 30px; border-top: 4px solid #76c7c0; }
         .pb-footer-grid { display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; gap: 20px; }
         .pb-legal { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #378fae; font-size: 0.8rem; color: #b3ecec; }
@@ -191,9 +192,9 @@
         <div id="paginacao" class="pb-pagination"></div>
     </main>
 
-    <div id="modalProduto" class="pb-modal-overlay" onclick="if(event.target===this) app.fecharModal()">
+    <div id="modalProduto" class="pb-modal-overlay">
         <div class="pb-modal-content">
-            <span class="pb-close-modal" onclick="app.fecharModal()">&times;</span>
+            <div class="pb-close-modal" onclick="app.fecharModal()">×</div>
             <div class="pb-modal-body">
                 <div class="pb-gallery">
                     <img id="modalMainImg" class="pb-main-img" src="" alt="Produto">
@@ -201,11 +202,11 @@
                 </div>
                 <div class="pb-details">
                     <h2 id="modalTitle" class="pb-modal-title"></h2>
-                    <p id="modalSku" class="pb-modal-sku"></p>
-                    <p id="modalPrice" class="pb-price" style="font-size:1.5rem; margin-bottom:15px;"></p>
+                    <p id="modalSku" class="pb-modal-sku" style="color:#888; font-size:0.8rem;"></p>
+                    <p id="modalPrice" style="font-size:1.5rem; font-weight:bold; color:var(--pb-action); margin:10px 0;"></p>
                     
                     <div style="background:#f0f0f0; padding:15px; border-radius:10px; margin-bottom:20px;">
-                        <p style="font-weight:bold; color:#195961; margin-bottom:10px;">Estoque Total: <span id="modalStock"></span> un.</p>
+                        <p style="font-weight:bold; color:#195961; margin-bottom:10px;">Estoque: <span id="modalStock"></span> un.</p>
                         <div class="pb-qty-box" style="background:#fff; max-width:150px;">
                             <button class="pb-qty-btn" onclick="app.alterarQtdModal(-1)">-</button>
                             <span class="pb-qty-val" id="modalQtyDisplay">1</span>
@@ -213,10 +214,12 @@
                         </div>
                     </div>
 
-                    <button id="modalBtnAdd" class="pb-btn-buy" style="padding:15px; font-size:1.1rem;">ADICIONAR AO CARRINHO</button>
+                    <button id="modalBtnAdd" class="pb-btn-buy" style="padding:15px; font-size:1.1rem; width:100%;">ADICIONAR</button>
                     
-                    <h4 style="margin-top:20px; color:#195961;">Descrição:</h4>
-                    <p id="modalDesc" class="pb-modal-desc"></p>
+                    <div style="margin-top:20px;">
+                        <h4 style="color:#195961;">Descrição:</h4>
+                        <p id="modalDesc" class="pb-modal-desc"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,7 +230,7 @@
             <div class="pb-col"><h3>PiraBloco<span>®</span></h3><p>Sua loja oficial.</p></div>
             <div class="pb-col"><h4>Institucional</h4><a href="#">Sobre</a><a href="#">Privacidade</a></div>
         </div>
-        <div class="pb-legal"><p>CNPJ: 65.101.505/0001-98 | Inscrição Estadual: 158.100.899.115</p><p>&copy; 2026 PiraBloco</p></div>
+        <div class="pb-legal"><p>CNPJ: 65.101.505/0001-98</p><p>&copy; 2026 PiraBloco</p></div>
     </footer>
 
     <script>
@@ -238,15 +241,17 @@
 
             async init() {
                 this.loopBanner();
+                // Fecha modal ao clicar fora (vinculo direto)
+                document.getElementById('modalProduto').addEventListener('click', (e) => {
+                    if (e.target.id === 'modalProduto') this.fecharModal();
+                });
                 await this.fetchData();
             },
 
-            // --- DADOS ---
             async fetchData() {
                 try {
                     const r = await fetch('./produtos.json?v=' + Date.now());
                     const json = await r.json();
-                    // Converte e Filtra
                     this.dados = Object.values(json).filter(i => i.nome && i.ativo);
                     this.filtrados = this.dados;
                     this.renderizarPagina();
@@ -255,7 +260,6 @@
                 }
             },
 
-            // --- BUSCA (Nome, Tema, Descrição) ---
             filtrar(val) {
                 const t = val.toLowerCase();
                 this.filtrados = this.dados.filter(p => 
@@ -267,7 +271,6 @@
                 this.renderizarPagina();
             },
 
-            // --- RENDER CARD & PAGINAÇÃO ---
             renderizarPagina() {
                 const grid = document.getElementById('grid');
                 grid.innerHTML = "";
@@ -291,31 +294,36 @@
                     let acoes = estoque <= 0 
                         ? `<button class="pb-btn-buy" disabled style="background:#ccc">ESGOTADO</button>`
                         : `<div class="pb-qty-box">
-                               <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', -1, ${estoque})">-</button>
+                               <button class="pb-qty-btn" onclick="event.stopPropagation(); app.alterarQtd('${sku}', -1, ${estoque})">-</button>
                                <span class="pb-qty-val" id="qtd-${sku}">1</span>
-                               <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', 1, ${estoque})">+</button>
+                               <button class="pb-qty-btn" onclick="event.stopPropagation(); app.alterarQtd('${sku}', 1, ${estoque})">+</button>
                            </div>
-                           <button class="pb-btn-buy" onclick="app.addCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>`;
+                           <button class="pb-btn-buy" onclick="event.stopPropagation(); app.addCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>`;
 
-                    // No onclick da imagem, passamos o SKU para abrir o Modal
-                    grid.innerHTML += `
-                        <div class="pb-card">
-                            <div class="pb-img-box" onclick="app.abrirModal('${sku}')">
-                                <img src="${imgUrl}" onerror="this.src='https://placehold.co/200?text=Foto'">
-                            </div>
-                            <div class="pb-info">
-                                <div class="pb-meta"><span>${p.tema||'LEGO'}</span><span>${estoque} un.</span></div>
-                                <h3 class="pb-name">${p.nome}</h3>
-                                <p class="pb-price">R$ ${preco}</p>
-                                <div class="pb-actions">${acoes}</div>
-                            </div>
+                    const div = document.createElement('div');
+                    div.className = 'pb-card';
+                    div.innerHTML = `
+                        <div class="pb-img-box" style="cursor:pointer;">
+                            <img src="${imgUrl}" onerror="this.src='https://placehold.co/200?text=Foto'">
+                        </div>
+                        <div class="pb-info">
+                            <div class="pb-meta"><span>${p.tema||'LEGO'}</span><span>${estoque} un.</span></div>
+                            <h3 class="pb-name">${p.nome}</h3>
+                            <p class="pb-price">R$ ${preco}</p>
+                            <div class="pb-actions">${acoes}</div>
                         </div>`;
+                    
+                    // VINCULO DIRETO DO CLICK (Garantia que funciona)
+                    div.querySelector('.pb-img-box').addEventListener('click', () => {
+                        app.abrirModal(sku);
+                    });
+
+                    grid.appendChild(div);
                 });
 
                 this.renderPaginacao(totalPags);
             },
 
-            // --- LÓGICA DE PAGINAÇÃO (JANELA DESLIZANTE) ---
             renderPaginacao(total) {
                 const div = document.getElementById('paginacao');
                 div.innerHTML = "";
@@ -329,34 +337,22 @@
                     return b;
                 };
 
-                // Anterior
-                const btnPrev = criaBtn('<', this.paginaAtual-1);
-                if(this.paginaAtual===1) btnPrev.disabled=true;
-                div.appendChild(btnPrev);
+                const range = 2;
+                div.appendChild(criaBtn('<', Math.max(1, this.paginaAtual-1)));
 
-                // Lógica 1 ... 4 5 6 ... 80
-                const range = 2; // Quantos vizinhos mostrar
                 for (let i = 1; i <= total; i++) {
-                    // Sempre mostra o primeiro, o último, e o intervalo ao redor do atual
                     if (i === 1 || i === total || (i >= this.paginaAtual - range && i <= this.paginaAtual + range)) {
                         div.appendChild(criaBtn(i, i, i === this.paginaAtual));
                     } else if (i === this.paginaAtual - range - 1 || i === this.paginaAtual + range + 1) {
-                        // Coloca pontinhos
-                        const span = document.createElement('span');
-                        span.className = 'pb-dots-sep';
-                        span.innerText = '...';
+                        const span = document.createElement('span'); span.className='pb-dots-sep'; span.innerText='...';
                         div.appendChild(span);
                     }
                 }
-
-                // Próximo
-                const btnNext = criaBtn('>', this.paginaAtual+1);
-                if(this.paginaAtual===total) btnNext.disabled=true;
-                div.appendChild(btnNext);
+                div.appendChild(criaBtn('>', Math.min(total, this.paginaAtual+1)));
             },
 
-            // --- MODAL LÓGICA ---
             abrirModal(sku) {
+                console.log("Abrindo modal para:", sku); // Debug
                 const p = this.dados.find(i => i.skuBase === sku);
                 if(!p) return;
                 
@@ -370,7 +366,6 @@
                 document.getElementById('modalStock').innerText = p.estoque;
                 document.getElementById('modalQtyDisplay').innerText = 1;
                 
-                // Configura botão adicionar do modal
                 const btn = document.getElementById('modalBtnAdd');
                 if(p.estoque > 0) {
                     btn.disabled = false;
@@ -384,9 +379,7 @@
                     btn.innerText = "ESGOTADO";
                 }
 
-                // Galeria de Imagens
                 this.renderizarGaleria(p);
-
                 document.getElementById('modalProduto').style.display = 'flex';
             },
 
@@ -398,13 +391,8 @@
                 const main = document.getElementById('modalMainImg');
                 const thumbsDiv = document.getElementById('modalThumbs');
                 thumbsDiv.innerHTML = "";
-
-                // Quantidade de fotos definida no JSON ou padrão 1
                 const qtdFotos = (p.imagens && p.imagens.qtd) ? p.imagens.qtd : 1;
-                // Limita a 6 fotos conforme pedido
                 const maxFotos = Math.min(qtdFotos, 6);
-
-                // Define imagem principal inicial
                 main.src = this.gerarUrlImagem(p, 1);
 
                 for(let i=1; i<=maxFotos; i++) {
@@ -430,9 +418,7 @@
                 }
             },
 
-            // --- AUXILIARES ---
             gerarUrlImagem(p, num) {
-                // Lógica: pasta/sku.ext (se num=1) ou pasta/sku-2.ext
                 if (p.imagens && p.imagens.pasta) {
                     const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
                     const sku = p.skuBase || "IMG";
@@ -458,13 +444,11 @@
                 this.carrinho += qtd;
                 document.getElementById('cart-badge').innerText = this.carrinho;
                 alert(`Adicionado: ${qtd}x ${nome}`);
-                // Reset card
                 this.quantidades[sku] = 1;
                 const el = document.getElementById(`qtd-${sku}`);
                 if(el) el.innerText = 1;
             },
 
-            // Banner e Menu
             loopBanner() { setInterval(() => { this.bannerIndex = this.bannerIndex===0?1:0; this.attBanner(); }, 5000); },
             mudarBanner(i) { this.bannerIndex=i; this.attBanner(); },
             attBanner() {
