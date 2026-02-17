@@ -1,186 +1,242 @@
-<header class="pb-header-section">
-    <div class="pb-header-container">
+<header class="pb-header-fixed">
+    <div class="pb-header-content">
         
-        <div class="pb-brand-area">
-            <h1 class="pb-logo">Pira<span>Bloco</span><span class="pb-reg">®</span></h1>
+        <div id="pb-menu-trigger" class="pb-icon-btn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
         </div>
 
-        <div class="pb-search-box">
-            <input type="text" id="pb-search-input" placeholder="Buscar peças ou kits...">
-            <button id="pb-search-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </button>
+        <div class="pb-brand">
+            <h1 class="pb-logo-text">Pira<span>Bloco</span><span class="reg">®</span></h1>
         </div>
 
-        <div class="pb-user-hub">
-            
-            <div id="pb-user-auth" class="pb-auth-trigger">
-                <div class="pb-user-avatar-frame">
-                    <img id="pb-user-img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Perfil">
-                </div>
-                <div class="pb-user-info">
-                    <span id="pb-user-greeting">Olá, Visitante</span>
-                    <span id="pb-user-action">Entrar / Cadastrar</span>
-                </div>
-            </div>
+        <div id="pb-cart-trigger" class="pb-icon-btn pb-cart-wrap">
+            <span id="pb-cart-count">0</span>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+        </div>
+    </div>
+</header>
 
-            <div id="pb-cart-trigger" class="pb-cart-area">
-                <div class="pb-cart-icon-wrapper">
-                    <span id="pb-cart-count">0</span>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                </div>
-            </div>
+<aside id="pb-mobile-menu" class="pb-sidebar">
+    <div class="pb-sidebar-header">
+        <h3 class="pb-sidebar-title">Menu</h3>
+        <button id="pb-close-menu" class="pb-close-btn">&times;</button>
+    </div>
 
+    <div class="pb-profile-area" id="pb-profile-action">
+        <div id="pb-guest-view" class="pb-profile-card">
+            <div class="pb-avatar-placeholder">👤</div>
+            <div class="pb-profile-text">
+                <p>Bem-vindo!</p>
+                <button class="pb-btn-login-trigger">Entrar ou Cadastrar</button>
+            </div>
+        </div>
+        
+        <div id="pb-user-view" class="pb-profile-card" style="display:none;">
+            <img id="pb-user-photo-sidebar" src="" alt="Foto" class="pb-avatar-img">
+            <div class="pb-profile-text">
+                <p id="pb-user-name-sidebar">Usuário</p>
+                <small id="pb-go-account">Minha Conta >></small>
+            </div>
         </div>
     </div>
 
-    <style>
-        /* === ESTILO BASEADO NA PALETA OFICIAL PIRABLOCO === */
-        .pb-header-section {
-            background-color: #195961; /* Turquesa Profundo (Institucional) */
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <nav class="pb-nav-links">
+        <a href="#" id="pb-link-home">🏠 Início</a>
+        <a href="#" id="pb-link-kits">🧱 Kits Completos</a>
+        <a href="#" id="pb-link-parts">⚙️ Peças Avulsas</a>
+        <a href="#" id="pb-link-account">👤 Minha Conta</a>
+        <hr>
+        <a href="#" id="pb-link-support">📞 Suporte</a>
+    </nav>
+</aside>
+<div id="pb-overlay-menu" class="pb-overlay"></div>
 
-        .pb-header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
+<div id="pb-login-modal" class="pb-modal">
+    <div class="pb-modal-content">
+        <span id="pb-close-login" class="pb-close-modal">&times;</span>
+        <h2 class="pb-modal-title">Acesse a PiraBloco</h2>
+        <p class="pb-modal-sub">Salve seus kits e acompanhe pedidos.</p>
+        
+        <button id="pb-google-btn" class="pb-btn-google">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+            Entrar com Google
+        </button>
 
-        /* LOGO */
-        .pb-logo {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #b3ecec; /* Gelo/Ciano (Brilho) */
-            letter-spacing: -0.5px;
-            cursor: pointer;
-        }
-        .pb-logo span { color: #76c7c0; /* Turquesa Suave */ }
-        .pb-logo .pb-reg { font-size: 0.8rem; vertical-align: super; }
+        <div class="pb-divider"><span>ou</span></div>
 
-        /* BUSCA */
-        .pb-search-box {
-            flex: 1;
-            max-width: 450px;
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        #pb-search-input {
-            width: 100%;
-            padding: 10px 40px 10px 20px;
-            border-radius: 25px;
-            border: 2px solid transparent;
-            background: rgba(255,255,255,0.1); /* Vidro sutil */
-            color: #fff;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-        #pb-search-input::placeholder { color: #76c7c0; }
-        #pb-search-input:focus {
-            background: #fff;
-            color: #195961;
-            border-color: #2A9D8F;
-            outline: none;
-        }
-        #pb-search-btn {
-            position: absolute;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #76c7c0;
-            cursor: pointer;
-        }
-        #pb-search-input:focus + #pb-search-btn { color: #195961; }
+        <form id="pb-email-form">
+            <input type="email" placeholder="Seu e-mail" required>
+            <input type="password" placeholder="Sua senha" required>
+            <button type="submit" class="pb-btn-action">Entrar</button>
+        </form>
+        <p class="pb-modal-footer">Não tem conta? <a href="#" id="pb-register-link">Cadastre-se</a></p>
+    </div>
+</div>
 
-        /* HUB DO USUÁRIO */
-        .pb-user-hub {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
+<style>
+    /* === ESTILOS GERAIS (Paleta PiraBloco) === */
+    :root {
+        --pb-dark: #195961;
+        --pb-mid: #378fae;
+        --pb-light: #b3ecec;
+        --pb-action: #2A9D8F;
+        --pb-white: #ffffff;
+    }
 
-        .pb-auth-trigger {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-        .pb-auth-trigger:hover { background: rgba(255,255,255,0.1); }
+    /* HEADER FIXO */
+    .pb-header-fixed {
+        background-color: var(--pb-dark);
+        height: 60px;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .pb-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 15px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .pb-logo-text { color: var(--pb-light); font-size: 1.5rem; margin: 0; font-weight: 800; }
+    .pb-logo-text span { color: #76c7c0; }
+    .reg { font-size: 0.8rem; vertical-align: top; }
+    
+    .pb-icon-btn { cursor: pointer; padding: 5px; }
+    .pb-cart-wrap { position: relative; }
+    #pb-cart-count {
+        position: absolute;
+        top: -5px; right: -5px;
+        background: #d32f2f; color: #fff;
+        font-size: 0.7rem; padding: 2px 6px;
+        border-radius: 10px; font-weight: bold;
+    }
 
-        .pb-user-avatar-frame {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #2A9D8F; /* Turquesa Vibrante */
-            overflow: hidden;
-            background: #fff;
-        }
-        #pb-user-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    /* SIDEBAR (GAVETA) */
+    .pb-sidebar {
+        position: fixed;
+        top: 0; left: -280px; /* Escondido na esquerda */
+        width: 280px;
+        height: 100%;
+        background: #fff;
+        z-index: 2000;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        display: flex; flex-direction: column;
+    }
+    .pb-sidebar.active { left: 0; }
+    
+    .pb-sidebar-header {
+        background: var(--pb-dark);
+        color: #fff;
+        padding: 15px;
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .pb-close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
 
-        .pb-user-info {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-        #pb-user-greeting {
-            font-size: 0.75rem;
-            color: #b3ecec;
-        }
-        #pb-user-action {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #fff;
-        }
+    /* PERFIL NA SIDEBAR */
+    .pb-profile-area {
+        background: #f4f4f4;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+    .pb-profile-card { display: flex; align-items: center; gap: 10px; }
+    .pb-avatar-placeholder, .pb-avatar-img {
+        width: 50px; height: 50px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem; object-fit: cover;
+    }
+    .pb-btn-login-trigger {
+        background: var(--pb-action);
+        color: #fff; border: none;
+        padding: 5px 10px; border-radius: 4px;
+        font-size: 0.8rem; cursor: pointer;
+    }
+    
+    /* LINKS NAV */
+    .pb-nav-links { padding: 10px; display: flex; flex-direction: column; }
+    .pb-nav-links a {
+        padding: 12px 15px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+    .pb-nav-links a:hover { background: #e0f2f1; color: var(--pb-dark); }
+    
+    .pb-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1500;
+        display: none;
+    }
+    .pb-overlay.active { display: block; }
 
-        /* CARRINHO */
-        .pb-cart-area {
-            position: relative;
-            cursor: pointer;
-        }
-        .pb-cart-icon-wrapper { position: relative; }
-        #pb-cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #d32f2f; /* Vermelho LEGO para Alerta/Ação */
-            color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 10px;
-            border: 2px solid #195961;
-        }
-
-        /* RESPONSIVIDADE (Mobile) */
-        @media (max-width: 768px) {
-            .pb-search-box { display: none; } /* Oculta busca no mobile para limpar visual */
-            .pb-user-info { display: none; } /* Oculta texto, mantém só ícone */
-            .pb-header-container { justify-content: space-between; }
-        }
-    </style>
-</header>
+    /* MODAL DE LOGIN */
+    .pb-modal {
+        display: none; 
+        position: fixed; z-index: 3000;
+        left: 0; top: 0; width: 100%; height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        align-items: center; justify-content: center;
+    }
+    .pb-modal.show { display: flex; } /* Classe para JS ativar */
+    
+    .pb-modal-content {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        width: 90%; max-width: 350px;
+        position: relative;
+        text-align: center;
+        border-top: 5px solid var(--pb-action);
+    }
+    .pb-close-modal {
+        position: absolute; right: 15px; top: 10px;
+        font-size: 1.5rem; cursor: pointer; color: #999;
+    }
+    .pb-modal-title { margin: 0; color: var(--pb-dark); }
+    .pb-modal-sub { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+    
+    .pb-btn-google {
+        width: 100%;
+        background: #fff; border: 1px solid #ccc;
+        color: #333; padding: 10px;
+        border-radius: 20px;
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        cursor: pointer; font-weight: 500;
+        margin-bottom: 15px;
+    }
+    .pb-divider { margin: 15px 0; color: #ccc; font-size: 0.8rem; }
+    
+    .pb-btn-action {
+        width: 100%;
+        background: var(--pb-action);
+        color: #fff; border: none;
+        padding: 12px; border-radius: 20px;
+        cursor: pointer; font-weight: bold;
+        margin-top: 10px;
+    }
+    
+    /* INPUTS DO FORM */
+    #pb-email-form input {
+        width: 100%; padding: 10px; margin-bottom: 10px;
+        border: 1px solid #ddd; border-radius: 5px;
+        box-sizing: border-box;
+    }
+</style>
