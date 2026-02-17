@@ -1,0 +1,15 @@
+PRINCIPIO DA LOGICA PIRABLOCO - PROTOCOLO DE OURO (V2)
+
+1. HIERARQUIA DE ARQUIVOS (SHELL FETCH):
+   - INDEX.HTML: A "Casca" (Shell). Contém apenas o esqueleto e o script de fetch.
+   - CABECALHO.HTML: Módulo do topo (Menu/Logo). Injetado em #header-mount.
+   - BODY.HTML: O "Coração". Contém a estrutura do Banner, Grade de Produtos e Filtros. Injetado em #main-mount.
+   - STYLE.HTML: O visual. Injetado como texto no <head> para garantir a renderização.
+   - SCRIPT.JS: A lógica. Ativa o JSON de produtos e o Swipe do Banner após o BODY ser injetado.
+
+2. REGRAS DE INJEÇÃO (ORDEM CRÍTICA):
+   1º Style -> 2º Cabecalho -> 3º Body -> 4º Script.js
+
+3. SEGURANÇA E SEMÂNTICA:
+   - O Body.html deve manter o ID #productsGrid.
+   - Fotos Internas: /storage/emulated/0/pirabloco/imagens/itens/
