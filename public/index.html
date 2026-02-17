@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PiraBloco® - Oficial</title>
     <style>
-        /* --- 1. DNA VISUAL PIRABLOCO --- */
+        /* --- 1. DNA VISUAL --- */
         :root {
             --pb-dark: #195961;
             --pb-mid: #378fae;
@@ -18,7 +18,7 @@
         body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); padding-bottom: 20px; }
         img { display: block; max-width: 100%; }
 
-        /* --- 2. HEADER FIXO --- */
+        /* --- 2. HEADER --- */
         .pb-header {
             background-color: var(--pb-dark); height: 60px; width: 100%;
             position: sticky; top: 0; z-index: 1000;
@@ -27,93 +27,64 @@
         }
         .pb-brand { font-size: 1.4rem; font-weight: 800; color: var(--pb-light); }
         .pb-brand span { color: #76c7c0; }
-        
-        /* --- 3. BANNER ROTATIVO --- */
-        .pb-banner-container {
-            width: 100%; position: relative; overflow: hidden;
-            background: #ddd; min-height: 150px;
-        }
-        .pb-banner-track {
-            display: flex; transition: transform 0.5s ease-in-out; width: 100%;
-        }
-        .pb-banner-slide { min-width: 100%; box-sizing: border-box; }
-        .pb-dots {
-            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 8px;
-        }
-        .pb-dot {
-            width: 10px; height: 10px; background: rgba(255,255,255,0.5);
-            border-radius: 50%; cursor: pointer; transition: 0.3s;
-        }
+
+        /* --- 3. BANNER --- */
+        .pb-banner-container { width: 100%; position: relative; overflow: hidden; background: #ddd; min-height: 150px; }
+        .pb-banner-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
+        .pb-banner-slide { min-width: 100%; }
+        .pb-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+        .pb-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: 0.3s; }
         .pb-dot.active { background: #fff; transform: scale(1.2); }
 
-        /* --- 4. LAYOUT & BUSCA RESPONSIVA --- */
+        /* --- 4. LAYOUT --- */
         .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 60vh; }
         
         .pb-search-box {
-            display: flex; align-items: center;
-            background: #fff; border-radius: 30px;
-            padding: 8px 20px; margin: 20px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            border: 1px solid #e0e0e0; transition: border-color 0.3s;
+            display: flex; align-items: center; background: #fff; border-radius: 30px;
+            padding: 8px 20px; margin: 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
         }
-        .pb-search-box:focus-within { border-color: var(--pb-mid); }
-        .pb-search-box input { 
-            flex: 1; border: none; padding: 10px; font-size: 1rem; color: #333;
-        }
-        .pb-search-icon { font-size: 1.2rem; color: #888; margin-left: 10px; }
+        .pb-search-box input { flex: 1; border: none; padding: 10px; font-size: 1rem; }
 
-        /* GRID DE PRODUTOS */
-        .pb-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
-        }
+        .pb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* PAGINAÇÃO */
+        /* --- 5. PAGINAÇÃO --- */
         .pb-pagination {
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            margin-top: 30px; padding: 20px 0;
+            display: flex; justify-content: center; align-items: center; gap: 5px;
+            margin-top: 40px; padding: 10px; flex-wrap: wrap;
         }
         .pb-page-btn {
-            width: 40px; height: 40px; border-radius: 50%;
+            min-width: 35px; height: 35px; padding: 0 5px; border-radius: 5px;
             border: 1px solid #ddd; background: #fff;
             display: flex; align-items: center; justify-content: center;
             font-weight: bold; color: var(--pb-dark); cursor: pointer;
-            transition: all 0.2s;
+            font-size: 0.9rem; transition: all 0.2s;
         }
-        .pb-page-btn.active {
-            background: var(--pb-dark); color: #fff; border-color: var(--pb-dark);
-        }
-        .pb-page-btn:hover:not(.active):not(:disabled) {
-            background: #f0f0f0;
-        }
-        .pb-page-btn:disabled {
-            opacity: 0.5; cursor: not-allowed;
-        }
+        .pb-page-btn.active { background: var(--pb-dark); color: #fff; border-color: var(--pb-dark); }
+        .pb-page-btn:disabled { opacity: 0.4; cursor: not-allowed; border: none; background: transparent; }
+        .pb-dots-sep { padding: 0 5px; color: #888; }
 
-        /* --- 5. CARD DE PRODUTO --- */
+        /* --- 6. CARD DE PRODUTO --- */
         .pb-card {
             background: #fff; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            border: 1px solid #76c7c0;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1); border: 1px solid #76c7c0;
             display: flex; flex-direction: column;
-            position: relative;
         }
         .pb-img-box {
-            height: 160px; background: #fff; padding: 10px;
+            height: 160px; background: #fff; padding: 10px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
         }
-        .pb-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .pb-img-box img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; /* Garante que o clique vá para a div pai */ }
         
         .pb-info { padding: 12px; display: flex; flex-direction: column; flex: 1; }
         .pb-name {
             color: var(--pb-dark); font-size: 0.9rem; margin-bottom: 5px;
             height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
         }
-        .pb-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
+        .pb-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
         .pb-price { color: var(--pb-action); font-weight: 800; font-size: 1.2rem; }
 
-        /* CONTROLES QTD */
         .pb-actions { margin-top: auto; padding-top: 10px; }
         .pb-qty-box {
             display: flex; align-items: center; justify-content: space-between;
@@ -121,52 +92,71 @@
         }
         .pb-qty-btn {
             width: 30px; height: 30px; border: none; background: #fff;
-            border-radius: 50%; color: var(--pb-dark); font-weight: bold; font-size: 1.2rem;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 50%; color: var(--pb-dark); font-weight: bold; font-size: 1.2rem; cursor: pointer;
         }
         .pb-btn-buy {
             background: var(--pb-action); color: #fff; border: none;
-            padding: 10px; width: 100%; border-radius: 20px;
-            font-weight: bold; cursor: pointer; transition: background 0.2s;
+            padding: 10px; width: 100%; border-radius: 20px; font-weight: bold; cursor: pointer;
+        }
+        .pb-btn-buy:disabled { background: #ccc; }
+
+        /* --- 7. MODAL DE PRODUTO (CORRIGIDO) --- */
+        .pb-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 9999; /* Z-index alto para garantir */
+            display: none; justify-content: center; align-items: center; padding: 10px;
+        }
+        .pb-modal-content {
+            background: #fff; width: 100%; max-width: 800px; max-height: 90vh;
+            border-radius: 15px; overflow-y: auto; position: relative;
+            display: flex; flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .pb-close-modal {
+            position: absolute; top: 10px; right: 15px; font-size: 2rem;
+            color: #333; cursor: pointer; z-index: 10;
+            background: rgba(255,255,255,0.8); border-radius: 50%; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pb-modal-body { display: flex; flex-direction: column; }
+        
+        .pb-gallery { background: #f9f9f9; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .pb-main-img { height: 250px; width: 100%; object-fit: contain; margin-bottom: 15px; }
+        .pb-thumbs { display: flex; gap: 10px; overflow-x: auto; width: 100%; padding-bottom: 5px; justify-content: center; }
+        .pb-thumb { width: 60px; height: 60px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; object-fit: cover; }
+        .pb-thumb.active { border-color: var(--pb-action); }
+
+        .pb-details { padding: 20px; }
+        .pb-modal-title { font-size: 1.5rem; color: var(--pb-dark); margin-bottom: 10px; }
+        .pb-modal-desc { color: #555; line-height: 1.5; margin-bottom: 20px; font-size: 0.95rem; }
+        
+        @media(min-width: 768px) {
+            .pb-modal-body { flex-direction: row; }
+            .pb-gallery { width: 50%; }
+            .pb-details { width: 50%; }
         }
 
-        /* --- 6. MENU LATERAL --- */
+        /* --- 8. SIDEBAR --- */
         .pb-sidebar {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-            background: #fff; z-index: 2000; transition: left 0.3s ease;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.3); display: flex; flex-direction: column;
+            background: #fff; z-index: 2000; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.3);
         }
         .pb-sidebar.active { left: 0; }
-        .pb-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 1500; display: none;
-        }
-        .pb-overlay.active { display: block; }
-
-        /* --- 7. RODAPÉ --- */
-        .pb-footer {
-            background-color: #195961; color: #FFFFFF; padding: 40px 20px;
-            font-family: sans-serif; border-top: 4px solid #76c7c0; margin-top: 30px;
-        }
-        .pb-footer-grid {
-            display: flex; justify-content: space-around; flex-wrap: wrap;
-            max-width: 1000px; margin: 0 auto; gap: 20px;
-        }
-        .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
-        .pb-col a { color: #b3ecec; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
-        .pb-legal {
-            text-align: center; margin-top: 30px; padding-top: 20px;
-            border-top: 1px solid #378fae; font-size: 0.8rem; color: #b3ecec;
-        }
+        .pb-overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
+        .pb-overlay-menu.active { display: block; }
+        
+        .pb-footer { background-color: #195961; color: #FFFFFF; padding: 40px 20px; margin-top: 30px; border-top: 4px solid #76c7c0; }
+        .pb-footer-grid { display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; gap: 20px; }
+        .pb-legal { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #378fae; font-size: 0.8rem; color: #b3ecec; }
     </style>
 </head>
 <body>
 
     <header class="pb-header">
-        <div onclick="app.toggleMenu()" style="cursor:pointer; padding:5px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" stroke="#b3ecec" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        </div>
+        <div onclick="app.toggleMenu()" style="cursor:pointer; padding:5px;"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#b3ecec" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
         <div class="pb-brand">Pira<span>Bloco</span>®</div>
         <div style="position:relative;">
             <span id="cart-badge" style="background:var(--pb-red); color:white; font-size:0.7rem; position:absolute; top:-5px; right:-5px; padding:2px 5px; border-radius:10px;">0</span>
@@ -176,238 +166,294 @@
 
     <section class="pb-banner-container">
         <div class="pb-banner-track" id="bannerTrack">
-            <div class="pb-banner-slide">
-                <picture>
-                    <source media="(max-width: 600px)" srcset="imagens/banners/banner-pb1-mobile.svg">
-                    <img src="imagens/banners/banner-pb1.svg" alt="Banner 1">
-                </picture>
-            </div>
-            <div class="pb-banner-slide">
-                <picture>
-                    <source media="(max-width: 600px)" srcset="imagens/banners/banner-pb2-mobile.svg">
-                    <img src="imagens/banners/banner-pb2.svg" alt="Banner 2">
-                </picture>
-            </div>
+            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="imagens/banners/banner-pb1-mobile.svg"><img src="imagens/banners/banner-pb1.svg"></picture></div>
+            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="imagens/banners/banner-pb2-mobile.svg"><img src="imagens/banners/banner-pb2.svg"></picture></div>
         </div>
-        <div class="pb-dots">
-            <div class="pb-dot active" onclick="app.mudarBanner(0)"></div>
-            <div class="pb-dot" onclick="app.mudarBanner(1)"></div>
-        </div>
+        <div class="pb-dots"><div class="pb-dot active" onclick="app.mudarBanner(0)"></div><div class="pb-dot" onclick="app.mudarBanner(1)"></div></div>
     </section>
 
-    <div class="pb-overlay" id="overlay" onclick="app.toggleMenu()"></div>
+    <div class="pb-overlay-menu" id="overlay" onclick="app.toggleMenu()"></div>
     <aside class="pb-sidebar" id="sidebar">
-        <div style="background:#195961; color:white; padding:20px; display:flex; justify-content:space-between;">
-            <h3>Menu</h3><span onclick="app.toggleMenu()" style="font-size:1.5rem;">&times;</span>
-        </div>
-        <div style="padding:20px;">
-            <p>🏠 Início</p>
-            <p>📦 Meus Pedidos</p>
-            <p>👤 Minha Conta</p>
-        </div>
+        <div style="background:#195961; color:white; padding:20px; display:flex; justify-content:space-between;"><h3>Menu</h3><span onclick="app.toggleMenu()" style="font-size:1.5rem;">&times;</span></div>
+        <div style="padding:20px;"><p>🏠 Início</p><p>📦 Meus Pedidos</p></div>
     </aside>
 
     <main class="pb-container">
         <div class="pb-search-box">
-            <input type="text" id="searchInput" placeholder="O que você procura hoje?" oninput="app.filtrar(this.value)">
-            <span class="pb-search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Buscar por nome, tema ou descrição..." oninput="app.filtrar(this.value)">
+            <span>🔍</span>
         </div>
 
         <h3 style="color:#195961; margin: 10px 0; border-left: 4px solid #2A9D8F; padding-left: 10px;">Destaques da Galáxia</h3>
         
         <div id="grid" class="pb-grid">
-            <p style="grid-column: span 2; text-align:center; padding:40px; color:#666;">Carregando sistema...</p>
+            <p style="grid-column: span 2; text-align:center; padding:40px; color:#666;">Carregando...</p>
         </div>
-
-        <div id="paginacao" class="pb-pagination">
-            </div>
+        <div id="paginacao" class="pb-pagination"></div>
     </main>
+
+    <div id="modalProduto" class="pb-modal-overlay">
+        <div class="pb-modal-content">
+            <div class="pb-close-modal" onclick="app.fecharModal()">×</div>
+            <div class="pb-modal-body">
+                <div class="pb-gallery">
+                    <img id="modalMainImg" class="pb-main-img" src="" alt="Produto">
+                    <div id="modalThumbs" class="pb-thumbs"></div>
+                </div>
+                <div class="pb-details">
+                    <h2 id="modalTitle" class="pb-modal-title"></h2>
+                    <p id="modalSku" class="pb-modal-sku" style="color:#888; font-size:0.8rem;"></p>
+                    <p id="modalPrice" style="font-size:1.5rem; font-weight:bold; color:var(--pb-action); margin:10px 0;"></p>
+                    
+                    <div style="background:#f0f0f0; padding:15px; border-radius:10px; margin-bottom:20px;">
+                        <p style="font-weight:bold; color:#195961; margin-bottom:10px;">Estoque: <span id="modalStock"></span> un.</p>
+                        <div class="pb-qty-box" style="background:#fff; max-width:150px;">
+                            <button class="pb-qty-btn" onclick="app.alterarQtdModal(-1)">-</button>
+                            <span class="pb-qty-val" id="modalQtyDisplay">1</span>
+                            <button class="pb-qty-btn" onclick="app.alterarQtdModal(1)">+</button>
+                        </div>
+                    </div>
+
+                    <button id="modalBtnAdd" class="pb-btn-buy" style="padding:15px; font-size:1.1rem; width:100%;">ADICIONAR</button>
+                    
+                    <div style="margin-top:20px;">
+                        <h4 style="color:#195961;">Descrição:</h4>
+                        <p id="modalDesc" class="pb-modal-desc"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="pb-footer">
         <div class="pb-footer-grid">
-            <div class="pb-col">
-                <h3>PiraBloco<span>®</span></h3>
-                <p>Sua loja oficial de blocos de montar.</p>
-            </div>
-            <div class="pb-col">
-                <h4>Institucional</h4>
-                <a href="#">Sobre a Empresa</a>
-                <a href="#">Privacidade</a>
-            </div>
+            <div class="pb-col"><h3>PiraBloco<span>®</span></h3><p>Sua loja oficial.</p></div>
+            <div class="pb-col"><h4>Institucional</h4><a href="#">Sobre</a><a href="#">Privacidade</a></div>
         </div>
-        <div class="pb-legal">
-            <p>CNPJ: 65.101.505/0001-98 | Inscrição Estadual: 158.100.899.115</p>
-            <p>&copy; 2026 Todos os direitos reservados.</p>
-        </div>
+        <div class="pb-legal"><p>CNPJ: 65.101.505/0001-98</p><p>&copy; 2026 PiraBloco</p></div>
     </footer>
 
     <script>
         const app = {
-            dadosCompletos: [], // Todos os produtos
-            dadosFiltrados: [], // Produtos após a busca
-            carrinho: 0,
-            bannerIndex: 0,
-            quantidades: {},
-            
-            // Configuração da Paginação
-            paginaAtual: 1,
-            itensPorPagina: 4, // 4 Itens por página
+            dados: [], filtrados: [], carrinho: 0, bannerIndex: 0,
+            quantidades: {}, paginaAtual: 1, itensPorPagina: 4,
+            modalProdutoAtual: null, modalQtdAtual: 1,
 
             async init() {
-                this.iniciarBannerLoop();
-                await this.buscarProdutos();
+                this.loopBanner();
+                // Fecha modal ao clicar fora (vinculo direto)
+                document.getElementById('modalProduto').addEventListener('click', (e) => {
+                    if (e.target.id === 'modalProduto') this.fecharModal();
+                });
+                await this.fetchData();
             },
 
-            // --- BANNERS ---
-            iniciarBannerLoop() {
-                setInterval(() => {
-                    this.bannerIndex = (this.bannerIndex === 0) ? 1 : 0;
-                    this.atualizarBanner();
-                }, 5000);
-            },
-            mudarBanner(i) { this.bannerIndex = i; this.atualizarBanner(); },
-            atualizarBanner() {
-                const track = document.getElementById('bannerTrack');
-                const dots = document.querySelectorAll('.pb-dot');
-                track.style.transform = `translateX(-${this.bannerIndex * 100}%)`;
-                dots.forEach((d, i) => d.classList.toggle('active', i === this.bannerIndex));
-            },
-
-            // --- DADOS ---
-            async buscarProdutos() {
-                const grid = document.getElementById('grid');
+            async fetchData() {
                 try {
                     const r = await fetch('./produtos.json?v=' + Date.now());
-                    if (!r.ok) throw new Error("JSON Off");
-                    const jsonRaw = await r.json();
-
-                    this.dadosCompletos = Object.values(jsonRaw).filter(i => i.nome && i.ativo === true);
-                    this.dadosFiltrados = this.dadosCompletos; // Começa mostrando tudo
-                    
-                    this.paginaAtual = 1;
+                    const json = await r.json();
+                    this.dados = Object.values(json).filter(i => i.nome && i.ativo);
+                    this.filtrados = this.dados;
                     this.renderizarPagina();
-
                 } catch (e) {
-                    console.error(e);
-                    grid.innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar blocos.</p>";
+                    document.getElementById('grid').innerHTML = "<p>Erro ao carregar dados.</p>";
                 }
             },
 
-            // --- BUSCA VIVA ---
-            filtrar(termo) {
-                const t = termo.toLowerCase();
-                // Filtra a lista completa
-                this.dadosFiltrados = this.dadosCompletos.filter(p => 
+            filtrar(val) {
+                const t = val.toLowerCase();
+                this.filtrados = this.dados.filter(p => 
                     p.nome.toLowerCase().includes(t) || 
-                    (p.tema && p.tema.toLowerCase().includes(t))
+                    (p.tema && p.tema.toLowerCase().includes(t)) ||
+                    (p.descricao && p.descricao.toLowerCase().includes(t))
                 );
-                // Volta para página 1 ao pesquisar
                 this.paginaAtual = 1;
                 this.renderizarPagina();
             },
 
-            // --- RENDERIZAÇÃO COM PAGINAÇÃO ---
             renderizarPagina() {
                 const grid = document.getElementById('grid');
-                const paginacaoDiv = document.getElementById('paginacao');
-                
                 grid.innerHTML = "";
-                paginacaoDiv.innerHTML = "";
-
-                // Se não tem nada
-                if (this.dadosFiltrados.length === 0) {
-                    grid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding:20px;'>Nenhum bloco encontrado com esse nome.</p>";
+                
+                if (this.filtrados.length === 0) {
+                    grid.innerHTML = "<p style='grid-column:span 2; text-align:center;'>Nada encontrado.</p>";
+                    this.renderPaginacao(0);
                     return;
                 }
 
-                // Cálculo dos cortes
                 const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
-                const fim = inicio + this.itensPorPagina;
-                const itensDaPagina = this.dadosFiltrados.slice(inicio, fim);
-                const totalPaginas = Math.ceil(this.dadosFiltrados.length / this.itensPorPagina);
+                const fatia = this.filtrados.slice(inicio, inicio + this.itensPorPagina);
+                const totalPags = Math.ceil(this.filtrados.length / this.itensPorPagina);
 
-                // Renderiza os Cards
-                itensDaPagina.forEach(p => {
-                    const sku = p.skuBase || "ID" + Math.random().toString(36).substr(2, 5);
-                    let imgUrl = "https://placehold.co/200?text=Sem+Foto";
-                    
-                    if (p.imagens && p.imagens.pasta) {
-                        const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
-                        imgUrl = `${pasta}/${sku}.${p.imagens.ext || 'webp'}`;
-                    } else if (typeof p.imagem === 'string') imgUrl = p.imagem;
-
-                    let preco = p.precoCentavos ? (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : "0,00";
+                fatia.forEach(p => {
+                    const sku = p.skuBase || "ID"+Math.random();
                     const estoque = p.estoque || 0;
-                    const semEstoque = estoque <= 0;
-
-                    let htmlAcoes = semEstoque 
-                        ? `<button class="pb-btn-buy" disabled style="background:#ccc">ESGOTADO</button>` 
+                    const imgUrl = this.gerarUrlImagem(p, 1);
+                    const preco = (p.precoCentavos/100).toLocaleString('pt-BR', {minimumFractionDigits:2});
+                    
+                    let acoes = estoque <= 0 
+                        ? `<button class="pb-btn-buy" disabled style="background:#ccc">ESGOTADO</button>`
                         : `<div class="pb-qty-box">
-                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', -1, ${estoque})">-</button>
-                                <span class="pb-qty-val" id="qtd-display-${sku}">1</span>
-                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', 1, ${estoque})">+</button>
+                               <button class="pb-qty-btn" onclick="event.stopPropagation(); app.alterarQtd('${sku}', -1, ${estoque})">-</button>
+                               <span class="pb-qty-val" id="qtd-${sku}">1</span>
+                               <button class="pb-qty-btn" onclick="event.stopPropagation(); app.alterarQtd('${sku}', 1, ${estoque})">+</button>
                            </div>
-                           <button class="pb-btn-buy" onclick="app.adicionarAoCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>`;
+                           <button class="pb-btn-buy" onclick="event.stopPropagation(); app.addCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>`;
 
-                    grid.innerHTML += `
-                        <div class="pb-card">
-                            <div class="pb-img-box"><img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Foto'"></div>
-                            <div class="pb-info">
-                                <div class="pb-meta"><span>${p.tema || 'LEGO'}</span><span>${estoque} un.</span></div>
-                                <h3 class="pb-name">${p.nome}</h3>
-                                <p class="pb-price">R$ ${preco}</p>
-                                <div class="pb-actions">${htmlAcoes}</div>
-                            </div>
+                    const div = document.createElement('div');
+                    div.className = 'pb-card';
+                    div.innerHTML = `
+                        <div class="pb-img-box" style="cursor:pointer;">
+                            <img src="${imgUrl}" onerror="this.src='https://placehold.co/200?text=Foto'">
                         </div>
-                    `;
+                        <div class="pb-info">
+                            <div class="pb-meta"><span>${p.tema||'LEGO'}</span><span>${estoque} un.</span></div>
+                            <h3 class="pb-name">${p.nome}</h3>
+                            <p class="pb-price">R$ ${preco}</p>
+                            <div class="pb-actions">${acoes}</div>
+                        </div>`;
+                    
+                    // VINCULO DIRETO DO CLICK (Garantia que funciona)
+                    div.querySelector('.pb-img-box').addEventListener('click', () => {
+                        app.abrirModal(sku);
+                    });
+
+                    grid.appendChild(div);
                 });
 
-                // Renderiza Botões de Paginação
-                if (totalPaginas > 1) {
-                    // Botão Voltar (<)
-                    const btnPrev = document.createElement('button');
-                    btnPrev.className = 'pb-page-btn';
-                    btnPrev.innerHTML = '&#8249;'; // Seta esquerda
-                    btnPrev.disabled = this.paginaAtual === 1;
-                    btnPrev.onclick = () => { this.paginaAtual--; this.renderizarPagina(); };
-                    paginacaoDiv.appendChild(btnPrev);
+                this.renderPaginacao(totalPags);
+            },
 
-                    // Números (1, 2, 3...)
-                    for (let i = 1; i <= totalPaginas; i++) {
-                        const btn = document.createElement('button');
-                        btn.className = `pb-page-btn ${i === this.paginaAtual ? 'active' : ''}`;
-                        btn.innerText = i;
-                        btn.onclick = () => { this.paginaAtual = i; this.renderizarPagina(); };
-                        paginacaoDiv.appendChild(btn);
+            renderPaginacao(total) {
+                const div = document.getElementById('paginacao');
+                div.innerHTML = "";
+                if (total <= 1) return;
+
+                const criaBtn = (txt, pag, active=false) => {
+                    const b = document.createElement('button');
+                    b.className = `pb-page-btn ${active?'active':''}`;
+                    b.innerText = txt;
+                    b.onclick = () => { this.paginaAtual = pag; this.renderizarPagina(); window.scrollTo(0,0); };
+                    return b;
+                };
+
+                const range = 2;
+                div.appendChild(criaBtn('<', Math.max(1, this.paginaAtual-1)));
+
+                for (let i = 1; i <= total; i++) {
+                    if (i === 1 || i === total || (i >= this.paginaAtual - range && i <= this.paginaAtual + range)) {
+                        div.appendChild(criaBtn(i, i, i === this.paginaAtual));
+                    } else if (i === this.paginaAtual - range - 1 || i === this.paginaAtual + range + 1) {
+                        const span = document.createElement('span'); span.className='pb-dots-sep'; span.innerText='...';
+                        div.appendChild(span);
                     }
+                }
+                div.appendChild(criaBtn('>', Math.min(total, this.paginaAtual+1)));
+            },
 
-                    // Botão Avançar (>)
-                    const btnNext = document.createElement('button');
-                    btnNext.className = 'pb-page-btn';
-                    btnNext.innerHTML = '&#8250;'; // Seta direita
-                    btnNext.disabled = this.paginaAtual === totalPaginas;
-                    btnNext.onclick = () => { this.paginaAtual++; this.renderizarPagina(); };
-                    paginacaoDiv.appendChild(btnNext);
+            abrirModal(sku) {
+                console.log("Abrindo modal para:", sku); // Debug
+                const p = this.dados.find(i => i.skuBase === sku);
+                if(!p) return;
+                
+                this.modalProdutoAtual = p;
+                this.modalQtdAtual = 1;
+
+                document.getElementById('modalTitle').innerText = p.nome;
+                document.getElementById('modalSku').innerText = "SKU: " + sku;
+                document.getElementById('modalDesc').innerText = p.descricao || "Sem descrição.";
+                document.getElementById('modalPrice').innerText = "R$ " + (p.precoCentavos/100).toLocaleString('pt-BR', {minimumFractionDigits:2});
+                document.getElementById('modalStock').innerText = p.estoque;
+                document.getElementById('modalQtyDisplay').innerText = 1;
+                
+                const btn = document.getElementById('modalBtnAdd');
+                if(p.estoque > 0) {
+                    btn.disabled = false;
+                    btn.innerText = "ADICIONAR AO CARRINHO";
+                    btn.onclick = () => {
+                        this.addCarrinho(sku, p.nome, this.modalQtdAtual);
+                        this.fecharModal();
+                    };
+                } else {
+                    btn.disabled = true;
+                    btn.innerText = "ESGOTADO";
+                }
+
+                this.renderizarGaleria(p);
+                document.getElementById('modalProduto').style.display = 'flex';
+            },
+
+            fecharModal() {
+                document.getElementById('modalProduto').style.display = 'none';
+            },
+
+            renderizarGaleria(p) {
+                const main = document.getElementById('modalMainImg');
+                const thumbsDiv = document.getElementById('modalThumbs');
+                thumbsDiv.innerHTML = "";
+                const qtdFotos = (p.imagens && p.imagens.qtd) ? p.imagens.qtd : 1;
+                const maxFotos = Math.min(qtdFotos, 6);
+                main.src = this.gerarUrlImagem(p, 1);
+
+                for(let i=1; i<=maxFotos; i++) {
+                    const url = this.gerarUrlImagem(p, i);
+                    const thumb = document.createElement('img');
+                    thumb.className = `pb-thumb ${i===1?'active':''}`;
+                    thumb.src = url;
+                    thumb.onclick = () => {
+                        main.src = url;
+                        document.querySelectorAll('.pb-thumb').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    };
+                    thumbsDiv.appendChild(thumb);
                 }
             },
 
-            // --- CARRINHO & INTERAÇÃO ---
+            alterarQtdModal(delta) {
+                if(!this.modalProdutoAtual) return;
+                const novo = this.modalQtdAtual + delta;
+                if(novo >= 1 && novo <= this.modalProdutoAtual.estoque) {
+                    this.modalQtdAtual = novo;
+                    document.getElementById('modalQtyDisplay').innerText = novo;
+                }
+            },
+
+            gerarUrlImagem(p, num) {
+                if (p.imagens && p.imagens.pasta) {
+                    const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
+                    const sku = p.skuBase || "IMG";
+                    const ext = p.imagens.ext || "webp";
+                    const sufixo = num === 1 ? "" : "-" + num;
+                    return `${pasta}/${sku}${sufixo}.${ext}`;
+                }
+                return p.imagem || "https://placehold.co/200";
+            },
+
             alterarQtd(sku, delta, max) {
-                if (!this.quantidades[sku]) this.quantidades[sku] = 1;
+                if(!this.quantidades[sku]) this.quantidades[sku]=1;
                 const novo = this.quantidades[sku] + delta;
-                if (novo >= 1 && novo <= max) {
+                if(novo>=1 && novo<=max) {
                     this.quantidades[sku] = novo;
-                    document.getElementById(`qtd-display-${sku}`).innerText = novo;
+                    const el = document.getElementById(`qtd-${sku}`);
+                    if(el) el.innerText = novo;
                 }
             },
-            adicionarAoCarrinho(sku, nome) {
-                const qtd = this.quantidades[sku] || 1;
+
+            addCarrinho(sku, nome, qtdOverride=null) {
+                const qtd = qtdOverride || (this.quantidades[sku] || 1);
                 this.carrinho += qtd;
                 document.getElementById('cart-badge').innerText = this.carrinho;
                 alert(`Adicionado: ${qtd}x ${nome}`);
                 this.quantidades[sku] = 1;
-                const d = document.getElementById(`qtd-display-${sku}`);
-                if(d) d.innerText = 1;
+                const el = document.getElementById(`qtd-${sku}`);
+                if(el) el.innerText = 1;
+            },
+
+            loopBanner() { setInterval(() => { this.bannerIndex = this.bannerIndex===0?1:0; this.attBanner(); }, 5000); },
+            mudarBanner(i) { this.bannerIndex=i; this.attBanner(); },
+            attBanner() {
+                document.getElementById('bannerTrack').style.transform = `translateX(-${this.bannerIndex*100}%)`;
+                document.querySelectorAll('.pb-dot').forEach((d,i)=>d.classList.toggle('active', i===this.bannerIndex));
             },
             toggleMenu() {
                 document.getElementById('sidebar').classList.toggle('active');
