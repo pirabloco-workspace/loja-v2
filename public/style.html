@@ -1,0 +1,259 @@
+<style>
+  /* =================================================================
+     ARQUIVO: style.html (Versão Final - Botão Embaixo / Mobile Perfeito)
+     ================================================================= */
+
+  :root {
+    --pb-turq-dark: #1c5e68;
+    --pb-turq-main: #449bb2;
+    --pb-turq-light: #e0f2f1;
+    --pb-bg-page: #f2f2f2;
+    --pb-text-title: #0d252c;
+    --pb-text-body:  #111827;
+    --pb-text-muted: #64748b;
+    --pb-danger: #ef4444;
+    --pb-danger-bg: #fee2e2;
+  }
+
+  * { box-sizing: border-box; }
+  
+  body { 
+    margin: 0; 
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+    background: var(--pb-bg-page); 
+    color: var(--pb-text-body); 
+    -webkit-tap-highlight-color: transparent; 
+  }
+
+  /* =========================
+     1. BANNER (ALINHADO)
+     ========================= */
+  .pb-bannerWrap { 
+    width: 100%;
+    max-width: 1112px; 
+    margin: 0 auto;
+    padding: 16px 16px 0;
+    overflow: hidden; 
+  }
+  
+  .pb-banner {
+    width: 100%; 
+    border-radius: 20px; 
+    position: relative; 
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(28, 94, 104, 0.08);
+    aspect-ratio: 3.5/1; 
+    background: #e5e5e5;
+  }
+
+  @media (max-width: 600px) { 
+    .pb-banner { aspect-ratio: 16/9; } 
+  }
+
+  .pb-bannerTrack { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+  .pb-bannerSlide { min-width: 100%; height: 100%; display: none; }
+  .pb-bannerSlide.is-active { display: block; animation: fadeIn 0.6s ease; }
+  .pb-bannerSlide img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes fadeIn { from { opacity: 0.6; } to { opacity: 1; } }
+  
+  .pb-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+  .pb-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); transition: 0.3s; }
+  .pb-dot.is-active { width: 24px; border-radius: 10px; background: #fff; }
+
+  /* =========================
+     2. CONTROLES (ALINHADO)
+     ========================= */
+  .pb-controls {
+    width: 100%; 
+    max-width: 1112px; 
+    margin: 0 auto;
+    padding: 16px; 
+    
+    display: flex; gap: 10px; align-items: center;
+    position: relative; top: 0; z-index: 10;
+    background: var(--pb-bg-page); 
+    margin-bottom: 10px;
+  }
+
+  .pb-searchBox {
+    flex: 1; display: flex; align-items: center;
+    background: #fff; border-radius: 12px; padding: 0 16px; height: 48px;
+    border: 1px solid rgba(0,0,0,0.05); 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: all 0.2s;
+  }
+  .pb-searchBox:focus-within { border-color: var(--pb-turq-main); box-shadow: 0 4px 12px rgba(68, 155, 178, 0.15); }
+  .pb-searchBox svg { color: var(--pb-text-muted); width: 20px; height: 20px; flex-shrink: 0; }
+  .pb-searchInput { border: none; outline: none; font-size: 16px; width: 100%; height: 100%; margin-left: 10px; background: transparent; color: var(--pb-text-body); font-weight: 600; }
+
+  .pb-soldBtn {
+    background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 12px;
+    padding: 0 16px; height: 48px;
+    font-weight: 700; color: var(--pb-text-muted); font-size: 12px;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+  }
+  .pb-soldBtn:active { transform: scale(0.96); }
+  .pb-soldBtn.is-active { background: var(--pb-danger-bg); color: var(--pb-danger); border-color: #fecaca; }
+
+  /* =========================
+     3. GRADE DE PRODUTOS
+     ========================= */
+  .pb-gridWrap { 
+    width: 100%; 
+    max-width: 1112px; 
+    margin: 0 auto;
+    padding: 0 16px 40px; 
+    
+    min-height: 50vh; 
+  }
+  
+  .pb-productsGrid {
+    display: grid; gap: 16px;
+    animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 899px) { .pb-productsGrid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+  @media (min-width: 900px) { .pb-productsGrid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+
+  /* CARD ATUALIZADO */
+  .pb-productCard {
+    background: #fff; border-radius: 20px; padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex; flex-direction: column; gap: 8px;
+    position: relative; transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; border: 1px solid transparent;
+    height: 100%;
+  }
+  .pb-productCard:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.05); }
+  .pb-productCard.is-oos { opacity: 0.75; filter: grayscale(1); }
+
+  .pb-productMedia {
+    background: #f8fafc; border-radius: 14px; aspect-ratio: 1/1; 
+    display: grid; place-items: center; overflow: hidden; margin-bottom: 2px;
+  }
+  .pb-productMedia img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.3s; }
+  .pb-productCard:hover .pb-productMedia img { transform: scale(1.08); }
+
+  .pb-productName {
+    font-size: 13px; font-weight: 700; margin: 0;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; height: 2.8em; line-height: 1.4; color: var(--pb-text-title);
+  }
+
+  .pb-priceRow { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+  .pb-price { font-size: 15px; font-weight: 900; color: var(--pb-turq-dark); }
+  .pb-stockLabel { font-size: 10px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+
+  /* --- AQUI ESTÁ A MUDANÇA: BOTÕES EMPILHADOS --- */
+  .pb-cardActions {
+    display: flex; 
+    flex-direction: column; /* Joga um pra baixo do outro */
+    gap: 8px; /* Espaço entre contador e botão */
+    margin-top: 6px;
+    width: 100%;
+  }
+
+  .pb-qtyControl {
+    display: flex; align-items: center; justify-content: space-between;
+    border: 1px solid #e2e8f0; border-radius: 8px;
+    overflow: hidden;
+    height: 32px; /* Altura do contador */
+    width: 100%;
+  }
+  
+  .pb-qtyBtn {
+    width: 36px; height: 100%; border: none; background: #f8fafc;
+    color: var(--pb-turq-dark); font-weight: bold; cursor: pointer; font-size: 18px;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+  }
+  .pb-qtyBtn:hover { background: #e0f2f1; }
+  
+  .pb-qtyInput {
+    flex: 1; /* Estica no meio */
+    height: 100%; border: none; text-align: center;
+    font-weight: 700; font-size: 14px; color: var(--pb-text-body);
+    background: #fff; -moz-appearance: textfield;
+  }
+  .pb-qtyInput::-webkit-outer-spin-button,
+  .pb-qtyInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  .pb-ctaBtn {
+    width: 100%; /* Largura total */
+    height: 36px; /* Altura boa pra dedo */
+    border: none; border-radius: 8px;
+    background: linear-gradient(135deg, #1c5e68, #449bb2);
+    color: #fff; font-weight: 800; text-transform: uppercase; cursor: pointer;
+    font-size: 11px; letter-spacing: 0.5px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pb-ctaBtn:active { transform: scale(0.98); }
+  .pb-ctaBtn:disabled { background: #cbd5e1; cursor: not-allowed; transform: none; }
+
+  /* =========================
+     4. PAGINAÇÃO
+     ========================= */
+  .pb-paginationWrap {
+    display: flex; justify-content: center; align-items: center; gap: 6px;
+    padding: 24px 0; margin: 0 auto; flex-wrap: wrap;
+  }
+  .pb-pageBtn {
+    min-width: 40px; height: 40px; border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.08); background: #fff;
+    color: var(--pb-text-body); font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s; user-select: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .pb-pageBtn:hover { border-color: var(--pb-turq-main); color: var(--pb-turq-dark); transform: translateY(-1px); }
+  .pb-pageBtn.is-current { background: var(--pb-turq-dark); color: #fff; border-color: var(--pb-turq-dark); box-shadow: 0 4px 10px rgba(28, 94, 104, 0.2); }
+  .pb-pageBtn:disabled { opacity: 0.4; cursor: default; border-color: transparent; background: transparent; box-shadow: none; }
+
+  /* =========================
+     5. DECK & MODAL
+     ========================= */
+  .pb-deckSection { width: 100%; max-width: 1112px; margin: 0 auto; padding: 0 16px 60px; }
+  .pb-deckTitle { margin: 20px 0 15px; font-size: 18px; font-weight: 800; color: var(--pb-turq-dark); }
+  .pb-deckGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pb-deckCard { background: #fff; border-radius: 16px; padding: 16px 8px; text-align: center; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: transform 0.2s; border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pb-deckCard:hover { transform: translateY(-3px); border-color: var(--pb-turq-main); }
+  .pb-deckImg { width: 56px; height: 56px; border-radius: 50%; background: var(--pb-turq-light); display: flex; align-items: center; justify-content: center; padding: 12px; }
+  .pb-deckImg img { width: 100%; height: 100%; object-fit: contain; }
+  .pb-deckName { font-size: 12px; font-weight: 700; color: var(--pb-text-body); }
+
+  /* MODAL */
+  .pb-modal { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .pb-modal.is-open { display: flex; }
+  .pb-modalOverlay { position: absolute; inset: 0; background: rgba(13, 37, 44, 0.85); backdrop-filter: blur(4px); }
+  .pb-modalPanel { position: relative; z-index: 10000; width: min(900px, 100%); background: #fff; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; }
+  .pb-modalHeader { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #f1f5f9; }
+  .pb-modalTitle { margin: 0; font-size: 18px; font-weight: 800; color: var(--pb-text-title); }
+  .pb-modalClose { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .pb-modalGrid { flex: 1; overflow-y: auto; padding: 20px 24px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
+  .pb-modalImgBox { display: flex; justify-content: center; background: #f8fafc; border-radius: 16px; padding: 10px; }
+  .pb-modalImgBox img { width: 100%; max-height: 350px; object-fit: contain; }
+  .pb-thumbs { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .pb-thumb { width: 50px; height: 50px; border: 2px solid transparent; border-radius: 8px; cursor: pointer; padding: 2px; }
+  .pb-thumb.is-active { border-color: var(--pb-turq-main); }
+  .pb-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .pb-modalInfo { display: flex; flex-direction: column; gap: 12px; }
+  .pb-modalSku { font-size: 12px; font-weight: 700; color: var(--pb-turq-main); text-transform: uppercase; letter-spacing: 0.5px; }
+  .pb-modalPrice { font-size: 28px; font-weight: 900; color: var(--pb-turq-dark); }
+  .pb-modalDesc { font-size: 15px; line-height: 1.6; color: #334155; }
+  .pb-chip { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; background: #f1f5f9; color: var(--pb-turq-dark); width: fit-content; }
+  .pb-chip.is-sold { background: #fee2e2; color: #ef4444; }
+  .pb-qtyRow { display: flex; gap: 10px; margin-top: 20px; align-items: center; }
+  .pb-qtyInput { border: 1px solid #cbd5e1; border-radius: 10px; width: 60px; height: 44px; text-align: center; font-weight: 700; font-size: 16px; }
+
+  @media (max-width: 650px) {
+    .pb-modal { padding: 0; align-items: flex-end; }
+    .pb-modalPanel { max-height: 85vh; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .pb-modalGrid { display: flex; flex-direction: column; gap: 20px; padding-bottom: 40px; }
+    .pb-modalImgBox img { max-height: 220px; }
+    .pb-qtyRow { margin-top: auto; }
+  }
+
+  #pbToast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1f2937; color: #fff; padding: 12px 24px; border-radius: 30px; z-index: 11000; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: none; }
+</style>
+

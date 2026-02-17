@@ -1,0 +1,1085 @@
+{
+  "_meta": {
+    "versao": 2,
+    "moeda": "BRL",
+    "atualizadoEm": "2026-02-08",
+    "observacao": "Estrutura oficial Percival Brics. Produtos são chaves por SKU-base.",
+    "unidades": {
+      "peso": "kg",
+      "dimensoes": "cm",
+      "preco": "centavos"
+    },
+    "melhorEnvio": {
+      "camposBase": ["weightKg", "widthCm", "heightCm", "lengthCm"],
+      "nota": "No Melhor Envio: dimensões em cm, peso em kg e valores em reais. Aqui guardamos preço/seguro em centavos; ao enviar ao ME, converter centavos->reais (÷100). Para produtos com variantes, usar sempre a ME da variante (me da variante tem prioridade)."
+    }
+  },
+
+  "I001": {
+    "tipo": "I",
+    "nome": "LEGO Qui Gon Jinn - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75383-1 - código sw1334b - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 4 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I002": {
+    "tipo": "I",
+    "nome": "LEGO R2-E6 - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75348-1 - código sw1261 - 100% Original LEGO.",
+    "precoCentavos": 7200,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 7200
+    }
+  },
+
+  "I003": {
+    "tipo": "I",
+    "nome": "LEGO Dr. Eggman (Ivo Robotnik) - NOVO - Original",
+    "tema": "Sonic",
+    "descricao": "Retirado do Set 76994-1 - código son003 - 100% Original LEGO.",
+    "precoCentavos": 15000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 15000
+    }
+  },
+
+  "I004": {
+    "tipo": "I",
+    "nome": "LEGO Amy Rose - NOVO - Original",
+    "tema": "Sonic",
+    "descricao": "Retirado do Set 76994-1 - código son005 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I005": {
+    "tipo": "I",
+    "nome": "LEGO Batman - NOVO - Original",
+    "tema": "DC Comics",
+    "descricao": "Retirado do Set 76274-1 - código sh0962 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I006": {
+    "tipo": "I",
+    "nome": "LEGO Minnie - NOVO - Original",
+    "tema": "Disney",
+    "descricao": "Retirado do Set 10776-1 - código dis051 - 100% Original LEGO.",
+    "precoCentavos": 10000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 10000
+    }
+  },
+
+  "I007": {
+    "tipo": "I",
+    "nome": "LEGO Jafar - NOVO - Original",
+    "tema": "Disney",
+    "descricao": "Retirado do Set 43227-1 - código dis130 - 100% Original LEGO.",
+    "precoCentavos": 14000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 14000
+    }
+  },
+
+  "I008": {
+    "tipo": "I",
+    "nome": "LEGO Gandalf - NOVO - Original",
+    "tema": "Senhor dos Aneis",
+    "descricao": "Retirado do Set 110316-1 - código lor125 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I009": {
+    "tipo": "I",
+    "nome": "LEGO Rúbeo Hagrid - NOVO - Original",
+    "tema": "Harry Potter",
+    "descricao": "Retirado do Set 75958-1 - código hp200 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I010": {
+    "tipo": "I",
+    "nome": "LEGO Mickey Bombeiro - NOVO - Original",
+    "tema": "Disney",
+    "descricao": "Retirado do Set 10776-1 - código dis051 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I011": {
+    "tipo": "I",
+    "nome": "LEGO Toad Azul - NOVO - Original",
+    "tema": "Super Mario",
+    "descricao": "Retirado do Set 71419-1 - código mar0144 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+
+  "I012": {
+    "tipo": "I",
+    "nome": "LEGO RDA Quaritch  - NOVO - Original",
+    "tema": "Avatar",
+    "descricao": "Na'vi - Retirado do Set 75577-1 - código avt018 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": {
+      "weightKg": 0.03,
+      "widthCm": 12,
+      "heightCm": 4,
+      "lengthCm": 16,
+      "insuranceValueCentavos": 12000
+    }
+  },
+  
+  "P0001": {
+    "tipo": "P",
+    "nome": "LEGO Slope Curved 2 x 1 x 1 1/3 - Dark TAN - NOVO - Original",
+    "tema": "Slopes",
+    "descricao": " Retirado de sets lacrados código 6091 - 100% Original LEGO.",
+    "precoCentavos": 30,
+    "estoque": 40,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.01, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 2, "insuranceValueCentavos": 30 }
+  },
+
+  "A001": {
+    "tipo": "A",
+    "nome": "Taça Dourada  - NOVO - Original",
+    "tema": "Utensílios",
+    "descricao": " Pearl Gold - Retirado de sets lacrados - código 6091 - 100% Original LEGO.",
+    "precoCentavos": 50,
+    "estoque": 40,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 50 }
+  },
+
+  "I013": {
+    "tipo": "I",
+    "nome": "LEGO Feiticeira Escarlate – NOVO – Original",
+    "tema": "Marvel",
+    "descricao": "Retirado do set 71031-1 - código colmar-1 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 12000 }
+  },
+
+  "I014": {
+    "tipo": "I",
+    "nome": "LEGO C-3PO - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do set  75339-1 - código sw1201 - 100% Original LEGO.",
+    "precoCentavos": 5000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 5000 }
+  },
+
+  "I015": {
+    "tipo": "I",
+    "nome": "LEGO Doutor Estranho - NOVO - Original",
+    "tema": "Marvel",
+    "descricao": "Retirado do set 76205-1 - código sh0802 - 100% Original LEGO.",
+    "precoCentavos": 6200,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6200 }
+  },
+
+  "I016": {
+    "tipo": "I",
+    "nome": "LEGO Boba Fett - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75326-1 - código sw1158 - 100% Original LEGO.",
+    "precoCentavos": 6900,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6900 }
+  },
+
+  "I017": {
+    "tipo": "I",
+    "nome": "3x LEGO Minifiguras Bith Musician  - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75052-1  - código sw0554 - 100% Original LEGO.",
+    "precoCentavos": 30000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 30000 }
+  },
+
+  "I018": {
+    "tipo": "I",
+    "nome": "4x LEGO Minifiguras -  Fundadores de Hogwarts - NOVO - Original",
+    "tema": "Harry Potter",
+    "descricao": "Retirado do Set 71043-1 - código hp162 + hp161 + hp160 + hp159 - 100% Original LEGO.",
+    "precoCentavos": 80000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 80000 }
+  },
+
+  "I019": {
+    "tipo": "I",
+    "nome": "3x LEGO Minifiguras Dourada - NOVO - Original",
+    "tema": "Harry Potter",
+    "descricao": "Comemoração os 20 anos de Harry Potter - Retirado do Set 76391-1 - código hp322 + hp323 + hp324 - 100% Original LEGO.",
+    "precoCentavos": 86000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 86000 }
+  },
+
+  "I020": {
+    "tipo": "I",
+    "nome": "LEGO Visão Branco - NOVO - Original",
+    "tema": "Marvel",
+    "descricao": "Retirado do Set 71031-2 - código colmar-2 - 100% Original LEGO.",
+    "precoCentavos": 9200,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 9200 }
+  },
+
+  "I021": {
+    "tipo": "I",
+    "nome": "LEGO Ron Weasley Dourado - NOVO - Original",
+    "tema": "Harry Potter",
+    "descricao": "Peral Gold - Ron Weasley 20 Anos de HP - Retirado do Set 76388-1  - código hp294 - 100% Original LEGO.",
+    "precoCentavos": 6000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6000 }
+  },
+
+  "I022": {
+    "tipo": "I",
+    "nome": "LEGO Pom Pom - NOVO - Original",
+    "tema": "Super Mario",
+    "descricao": "Retirado do Set 71419-1 - código mar0142 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 12000 }
+  },
+
+  "I023": {
+    "tipo": "I",
+    "nome": "LEGO Kamek - NOVO - Original",
+    "tema": "Super Mario",
+    "descricao": "Retirado do Set 71440-1 - código mar0185 - 100% Original LEGO.",
+    "precoCentavos": 6000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 15500 }
+  },
+
+  "I024": {
+    "tipo": "I",
+    "nome": "Gaston - NOVO - Original",
+    "tema": "Disney",
+    "descricao": "Retirado do Set 43227-1 - código dis129 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 12000 }
+  },
+
+  "I025": {
+    "tipo": "I",
+    "nome": "Darth Maul NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75310-1 - código sw1155 - 100% Original LEGO.",
+    "precoCentavos": 8900,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8900 }
+  },
+
+  "I026": {
+    "tipo": "I",
+    "nome": "Crossbones - NOVO - Original",
+    "tema": "Marvel",
+    "descricao": "Retirado do set 76050-1- código sh0262 - 100% Original LEGO.",
+    "precoCentavos": 4700,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 4700 }
+  },
+
+  "I027": {
+    "tipo": "I",
+    "nome": "Capitão Antilles - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do set 75387-1- código sw1328 - 100% Original LEGO.",
+    "precoCentavos": 3500,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 4 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 3500 }
+  },
+
+  "I028": {
+    "tipo": "I",
+    "nome": "Arc Fives Trooper - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75387-1 - código sw1329 - 100% Original LEGO.",
+    "precoCentavos": 12500,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 12500 }
+  },
+
+  "I029": {
+    "tipo": "I",
+    "nome": "Bib Fortuna - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75326-1 - código sw1193 - 100% Original LEGO.",
+    "precoCentavos": 11600,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 11600 }
+  },
+
+  "I030": {
+    "tipo": "I",
+    "nome": "LEGO Comandante Mandaloriano - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Fleet Mandaloroan - Retirado do Set 75348-1 - código sw1259 - 100% Original LEGO.",
+    "precoCentavos": 9000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 9000 }
+  },
+
+  "I031": {
+    "tipo": "I",
+    "nome": "LEGO Darth Vader - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75334-1 - código sw1228 - 100% Original LEGO.",
+    "precoCentavos": 9000,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 9000 }
+  },
+
+  "I032": {
+    "tipo": "I",
+    "nome": "LEGO Clone Trooper, 501st - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Minifigura 100% Original LEGO. Preencha set/código ao cadastrar.",
+    "precoCentavos": 6300,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6300 }
+  },
+
+  "I033": {
+    "tipo": "I",
+    "nome": "LEGO Vice Admiral Sloane - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75347-1 - código sw1250 - 100% Original LEGO.",
+    "precoCentavos": 8500,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8500 }
+  },
+
+  "I034": {
+    "tipo": "I",
+    "nome": "LEGO Mandaloriano - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75267-1 - código sw1080 - 100% Original LEGO.",
+    "precoCentavos": 8900,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8900 }
+  },
+
+  "I035": {
+    "tipo": "I",
+    "nome": "LEGO Princesa Leia - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75339-1 - código sw0994 - 100% Original LEGO.",
+    "precoCentavos": 8900,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8900 }
+  },
+  
+  "I036": {
+    "tipo": "I",
+    "nome": "LEGO Han Solo - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75326-1 - código sw1193 - 100% Original LEGO.",
+    "precoCentavos": 11600,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 11600 }
+  },
+
+  "I037": {
+    "tipo": "I",
+    "nome": "LEGO Garota com Pijama - NOVO - Original",
+    "tema": "Pajama Girl, Series 20 Collectible Minifigures",
+    "descricao": " Retirado do Set 71027-2 - código col20-15 - 100% Original LEGO.",
+    "precoCentavos": 5700,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 5700 }
+  },
+
+  "I038": {
+    "tipo": "I",
+    "nome": "LEGO Alan Grant - NOVO - Original",
+    "tema": "Jurassic World",
+    "descricao": " Retirado do Set 75932-1 - código jw019 - 100% Original LEGO.",
+    "precoCentavos": 6300,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6300 }
+  },
+
+  "I039": {
+    "tipo": "I",
+    "nome": "LEGO Cavalheiro Urso - NOVO - Original",
+    "tema": "Medieval",
+    "descricao": " Retirado do Set 71011-2  - código col15-3 - Series 20 - 100% Original LEGO.",
+    "precoCentavos": 28800,
+    "estoque": 0,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 28800 }
+  },
+
+  "I040": {
+    "tipo": "I",
+    "nome": "LEGO Dra. Ellie Sattler - NOVO - Original",
+    "tema": "Jurassic World",
+    "descricao": " Retirado do Set 75932-1 - código jw028 - 100% Original LEGO.",
+    "precoCentavos": 5500,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 5500 }
+  },
+  
+  "I041": {
+    "tipo": "I",
+    "nome": "LEGO Neytiri - NOVO - Original",
+    "tema": "Avatar",
+    "descricao": " Retirado do Set 75572-1 - código avt012 - 100% Original LEGO.",
+    "precoCentavos": 7000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 7000 }
+  },
+     
+  "P0002": {
+    "tipo": "P",
+    "nome": "LEGO Arch 1x3x2 - Caramelo - NOVO - Original",
+    "tema": "Outras",
+    "descricao": "Medium Nougat - Arch 1 x 3 x 2 with Curved End Medium Nougat - Retirado de sets lacrados código 88292 - 100% Original LEGO.",
+    "precoCentavos": 30,
+    "estoque": 8,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 30 }
+  },
+  
+  "P0003": {
+    "tipo": "P",
+    "nome": "LEGO Plate Round 1x1 - Medium Nougat - NOVO - Original",
+    "tema": "Plates",
+    "descricao": " Retirado de sets lacrados código 4073 - 100% Original LEGO.",
+    "precoCentavos": 10,
+    "estoque": 78,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.01, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 2, "insuranceValueCentavos": 10 }
+  },
+  
+  "A002": {
+    "tipo": "A",
+    "nome": "LEGO Janela - NOVO - Original",
+    "tema": "Móveis",
+    "descricao": "Redish Brown + Dark Tan  Retirado de sets lacrados - código 60594 + 2x 60614 - 100% Original LEGO.",
+    "precoCentavos": 500,
+    "estoque": 2,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.01, "widthCm": 0.03, "heightCm": 0.03, "lengthCm": 3, "insuranceValueCentavos": 500 }
+  },
+  
+  "P0004": {
+    "tipo": "P", 
+    "nome": "LEGO Porta 1x6x7 - Cinza Claro - NOVO - Original",
+    "tema": "Plates",
+    "descricao": "Door, Frame 1 x 6 x 7 Arched -  Retirado de sets lacrados código 4073 - 100% Original LEGO.",
+    "precoCentavos": 50,
+    "estoque": 5,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.01, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 2, "insuranceValueCentavos": 50 }
+  },
+  
+  "I042": {
+    "tipo": "I",
+    "nome": "LEGO Kiri - NOVO - Original",
+    "tema": "Avatar",
+    "descricao": " Retirado do Set 75578-1- código avt027 - 100% Original LEGO.",
+    "precoCentavos": 8800,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8800 }
+  },
+     
+  "P0005": {
+    "tipo": "P", 
+    "nome": "LEGO Cerca 1x4x2 Dourada - NOVO - Original",
+    "tema": "Outras",
+    "descricao": "Pearl Gold - Fence 1 x 4 x 2 Spindled with 4 Studs Retirado de sets lacrados código 15332 - 100% Original LEGO.",
+    "precoCentavos": 150,
+    "estoque": 6,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.02, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 150 }
+  },
+  
+  "I043": {
+    "tipo": "I",
+    "nome": "LEGO Jake Sully - NOVO - Original",
+    "tema": "Avatar",
+    "descricao": "Jake Sully - Na'vi, Toruk Makto - Retirado do Set 75574-1 - código avt006 - 100% Original LEGO.",
+    "precoCentavos": 8800,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8800 }
+  },
+     
+  "P0006": {
+    "tipo": "P", 
+    "nome": "LEGO Plate Round 2x2 - Medium Nougat - NOVO - Original",
+    "tema": "Plates",
+    "descricao": "Plate, Round 2x2 with Axle Hole Retirado de sets lacrados código 4032 - 100% Original LEGO.",
+    "precoCentavos": 10,
+    "estoque": 10,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.02, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 10 }
+  },
+  
+  "I044": {
+    "tipo": "I",
+    "nome": "LEGO Guerreiro Dourado - NOVO - Original",
+    "tema": "Collectible Minifigures",
+    "descricao": "Pearl Gold - Flying Warrior, Series 15 - Retirado do Set 71011-2 - código col15-6 - 100% Original LEGO.",
+    "precoCentavos": 7000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 7000 }
+  },
+     
+  "I045": {
+    "tipo": "I",
+    "nome": "LEGO Yoshi Rosa - NOVO - Original",
+    "tema": "Super Mario",
+    "descricao": "Pink Yoshi - Retirado do Set 71419-1 - código mar0143 - 100% Original LEGO.",
+    "precoCentavos": 5000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 5000 }
+  },
+  
+  "I046": {
+    "tipo": "I",
+    "nome": "LEGO Recruta Imperial - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Recruitment Officer Retirado do Set 75207-1 - código sw0913 - 100% Original LEGO.",
+    "precoCentavos": 8000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8000 }
+  },
+     
+  "I047": {
+    "tipo": "I",
+    "nome": "LEGO Skeleton - NOVO - Original",
+    "tema": "Medieval",
+    "descricao": " Retirado do Set 21322-1 - código gen047 - 100% Original LEGO.",
+    "precoCentavos": 2700,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 2700 }
+  },
+     
+  "P0007": {
+    "tipo": "P", 
+    "nome": "LEGO Plate 1x3 - Verde Escuro - NOVO - Original",
+    "tema": "Plates",
+    "descricao": "Dark Green - Retirado de sets lacrados código 3623 - 100% Original LEGO.",
+    "precoCentavos": 30,
+    "estoque": 10,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.02, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 30 }
+  },
+  
+  "I048": {
+    "tipo": "I",
+    "nome": "LEGO Centauro Quiver - NOVO - Original",
+    "tema": "Harry Potter",
+    "descricao": " Retirado do Set 75967-1 - código hp236a - 100% Original LEGO.",
+    "precoCentavos": 8300,
+    "estoque": 4,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 8300 }
+  },
+
+  "I049": {
+    "tipo": "I",
+    "nome": "LWGO Snape - NOVO - Original",
+    "tema": "Harry Potter",
+    "descricao": "Professor Snape Boggart - Retirado do Set 5005254-1 - código hp173 - 100% Original LEGO.",
+    "precoCentavos": 22700,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 22700 }
+  },
+     
+  "I050": {
+    "tipo": "I",
+    "nome": "LEGO Knuckles - Grin - NOVO - Original",
+    "tema": "Sonic",
+    "descricao": " Retirado do Set 76996-1 - código son016 - 100% Original LEGO.",
+    "precoCentavos": 10000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 10000 }
+  },
+     
+  "I051": {
+    "tipo": "I",
+    "nome": "LEGO Cachorrinho Caramelo - NOVO - Original",
+    "tema": "Sonic",
+    "descricao": "Cachorrinho Medium Nougat do Sonic Retirado do Set 76994-1 - código 69901pb10 - 100% Original LEGO.",
+    "precoCentavos": 2200,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 2200 }
+  },
+     
+  "I052": {
+    "tipo": "I",
+    "nome": "LEGO Passarinho Preto - NOVO - Original",
+    "tema": "Sonic",
+    "descricao": "Passarinho Black do Sonic -  Retirado do Set 76994-1 - código 3918pb04 - 100% Original LEGO.",
+    "precoCentavos": 2200,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 2200 }
+  },
+     
+  "I053": {
+    "tipo": "I",
+    "nome": "LEGO Passarinho Branco - NOVO - Original",
+    "tema": "Sonic",
+    "descricao": "Passarinho white do Sonic Retirado do Set 76991-1 - código 3918pb02 - 100% Original LEGO.",
+    "precoCentavos": 1200,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 1200 }
+  },
+     
+  "A003": {
+    "tipo": "A",
+    "nome": "LEGO Tile 2x2 Printada - Black  - NOVO - Original",
+    "tema": "Super Mario",
+    "descricao": "Tile 2 x 2 with Super Mario Scanner Code Retirado de sets lacrados - código 3068pb1379 - 100% Original LEGO.",
+    "precoCentavos": 200,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 200 }
+  },
+  
+  "A004": {
+    "tipo": "A",
+    "nome": "LEGO Bandeira do Bowser - NOVO - Original",
+    "tema": "Super Mario",
+    "descricao": " Tile Modified 2 x 3 - Retirado de sets lacrados - código 30350bpb111 - 100% Original LEGO.",
+    "precoCentavos": 300,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 300 }
+  },
+  
+  "P0008": {
+    "tipo": "P", 
+    "nome": "LEGO Plate 2x4 - Medium Nougat - NOVO - Original",
+    "tema": "Plates",
+    "descricao": " Retirado de sets lacrados código 3020 - 100% Original LEGO.",
+    "precoCentavos": 40,
+    "estoque": 15,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/pecas", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.02, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 40 }
+  },
+  
+  "A005": {
+    "tipo": "A",
+    "nome": "LEGO Garrafa - transclear green - NOVO - Original",
+    "tema": "Utensílios",
+    "descricao": " Retirado de sets lacrados - código 95228 - 100% Original LEGO.",
+    "precoCentavos": 300,
+    "estoque": 40,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 300 }
+  },
+  
+  "I054": {
+    "tipo": "I",
+    "nome": "LEGO Han Solo Stormtrooper - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": " Retirado do Set 75339-1 - código sw1204 - 100% Original LEGO.",
+    "precoCentavos": 5500,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 5500 }
+  },
+     
+  "I055": {
+    "tipo": "I",
+    "nome": "LEGO Raphael - NOVO - Original",
+    "tema": "As Tartarugas Ninja",
+    "descricao": " Tartaruga Ninja Vermelha - Retirado do Set 79116-1 - código tnt045 - 100% Original LEGO.",
+    "precoCentavos": 13000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 13000 }
+  },
+     
+  "I056": {
+    "tipo": "I",
+    "nome": "LEGO April O'Neil - NOVO - Original",
+    "tema": "As Tartarugas Ninja",
+    "descricao": "Retirado do Set 79116-1 - código tnt046 - 100% Original LEGO.",
+    "precoCentavos": 13000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 13000 }
+  },
+     
+  "I057": {
+    "tipo": "I",
+    "nome": "LEGO Victor - NOVO - Original",
+    "tema": "Tartarugas Ninjas",
+    "descricao": "Retirado do Set 79119-1 - código tnt045 - 100% Original LEGO.",
+    "precoCentavos": 3000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 3000 }
+  },
+     
+  "I058": {
+    "tipo": "I",
+    "nome": "LEGO Monica Geller - NOVO - Original",
+    "tema": "Friends TV",
+    "descricao": "Retirado do Set 21319-1 - código idea057 - 100% Original LEGO.",
+    "precoCentavos": 2000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 2000 }
+  },
+     
+  "A006": {
+    "tipo": "A",
+    "nome": "LEGO Janelinha com vidro - laranja - NOVO - Original",
+    "tema": "Móveis",
+    "descricao": "Window 1 x 2 x 2 Flat Front - Retirado de sets lacrados - código 95228 - 100% Original LEGO.",
+    "precoCentavos": 200,
+    "estoque": 15,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.01, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 200 }
+  },
+  
+  "I059": {
+    "tipo": "I",
+    "nome": "LEGO Taun We - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Retirado do Set 75333-1 - código sw1216 - 100% Original LEGO.",
+    "precoCentavos": 9000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 9000 }
+  },
+     
+  "I060": {
+    "tipo": "I",
+    "nome": "LEGO Dr. Alan Grant - NOVO - Original",
+    "tema": "Jurassic World",
+    "descricao": "Retirado do Set 76956-1 - código jw096 - 100% Original LEGO.",
+    "precoCentavos": 6800,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6800 }
+  },
+     
+  "I061": {
+    "tipo": "I",
+    "nome": "LEGO Protetor de animais - NOVO - Original",
+    "tema": "City",
+    "descricao": "Wildlife Rescue Worker - Retirado do Set 60302-1 - código cty1306 - 100% Original LEGO.",
+    "precoCentavos": 2500,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 2500 }
+  },
+     
+  "I062": {
+    "tipo": "I",
+    "nome": "LEGO Hulk - NOVO - Original",
+    "tema": "Marvel",
+    "descricao": "Big Figure Hulk com o uniforme de viagem no tempo - Retirado do Set 76144-1 - código sh0611 - 100% Original LEGO.",
+    "precoCentavos": 30000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 30000 }
+  },
+     
+  "I063": {
+    "tipo": "I",
+    "nome": "LEGO Almirante Thrawn  - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Grand Admiral Thrawn - Retirado do Set 75385-1 - código sw1356 - 100% Original LEGO.",
+    "precoCentavos": 12000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 12000 }
+  },
+     
+  "I064": {
+    "tipo": "I",
+    "nome": "LEGO T-Rex - NOVO - Original",
+    "tema": "Jurassic World",
+    "descricao": "Tiranossauro Rex Jurassic Park - Retirado do Set 75385-1 - código trex11 - 100% Original LEGO.",
+    "precoCentavos": 32000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 32000 }
+  },
+     
+  "I065": {
+    "tipo": "I",
+    "nome": "LEGO Astromech Droid, New Republic - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": " Retirado do Set 75364-1 - código sw1291 - 100% Original LEGO.",
+    "precoCentavos": 7000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 2 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 7000 }
+  },
+     
+  "I066": {
+    "tipo": "I",
+    "nome": "LEGO Morgan - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": " Morgan Elsbeth - Black Skirt - Retirado do Set 75364-1 - código sw1290 - 100% Original LEGO.",
+    "precoCentavos": 6500,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 6500 }
+  },
+     
+  "I067": {
+    "tipo": "I",
+    "nome": "LEGO Capitão Porter - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": "Captain Porter Retirado do Set 75364-1 - código sw1289 - 100% Original LEGO.",
+    "precoCentavos": 7000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 7000 }
+  },
+     
+  "I068": {
+    "tipo": "I",
+    "nome": "LEGO Sargento Hunter - NOVO - Original",
+    "tema": "Star Wars",
+    "descricao": " Clone Commando Sergeant Hunter - Retirado do Set 75314-1 - código sw1148 - 100% Original LEGO.",
+    "precoCentavos": 15000,
+    "estoque": 1,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/itens", "ext": "webp", "qtd": 3 },
+    "me": { "weightKg": 0.03, "widthCm": 12, "heightCm": 4, "lengthCm": 16, "insuranceValueCentavos": 15000 }
+  },
+     
+  "P0009": {
+    "tipo": "P",
+    "nome": "Tile Modificada 2x3 - Azul escuro - NOVO - Original",
+    "tema": "Tiles",
+    "descricao": " Tile, Modified 2 x 3 Pentagonal - Dark Blue - Retirado de sets lacrados - código 6091 - 100% Original LEGO.",
+    "precoCentavos": 50,
+    "estoque": 40,
+    "ativo": true,
+    "imagens": { "pasta": "imagens/acessorios", "ext": "webp", "qtd": 1 },
+    "me": { "weightKg": 0.03, "widthCm": 0.02, "heightCm": 0.01, "lengthCm": 3, "insuranceValueCentavos": 50 }
+  }
+}
