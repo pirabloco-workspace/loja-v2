@@ -25,32 +25,15 @@
         .pb-header-icons { display: flex; align-items: center; gap: 15px; }
         .pb-icon { color: var(--pb-light); cursor: pointer; display: flex; align-items: center; }
 
-        /* BANNER COM SWIPE */
+        /* BANNER */
         .pb-banner-container { width: 100%; position: relative; overflow: hidden; background: #ddd; min-height: 150px; }
         .pb-banner-track { display: flex; transition: transform 0.3s ease-out; width: 100%; cursor: grab; }
         .pb-banner-track:active { cursor: grabbing; }
         .pb-banner-slide { min-width: 100%; user-select: none; }
-        .pb-banner-slide img { pointer-events: none; } /* Evita arrastar a imagem em vez do slide */
+        .pb-banner-slide img { pointer-events: none; }
         .pb-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
         .pb-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: 0.3s; }
         .pb-dot.active { background: #fff; transform: scale(1.2); }
-
-        /* CATEGORIAS (CARDS) */
-        .pb-cats-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-            padding: 15px; max-width: 1200px; margin: 0 auto;
-        }
-        @media(min-width: 768px) { .pb-cats-grid { grid-template-columns: repeat(4, 1fr); } }
-        
-        .pb-cat-card {
-            background: #fff; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center;
-            transition: transform 0.2s; border: 1px solid #e0e0e0;
-        }
-        .pb-cat-card:active { transform: scale(0.98); }
-        .pb-cat-img { height: 100px; padding: 10px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; }
-        .pb-cat-img img { max-height: 100%; width: auto; }
-        .pb-cat-name { padding: 10px; font-weight: bold; color: var(--pb-dark); font-size: 0.9rem; }
 
         /* VITRINE */
         .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 50vh; }
@@ -59,11 +42,45 @@
             padding: 8px 20px; margin: 10px 0 20px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid #e0e0e0;
         }
         .pb-search-box input { flex: 1; border: none; padding: 10px; font-size: 1rem; }
+        
+        /* GRID RESPONSIVO (2 Mobile, 4 Desktop) */
         .pb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
 
+        /* CATEGORIAS (Ajustadas e Harmonizadas) */
+        .pb-cats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); /* Sempre 4 na linha no Desktop? Não, melhor seguir grid */
+            grid-template-columns: repeat(2, 1fr); /* Mobile: 2 colunas */
+            gap: 15px; margin-top: 40px; margin-bottom: 20px;
+        }
+        @media(min-width: 768px) { 
+            .pb-cats-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } 
+        }
+        
+        .pb-cat-card {
+            background: #fff; border-radius: 8px; overflow: hidden; /* Raio menor pra ficar mais "slim" */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08); text-align: center;
+            transition: transform 0.2s; border: 1px solid #e0e0e0;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .pb-cat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.12); }
+        .pb-cat-card:active { transform: scale(0.98); }
+        
+        .pb-cat-img { 
+            height: 80px; /* Altura reduzida para harmonizar */
+            padding: 15px; display: flex; align-items: center; justify-content: center; 
+            background: #fdfdfd; 
+        }
+        @media(min-width: 768px) { .pb-cat-img { height: 100px; } }
+
+        .pb-cat-img img { max-height: 100%; max-width: 100%; width: auto; object-fit: contain; }
+        .pb-cat-name { 
+            padding: 8px; font-weight: 600; color: var(--pb-dark); font-size: 0.85rem; 
+            border-top: 1px solid #f0f0f0; background: #fff;
+        }
+
         /* PAGINAÇÃO */
-        .pb-pagination { display: flex; justify-content: center; gap: 5px; margin-top: 40px; padding: 10px; flex-wrap: wrap; }
+        .pb-pagination { display: flex; justify-content: center; gap: 5px; margin-top: 30px; padding: 10px; flex-wrap: wrap; }
         .pb-page-btn {
             min-width: 35px; height: 35px; padding: 0 5px; border-radius: 5px;
             border: 1px solid #ddd; background: #fff; display: flex; align-items: center; justify-content: center;
@@ -149,25 +166,6 @@
         </div>
     </section>
 
-    <section class="pb-cats-grid">
-        <a href="minifiguras.html" class="pb-cat-card">
-            <div class="pb-cat-img"><img src="imagens/cards/minifiguras.svg" onerror="this.src='https://placehold.co/100?text=Mini'"></div>
-            <div class="pb-cat-name">Minifiguras</div>
-        </a>
-        <a href="pecas.html" class="pb-cat-card">
-            <div class="pb-cat-img"><img src="imagens/cards/pecas.svg" onerror="this.src='https://placehold.co/100?text=Peças'"></div>
-            <div class="pb-cat-name">Peças</div>
-        </a>
-        <a href="acessorios.html" class="pb-cat-card">
-            <div class="pb-cat-img"><img src="imagens/cards/acessorios.svg" onerror="this.src='https://placehold.co/100?text=Acessórios'"></div>
-            <div class="pb-cat-name">Acessórios</div>
-        </a>
-        <a href="embalagens.html" class="pb-cat-card">
-            <div class="pb-cat-img"><img src="imagens/cards/embalagens.svg" onerror="this.src='https://placehold.co/100?text=Emb'"></div>
-            <div class="pb-cat-name">Embalagens</div>
-        </a>
-    </section>
-
     <div class="pb-overlay-menu" id="overlay" onclick="app.toggleMenu()"></div>
     <aside class="pb-sidebar" id="sidebar">
         <div class="pb-menu-login">
@@ -193,9 +191,31 @@
             <span>🔍</span>
         </div>
         <h3 style="color:#195961; margin: 10px 0; border-left: 4px solid #2A9D8F; padding-left: 10px;">Destaques da Galáxia</h3>
+        
         <div id="grid" class="pb-grid">
             <p style="grid-column: span 2; text-align:center; padding:40px; color:#666;">Carregando galáxia...</p>
         </div>
+
+        <h4 style="color:#195961; margin: 30px 0 10px; border-left: 4px solid #2A9D8F; padding-left: 10px;">Explorar Categorias</h4>
+        <section class="pb-cats-grid">
+            <a href="minifiguras.html" class="pb-cat-card">
+                <div class="pb-cat-img"><img src="imagens/cards/minifiguras.svg" onerror="this.src='https://placehold.co/100?text=Mini'"></div>
+                <div class="pb-cat-name">Minifiguras</div>
+            </a>
+            <a href="pecas.html" class="pb-cat-card">
+                <div class="pb-cat-img"><img src="imagens/cards/pecas.svg" onerror="this.src='https://placehold.co/100?text=Peças'"></div>
+                <div class="pb-cat-name">Peças</div>
+            </a>
+            <a href="acessorios.html" class="pb-cat-card">
+                <div class="pb-cat-img"><img src="imagens/cards/acessorios.svg" onerror="this.src='https://placehold.co/100?text=Acessórios'"></div>
+                <div class="pb-cat-name">Acessórios</div>
+            </a>
+            <a href="embalagens.html" class="pb-cat-card">
+                <div class="pb-cat-img"><img src="imagens/cards/embalagens.svg" onerror="this.src='https://placehold.co/100?text=Emb'"></div>
+                <div class="pb-cat-name">Embalagens</div>
+            </a>
+        </section>
+
         <div id="paginacao" class="pb-pagination"></div>
     </main>
 
@@ -244,17 +264,33 @@
     <script>
         const app = {
             dados: [], filtrados: [], carrinho: 0, bannerIndex: 0,
-            quantidades: {}, paginaAtual: 1, itensPorPagina: 4,
+            quantidades: {}, paginaAtual: 1, 
+            itensPorPagina: 4, // Valor inicial (será ajustado no init)
             modalProdutoAtual: null, modalQtdAtual: 1,
             touchStartX: 0, touchEndX: 0,
 
             async init() {
-                this.iniciarTouchBanner(); // Inicia o swipe
+                this.detectarDispositivo(); // Ajusta paginação
+                window.addEventListener('resize', () => this.detectarDispositivo()); // Reajusta se virar a tela
+                
+                this.iniciarTouchBanner(); 
                 this.loopBanner();
                 document.getElementById('modalProduto').addEventListener('click', (e) => {
                     if (e.target.id === 'modalProduto') this.fecharModal();
                 });
                 await this.fetchData();
+            },
+
+            // --- RESPONSIVIDADE INTELIGENTE (4 Mobile / 12 Desktop) ---
+            detectarDispositivo() {
+                const isDesktop = window.innerWidth >= 768;
+                const novaQtd = isDesktop ? 12 : 4;
+                
+                if (this.itensPorPagina !== novaQtd) {
+                    this.itensPorPagina = novaQtd;
+                    this.paginaAtual = 1; // Reseta para pág 1 para não bugar
+                    this.renderizarPagina();
+                }
             },
 
             async fetchData() {
@@ -267,7 +303,7 @@
                         .map(([key, item]) => {
                             return { ...item, skuBase: item.skuBase || key };
                         })
-                        .reverse(); // Inverte para novos primeiro
+                        .reverse(); 
 
                     this.filtrados = this.dados;
                     this.renderizarPagina();
@@ -277,27 +313,18 @@
                 }
             },
 
-            // --- LÓGICA DE TOUCH (SWIPE) DO BANNER ---
+            // --- LÓGICA DE TOUCH ---
             iniciarTouchBanner() {
                 const track = document.getElementById('bannerContainer');
-                
-                track.addEventListener('touchstart', (e) => {
-                    this.touchStartX = e.changedTouches[0].screenX;
-                }, {passive: true});
-
+                track.addEventListener('touchstart', (e) => { this.touchStartX = e.changedTouches[0].screenX; }, {passive: true});
                 track.addEventListener('touchend', (e) => {
                     this.touchEndX = e.changedTouches[0].screenX;
                     this.handleGesture();
                 }, {passive: true});
             },
-
             handleGesture() {
-                if (this.touchEndX < this.touchStartX - 50) {
-                    this.mudarBanner(this.bannerIndex + 1); // Swipe Esquerda (Próximo)
-                }
-                if (this.touchEndX > this.touchStartX + 50) {
-                    this.mudarBanner(this.bannerIndex - 1); // Swipe Direita (Anterior)
-                }
+                if (this.touchEndX < this.touchStartX - 50) this.mudarBanner(this.bannerIndex + 1);
+                if (this.touchEndX > this.touchStartX + 50) this.mudarBanner(this.bannerIndex - 1);
             },
 
             filtrar(val) {
@@ -316,7 +343,7 @@
                 grid.innerHTML = "";
                 
                 if (this.filtrados.length === 0) {
-                    grid.innerHTML = "<p style='grid-column:span 2; text-align:center;'>Nada encontrado.</p>";
+                    grid.innerHTML = "<p style='grid-column:1/-1; text-align:center;'>Nada encontrado.</p>";
                     this.renderPaginacao(0); return;
                 }
 
@@ -469,7 +496,7 @@
             mudarBanner(i) { 
                 const slides = document.querySelectorAll('.pb-banner-slide');
                 const total = slides.length;
-                this.bannerIndex = (i + total) % total; // Lógica circular (0->1->2->0)
+                this.bannerIndex = (i + total) % total; 
                 this.attBanner(); 
             },
             
