@@ -1,111 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PiraBloco® | Oficial</title>
-  <link rel="icon" href="favicon.ico">
-  
-  <style>
-    body { margin: 0; background: #f2f2f2; font-family: sans-serif; }
-    /* Loader Centralizado */
-    #pbLoader {
-      position: fixed; inset: 0; background: #fff; z-index: 9999;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .loader-logo { font-size: 24px; font-weight: 900; color: #1c5e68; margin-bottom: 10px; }
-    .loader-logo span { color: #449bb2; }
-    .loader-text { font-size: 12px; color: #666; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 50% { opacity: 0.5; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PiraBloco® - Oficial</title>
+    <style>
+        body { margin: 0; background: #f2f2f2; font-family: sans-serif; }
+        .pb-shell-loading { opacity: 0; transition: opacity 0.3s ease; }
+        .pb-shell-visible { opacity: 1; }
+    </style>
 </head>
 <body>
 
-  <div id="pbLoader">
-    <div class="loader-logo">Pira<span>Bloco</span>®</div>
-    <div class="loader-text">Montando suas peças...</div>
-  </div>
+    <div id="header-mount"></div>
 
-  <div id="pbHeader"></div>
-  <div id="pbBody"></div>
-  <div id="pbFooter"></div>
+    <main id="main-mount" class="pb-shell-loading"></main>
 
-  <script>
-    // Configuração de Caminho
-    const BASE = new URL(".", location.href).pathname;
+    <div id="footer-mount"></div>
 
-    // Função de Carregamento Universal
-    async function load(file, elementId) {
-      try {
-        // Adiciona ?v=tempo para evitar cache velho
-        const response = await fetch(BASE + file + "?v=" + Date.now());
-        if (!response.ok) throw new Error("404: " + file);
-        
-        const html = await response.text();
-        
-        // Se for Estilo (CSS)
-        if (file.includes("style")) {
-           const styleTag = document.createElement("style");
-           // Remove tags <style> se vierem no texto para não duplicar
-           styleTag.textContent = html.replace(/<\/?style>/g, ""); 
-           document.head.appendChild(styleTag);
-           return;
+    <script>
+        async function bootPiraBloco() {
+            try {
+                // ORDEM SUPREMA DO PRINCÍPIO DOS 6
+                
+                // 1º: Style (Visual)
+                const resStyle = await fetch('style.html');
+                const textStyle = await resStyle.text();
+                document.head.insertAdjacentHTML('beforeend', textStyle);
+
+                // 2º: Cabeçalho (Hub)
+                const resHeader = await fetch('cabecalho.html');
+                const htmlHeader = await resHeader.text();
+                document.getElementById('header-mount').innerHTML = htmlHeader;
+
+                // 3º: Body (Vitrine)
+                const resBody = await fetch('body.html');
+                const htmlBody = await resBody.text();
+                const mainMount = document.getElementById('main-mount');
+                mainMount.innerHTML = htmlBody;
+                mainMount.classList.add('pb-shell-visible'); // Revela o corpo suavemente
+
+                // 4º: Rodapé (Confiança)
+                const resFooter = await fetch('rodape.html');
+                const htmlFooter = await resFooter.text();
+                document.getElementById('footer-mount').innerHTML = htmlFooter;
+
+                // 5º: Script.js (O Motor) - Só liga depois de tudo montado
+                const script = document.createElement('script');
+                script.src = 'script.js';
+                document.body.appendChild(script);
+
+                console.log("PiraBloco: Sistema dos 6 carregado com sucesso.");
+
+            } catch (err) {
+                console.error("Erro Crítico PiraBloco:", err);
+                document.body.innerHTML = "<h2 style='text-align:center; padding:50px;'>Erro de carregamento. Verifique sua conexão.</h2>";
+            }
         }
 
-        // Se for Script (JS)
-        if (file.includes("js")) {
-           const scriptTag = document.createElement("script");
-           scriptTag.src = BASE + file + "?v=" + Date.now();
-           document.body.appendChild(scriptTag);
-           return;
-        }
-
-        // Se for HTML (Header, Body, Footer)
-        if (elementId) {
-           const container = document.getElementById(elementId);
-           // Truque para executar scripts que venham dentro do HTML importado
-           const parser = new DOMParser();
-           const doc = parser.parseFromString(html, "text/html");
-           
-           // Injeta o CSS do arquivo
-           doc.querySelectorAll("style").forEach(s => document.head.appendChild(s));
-           
-           // Injeta o HTML limpo
-           const cleanContent = doc.body.innerHTML; 
-           container.innerHTML = cleanContent;
-
-           // Re-executa os scripts inline
-           doc.querySelectorAll("script").forEach(oldScript => {
-             const newScript = document.createElement("script");
-             if(oldScript.src) newScript.src = oldScript.src;
-             else newScript.textContent = oldScript.textContent;
-             if(oldScript.type) newScript.type = oldScript.type;
-             document.body.appendChild(newScript);
-           });
-        }
-
-      } catch (err) {
-        console.error("Falha ao carregar:", file, err);
-      }
-    }
-
-    // Ordem de Montagem (Sincronizada)
-    (async () => {
-      // 1. Carrega o Visual (Style + Header)
-      await Promise.all([
-        load("style.html"), 
-        load("cabecalho.html", "pbHeader")
-      ]);
-
-      // 2. Remove o Loader assim que o topo estiver pronto
-      document.getElementById("pbLoader").style.display = "none";
-
-      // 3. Carrega o Resto (Body, Footer, Script)
-      await load("body.html", "pbBody");
-      await load("rodape.html", "pbFooter");
-      await load("script.js"); 
-    })();
-  </script>
+        window.addEventListener('DOMContentLoaded', bootPiraBloco);
+    </script>
 </body>
 </html>
-
