@@ -17,6 +17,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); padding-bottom: 20px; }
         img { display: block; max-width: 100%; }
+        a { text-decoration: none; color: inherit; }
 
         /* --- 2. HEADER --- */
         .pb-header {
@@ -104,7 +105,7 @@
         /* --- 7. MODAL --- */
         .pb-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 99999; /* Z-INDEX ALTO */
+            background: rgba(0,0,0,0.85); z-index: 99999;
             display: none; justify-content: center; align-items: center; padding: 10px;
         }
         .pb-modal-content {
@@ -145,7 +146,6 @@
         .pb-overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
         .pb-overlay-menu.active { display: block; }
         
-        /* LOGIN NO MENU */
         .pb-menu-login {
             background: var(--pb-dark); color: white; padding: 20px;
             display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -154,9 +154,20 @@
             background: var(--pb-action); color: white; border: none; padding: 10px 25px; 
             border-radius: 20px; font-weight: bold; margin-top: 10px; cursor: pointer; width: 100%;
         }
+        
+        /* Links do Menu */
+        .pb-menu-item {
+            display: block; padding: 12px; border-bottom: 1px solid #eee;
+            font-weight: 500; color: #333; transition: background 0.2s;
+        }
+        .pb-menu-item:hover { background: #f9f9f9; color: var(--pb-dark); }
 
+        /* FOOTER */
         .pb-footer { background-color: #195961; color: #FFFFFF; padding: 40px 20px; margin-top: 30px; border-top: 4px solid #76c7c0; }
         .pb-footer-grid { display: flex; justify-content: space-around; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; gap: 20px; }
+        .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
+        .pb-col a { color: #ffffff; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
+        .pb-col a:hover { text-decoration: underline; }
         .pb-legal { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #378fae; font-size: 0.8rem; color: #b3ecec; }
     </style>
 </head>
@@ -166,7 +177,7 @@
         <div onclick="app.toggleMenu()" style="cursor:pointer; padding:5px;"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#b3ecec" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
         <div class="pb-brand">Pira<span>Bloco</span>®</div>
         <div class="pb-header-icons">
-            <div class="pb-user-icon" onclick="alert('Área de usuário em breve!')">
+            <div class="pb-user-icon" onclick="alert('Login em breve!')">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             </div>
             <div style="position:relative;">
@@ -194,7 +205,13 @@
         <div style="background:#195961; color:white; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #378fae;">
             <h3 style="margin:0">Menu</h3><span onclick="app.toggleMenu()" style="font-size:1.5rem; cursor:pointer;">&times;</span>
         </div>
-        <div style="padding:20px;"><p>🏠 Início</p><p>📦 Meus Pedidos</p></div>
+        <div style="padding:20px;">
+            <a href="/" class="pb-menu-item">🏠 Início</a>
+            <a href="minifiguras.html" class="pb-menu-item">🧱 Minifiguras</a>
+            <a href="pecas.html" class="pb-menu-item">⚙️ Peças</a>
+            <a href="acessorios.html" class="pb-menu-item">🛡️ Acessórios</a>
+            <a href="#" class="pb-menu-item">📦 Meus Pedidos</a>
+        </div>
     </aside>
 
     <main class="pb-container">
@@ -242,7 +259,11 @@
     <footer class="pb-footer">
         <div class="pb-footer-grid">
             <div class="pb-col"><h3>PiraBloco<span>®</span></h3><p>Sua loja oficial.</p></div>
-            <div class="pb-col"><h4>Institucional</h4><a href="#">Sobre</a><a href="#">Privacidade</a></div>
+            <div class="pb-col">
+                <h4>Institucional</h4>
+                <a href="#">Sobre a Empresa</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
         </div>
         <div class="pb-legal"><p>CNPJ: 65.101.505/0001-98</p><p>&copy; 2026 PiraBloco</p></div>
     </footer>
@@ -266,14 +287,12 @@
                     const r = await fetch('./produtos.json?v=' + Date.now());
                     const json = await r.json();
                     
-                    // --- AQUI ESTA O SEGREDO DO "UNDEFINED" ---
-                    // Convertemos o JSON (Objeto) em Array, mas SALVAMOS A CHAVE (SKU) dentro do item
                     this.dados = Object.entries(json)
                         .filter(([key, item]) => key !== '_meta' && item.nome && item.ativo)
                         .map(([key, item]) => {
-                            // Se o item não tem skuBase, usamos a chave (Ex: I001)
                             return { ...item, skuBase: item.skuBase || key };
-                        });
+                        })
+                        .reverse(); // AQUI: Inverte a ordem para os novos aparecerem primeiro
 
                     this.filtrados = this.dados;
                     this.renderizarPagina();
@@ -309,12 +328,9 @@
                 const totalPags = Math.ceil(this.filtrados.length / this.itensPorPagina);
 
                 fatia.forEach(p => {
-                    const sku = p.skuBase; // Agora temos certeza que isso existe!
+                    const sku = p.skuBase;
                     const estoque = p.estoque || 0;
-                    
-                    // GERAÇÃO CORRETA DA IMAGEM DO GITHUB
                     const imgUrl = this.gerarUrlImagem(p, 1);
-                    
                     const preco = (p.precoCentavos/100).toLocaleString('pt-BR', {minimumFractionDigits:2});
                     
                     let acoes = estoque <= 0 
@@ -349,20 +365,14 @@
                 this.renderPaginacao(totalPags);
             },
 
-            // --- FUNÇÃO CORRIGIDA PARA GITHUB RAW ---
             gerarUrlImagem(p, num) {
                 const baseUrl = "https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/";
                 
                 if (p.imagens && p.imagens.pasta) {
-                    // Remove 'public/' do caminho se existir para não duplicar
                     let pasta = p.imagens.pasta.replace('public/', '');
-                    // Remove barras extras
                     pasta = pasta.replace(/^\/+|\/+$/g, '');
-                    
-                    const sku = p.skuBase; // Ex: I001
+                    const sku = p.skuBase || "IMG";
                     const ext = p.imagens.ext || "webp";
-                    
-                    // Resultado: .../imagens/itens/I001-1.webp
                     return `${baseUrl}${pasta}/${sku}-${num}.${ext}`;
                 }
                 return "https://placehold.co/200?text=Sem+Foto";
@@ -394,7 +404,6 @@
             },
 
             abrirModal(sku) {
-                console.log("Abrindo modal:", sku);
                 const p = this.dados.find(i => i.skuBase === sku);
                 if(!p) return;
 
@@ -432,7 +441,7 @@
                 const thumbsDiv = document.getElementById('modalThumbs');
                 thumbsDiv.innerHTML = "";
                 const qtd = (p.imagens && p.imagens.qtd) ? p.imagens.qtd : 1;
-                const max = Math.min(qtd, 6); // Máximo 6 fotos
+                const max = Math.min(qtd, 6);
                 
                 main.src = this.gerarUrlImagem(p, 1);
 
