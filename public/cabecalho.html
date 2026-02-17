@@ -1,62 +1,264 @@
-cat > ~/loja-v2/public/cabecalho.html << 'EOF'
-<header class="pb-header">
-    <div class="pb-logo-container">
+
+<header class="pb-header-system">
+    
+    <button class="pb-icon-btn pb-menu-trigger" onclick="toggleMenu()" aria-label="Abrir Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div class="pb-brand">
         <h1 class="pb-logo-text">
             PiraBloco<sup class="pb-registered">&reg;</sup>
         </h1>
     </div>
+
+    <div class="pb-actions">
+        <a href="#" class="pb-action-link" onclick="abrirLogin()">
+            <span class="pb-action-label">Entrar</span>
+            <svg class="pb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <a href="#" class="pb-cart-btn" onclick="abrirCarrinho()">
+            <svg class="pb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="pb-cart-count" id="cartCount">0</span>
+        </a>
+    </div>
+
+    <div class="pb-menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+    <nav class="pb-menu-card" id="menuCard">
+        <div class="pb-menu-header">
+            <span class="pb-menu-title">Menu</span>
+            <button class="pb-close-btn" onclick="toggleMenu()">&times;</button>
+        </div>
+        <ul class="pb-menu-list">
+            <li><a href="#" class="pb-menu-item active">Início</a></li>
+            <li><a href="#" class="pb-menu-item">Minifiguras</a></li>
+            <li><a href="#" class="pb-menu-item">Peças Avulsas</a></li>
+            <li><a href="#" class="pb-menu-item">Conjuntos</a></li>
+            <li class="pb-divider"></li>
+            <li><a href="#" class="pb-menu-item is-small">Meus Pedidos</a></li>
+            <li><a href="#" class="pb-menu-item is-small">Atendimento</a></li>
+        </ul>
+    </nav>
 </header>
 
 <style>
-    /* O Container do Cabeçalho - Fundo Branco Limpo */
-    .pb-header {
-        width: 100%;
-        height: 70px; /* Altura fixa para não empurrar o layout */
-        background: #ffffff; 
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06); /* Sombra suave */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-        /* Garante que fique no topo sempre */
-        position: sticky; 
-        top: 0;
-        z-index: 999; 
+    /* --- VARIÁVEIS DO SISTEMA (ROOT) --- */
+    :root {
+        --pb-turq-dark: #1c5e68;
+        --pb-turq-mid:  #2a8a9c;
+        --pb-turq-light:#e0f2f1;
+        --pb-bg-white:  #ffffff;
+        --pb-text-main: #111827;
+        --pb-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        --pb-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
-    /* O Texto PiraBloco com Degradê "Deep Turquoise" */
+    /* --- ESTRUTURA PRINCIPAL --- */
+    .pb-header-system {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: var(--pb-bg-white);
+        height: 70px;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: var(--pb-shadow-sm);
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* --- LOGOTIPO ROBUSTO --- */
+    .pb-brand {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* No desktop, pode ajustar para a esquerda se preferir */
+    }
+
     .pb-logo-text {
-        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        font-size: 28px;
-        font-weight: 900; /* Extra Grosso para a marca */
+        font-size: 26px;
+        font-weight: 900;
         margin: 0;
         letter-spacing: -0.5px;
-        line-height: 1;
-        
-        /* O Efeito de Degradê Escuro */
-        background: linear-gradient(135deg, #0e3d45 0%, #1c5e68 50%, #2a8a9c 100%);
+        background: linear-gradient(135deg, #0e3d45 0%, #1c5e68 40%, #2a8a9c 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        color: #1c5e68; /* Fallback se o navegador não aceitar degradê */
+        color: #1c5e68;
+        line-height: 1;
+        cursor: pointer;
     }
 
-    /* O Ajuste do "R" - Pequeno, Fino e Nítido */
     .pb-registered {
-        font-size: 10px; /* Tamanho fixo para leitura */
-        vertical-align: top; /* Joga para cima */
+        font-size: 10px;
+        vertical-align: top;
         margin-left: 2px;
         margin-top: 2px;
         display: inline-block;
-        
-        /* O SEGREDO: Tirar o peso bold para não borrar */
-        font-weight: 500; 
-        
-        /* Cor sólida (sem o degradê) para ficar bem nítido */
-        -webkit-text-fill-color: #1c5e68; 
+        font-weight: 500; /* Fino para não borrar */
+        -webkit-text-fill-color: #1c5e68; /* Sólido */
         color: #1c5e68;
-        opacity: 0.8;
+    }
+
+    /* --- BOTÕES E AÇÕES --- */
+    .pb-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .pb-icon-btn {
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        color: var(--pb-text-main);
+        display: flex;
+        align-items: center;
+    }
+
+    .pb-action-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        color: var(--pb-text-main);
+        font-weight: 600;
+        font-size: 14px;
+        transition: color 0.2s;
+    }
+    .pb-action-link:hover { color: var(--pb-turq-mid); }
+    
+    .pb-action-label { display: none; } /* Esconde texto 'Entrar' no mobile */
+    @media(min-width: 768px) { .pb-action-label { display: block; } }
+
+    .pb-icon { width: 22px; height: 22px; stroke-width: 2.2px; }
+
+    /* Carrinho com Badge */
+    .pb-cart-btn {
+        position: relative;
+        color: var(--pb-text-main);
+        display: flex;
+        align-items: center;
+    }
+    .pb-cart-count {
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        background: #ef4444;
+        color: white;
+        font-size: 10px;
+        font-weight: 800;
+        height: 16px;
+        min-width: 16px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+        border: 2px solid white;
+    }
+
+    /* --- MENU CARD (CONTEMPORÂNEO) --- */
+    /* Fundo invisível que detecta clique fora, sem blur */
+    .pb-menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: transparent; /* Transparente para não desfocar */
+        z-index: 1001;
+        display: none;
+        pointer-events: none; /* Deixa clicar no site se fechado */
+    }
+    .pb-menu-overlay.is-open {
+        display: block;
+        pointer-events: auto; /* Captura clique para fechar */
+        background: rgba(0,0,0,0.05); /* Leve escurecida opcional */
+    }
+
+    /* O Card em si */
+    .pb-menu-card {
+        position: fixed;
+        top: 75px; /* Logo abaixo do header */
+        left: 10px;
+        width: 260px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--pb-shadow-lg);
+        transform: translateX(-120%); /* Escondido na esquerda */
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); /* Animação App nativo */
+        z-index: 1002;
+        padding: 20px;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .pb-menu-card.is-open {
+        transform: translateX(0); /* Entra na tela */
+    }
+
+    .pb-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #f3f4f6;
+        padding-bottom: 10px;
+    }
+    .pb-menu-title { font-size: 18px; font-weight: 800; color: var(--pb-turq-dark); }
+    .pb-close-btn { background: none; border: none; font-size: 24px; color: #9ca3af; cursor: pointer; }
+
+    .pb-menu-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .pb-menu-item {
+        display: block;
+        text-decoration: none;
+        color: var(--pb-text-main);
+        font-weight: 600;
+        font-size: 15px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+    .pb-menu-item:hover, .pb-menu-item.active {
+        background: var(--pb-turq-light);
+        color: var(--pb-turq-dark);
+    }
+    .pb-menu-item.is-small { font-size: 14px; color: #6b7280; font-weight: 500; }
+    .pb-divider { height: 1px; background: #f3f4f6; margin: 8px 0; }
+
+    @media (min-width: 768px) {
+        .pb-brand { position: static; transform: none; margin-right: auto; margin-left: 16px; }
+        .pb-menu-trigger { display: none; } /* Esconde hambúrguer no desktop se quiser menu horizontal */
+        .pb-menu-card { 
+            /* Se quiser transformar em menu horizontal no PC, ajustamos aqui. 
+               Por enquanto mantive o comportamento mobile-first robusto. */
+        }
     }
 </style>
-EOF
+
+<script>
+    // Lógica do Menu Hamburger
+    function toggleMenu() {
+        const card = document.getElementById('menuCard');
+        const overlay = document.getElementById('menuOverlay');
+        
+        // Alterna classes para animar
+        card.classList.toggle('is-open');
+        overlay.classList.toggle('is-open');
+    }
+
+    // Funções placeholder
+    function abrirLogin() { console.log('Abrir Modal Login'); }
+    function abrirCarrinho() { console.log('Abrir Modal Carrinho'); }
+</script>
 
