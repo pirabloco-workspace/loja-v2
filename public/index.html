@@ -25,15 +25,39 @@
         .pb-header-icons { display: flex; align-items: center; gap: 15px; }
         .pb-icon { color: var(--pb-light); cursor: pointer; display: flex; align-items: center; }
 
-        /* BANNER */
-        .pb-banner-container { width: 100%; position: relative; overflow: hidden; background: #ddd; min-height: 150px; }
+        /* WRAPPER CENTRALIZADOR (NOVO) - Alinha banner com a vitrine */
+        .pb-center-wrapper {
+            max-width: 1200px; margin: 0 auto; width: 100%;
+        }
+
+        /* BANNER COM SWIPE & AJUSTE DESKTOP */
+        .pb-banner-container { 
+            width: 100%; position: relative; overflow: hidden; background: #ddd; 
+            min-height: 150px; /* Altura mínima mobile */
+        }
+        
         .pb-banner-track { display: flex; transition: transform 0.3s ease-out; width: 100%; cursor: grab; }
         .pb-banner-track:active { cursor: grabbing; }
         .pb-banner-slide { min-width: 100%; user-select: none; }
-        .pb-banner-slide img { pointer-events: none; }
+        .pb-banner-slide img { pointer-events: none; width: 100%; height: auto; }
+        
         .pb-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
         .pb-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: 0.3s; }
         .pb-dot.active { background: #fff; transform: scale(1.2); }
+
+        /* AJUSTE FINO DO BANNER PARA DESKTOP */
+        @media(min-width: 768px) {
+            .pb-banner-wrapper-padding { padding: 15px 15px 0 15px; } /* Espaço laterais iguais a vitrine */
+            .pb-banner-container {
+                border-radius: 12px; /* Cantos arredondados no PC */
+                max-height: 320px;   /* TRAVA A ALTURA NO PC */
+            }
+            .pb-banner-slide img {
+                height: 320px;       /* Força a altura */
+                object-fit: cover;   /* Corta o excesso sem esticar a imagem */
+                object-position: center;
+            }
+        }
 
         /* VITRINE */
         .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 50vh; }
@@ -47,18 +71,17 @@
         .pb-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* CATEGORIAS (Ajustadas e Harmonizadas) */
+        /* CATEGORIAS (Cards menores e harmonizados) */
         .pb-cats-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); /* Sempre 4 na linha no Desktop? Não, melhor seguir grid */
-            grid-template-columns: repeat(2, 1fr); /* Mobile: 2 colunas */
-            gap: 15px; margin-top: 40px; margin-bottom: 20px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+            margin-top: 40px; margin-bottom: 20px;
         }
         @media(min-width: 768px) { 
             .pb-cats-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } 
         }
         
         .pb-cat-card {
-            background: #fff; border-radius: 8px; overflow: hidden; /* Raio menor pra ficar mais "slim" */
+            background: #fff; border-radius: 8px; overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.08); text-align: center;
             transition: transform 0.2s; border: 1px solid #e0e0e0;
             display: flex; flex-direction: column; height: 100%;
@@ -67,9 +90,7 @@
         .pb-cat-card:active { transform: scale(0.98); }
         
         .pb-cat-img { 
-            height: 80px; /* Altura reduzida para harmonizar */
-            padding: 15px; display: flex; align-items: center; justify-content: center; 
-            background: #fdfdfd; 
+            height: 80px; padding: 15px; display: flex; align-items: center; justify-content: center; background: #fdfdfd; 
         }
         @media(min-width: 768px) { .pb-cat-img { height: 100px; } }
 
@@ -153,18 +174,20 @@
         </div>
     </header>
 
-    <section class="pb-banner-container" id="bannerContainer">
-        <div class="pb-banner-track" id="bannerTrack">
-            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb1-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb1.svg"></picture></div>
-            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb2-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb2.svg"></picture></div>
-            <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb3-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb3.svg"></picture></div>
-        </div>
-        <div class="pb-dots">
-            <div class="pb-dot active" onclick="app.mudarBanner(0)"></div>
-            <div class="pb-dot" onclick="app.mudarBanner(1)"></div>
-            <div class="pb-dot" onclick="app.mudarBanner(2)"></div>
-        </div>
-    </section>
+    <div class="pb-center-wrapper pb-banner-wrapper-padding">
+        <section class="pb-banner-container" id="bannerContainer">
+            <div class="pb-banner-track" id="bannerTrack">
+                <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb1-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb1.svg"></picture></div>
+                <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb2-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb2.svg"></picture></div>
+                <div class="pb-banner-slide"><picture><source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb3-mobile.svg"><img src="https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/imagens/banners/banner-pb3.svg"></picture></div>
+            </div>
+            <div class="pb-dots">
+                <div class="pb-dot active" onclick="app.mudarBanner(0)"></div>
+                <div class="pb-dot" onclick="app.mudarBanner(1)"></div>
+                <div class="pb-dot" onclick="app.mudarBanner(2)"></div>
+            </div>
+        </section>
+    </div>
 
     <div class="pb-overlay-menu" id="overlay" onclick="app.toggleMenu()"></div>
     <aside class="pb-sidebar" id="sidebar">
