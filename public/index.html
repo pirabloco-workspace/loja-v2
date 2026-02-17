@@ -5,60 +5,223 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PiraBloco® - Oficial</title>
     <style>
-        body { margin: 0; background: #f2f2f2; font-family: sans-serif; }
-        .pb-shell-loading { opacity: 0; transition: opacity 0.3s ease; }
-        .pb-shell-visible { opacity: 1; }
+        /* --- 1. CORES E RESET (DNA VISUAL) --- */
+        :root {
+            --pb-dark: #195961;   /* Turquesa Profundo */
+            --pb-mid: #378fae;    /* Azul Petróleo */
+            --pb-light: #b3ecec;  /* Gelo/Ciano */
+            --pb-action: #2A9D8F; /* Turquesa Vibrante */
+            --pb-white: #ffffff;
+            --pb-gray: #f4f4f4;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--pb-gray); padding-bottom: 60px; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- 2. CABEÇALHO FIXO --- */
+        .pb-header {
+            background-color: var(--pb-dark);
+            height: 60px; width: 100%;
+            position: sticky; top: 0; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .pb-brand { font-size: 1.4rem; font-weight: 800; color: var(--pb-light); }
+        .pb-brand span { color: #76c7c0; }
+        
+        .pb-icon-btn { cursor: pointer; padding: 5px; display: flex; align-items: center; }
+        .pb-cart-wrap { position: relative; }
+        .pb-cart-badge {
+            position: absolute; top: -5px; right: -5px;
+            background: #d32f2f; color: #fff;
+            font-size: 0.7rem; padding: 2px 6px; border-radius: 10px;
+        }
+
+        /* --- 3. MENU LATERAL (GAVETA) --- */
+        .pb-sidebar {
+            position: fixed; top: 0; left: -280px;
+            width: 280px; height: 100%; background: #fff;
+            z-index: 2000; transition: left 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+        }
+        .pb-sidebar.active { left: 0; }
+        .pb-sidebar-header { background: var(--pb-dark); color: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .pb-nav a { display: block; padding: 15px; border-bottom: 1px solid #eee; font-weight: 500; color: var(--pb-dark); }
+        .pb-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1500; display: none;
+        }
+        .pb-overlay.active { display: block; }
+
+        /* --- 4. CORPO E VITRINE --- */
+        .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; }
+        
+        .pb-search-box {
+            display: flex; background: #fff; border-radius: 25px;
+            padding: 5px 15px; margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .pb-search-box input { flex: 1; border: none; padding: 10px; font-size: 1rem; }
+        
+        .pb-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas no mobile */
+            gap: 15px;
+        }
+        @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .pb-card {
+            background: #fff; border-radius: 10px; overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border: 1px solid #76c7c0;
+            display: flex; flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .pb-card:active { transform: scale(0.98); }
+        
+        .pb-img-box { height: 140px; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .pb-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .pb-info { padding: 10px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .pb-name { color: var(--pb-dark); font-size: 0.9rem; margin-bottom: 5px; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .pb-price { color: var(--pb-action); font-weight: 800; font-size: 1.1rem; margin: 5px 0; }
+        
+        .pb-btn {
+            background: var(--pb-action); color: #fff; border: none;
+            padding: 8px; width: 100%; border-radius: 20px;
+            font-weight: bold; margin-top: auto; cursor: pointer;
+        }
+
+        /* --- 5. RODAPÉ --- */
+        .pb-footer {
+            background: var(--pb-dark); color: var(--pb-light);
+            text-align: center; padding: 20px; margin-top: 30px; font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
 
-    <div id="header-mount"></div>
+    <header class="pb-header">
+        <div class="pb-icon-btn" onclick="app.toggleMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" stroke="#b3ecec" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </div>
+        <div class="pb-brand">Pira<span>Bloco</span>®</div>
+        <div class="pb-icon-btn pb-cart-wrap">
+            <span class="pb-cart-badge">0</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        </div>
+    </header>
 
-    <main id="main-mount" class="pb-shell-loading"></main>
+    <div class="pb-overlay" id="overlay" onclick="app.toggleMenu()"></div>
+    <aside class="pb-sidebar" id="sidebar">
+        <div class="pb-sidebar-header">
+            <h3>Menu</h3>
+            <span style="font-size:1.5rem; cursor:pointer;" onclick="app.toggleMenu()">&times;</span>
+        </div>
+        <nav class="pb-nav">
+            <a href="#">🏠 Início</a>
+            <a href="#">🧱 Kits Completos</a>
+            <a href="#">⚙️ Peças Avulsas</a>
+            <a href="#">👤 Minha Conta</a>
+        </nav>
+    </aside>
 
-    <div id="footer-mount"></div>
+    <main class="pb-container">
+        <div class="pb-search-box">
+            <input type="text" id="search" placeholder="O que você procura hoje?" oninput="app.filtrar()">
+            <span style="font-size:1.2rem">🔍</span>
+        </div>
+
+        <div id="grid" class="pb-grid">
+            <p style="text-align:center; width:100%; grid-column: span 2;">Carregando...</p>
+        </div>
+    </main>
+
+    <footer class="pb-footer">
+        <p><strong>PiraBloco®</strong></p>
+        <p>CNPJ: 65.101.505/0001-98</p>
+        <p>&copy; 2026 Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-        async function bootPiraBloco() {
-            try {
-                // ORDEM SUPREMA DO PRINCÍPIO DOS 6
+        const app = {
+            // DADOS SIMULADOS (Para garantir que aparece algo, mesmo sem JSON externo)
+            produtos: [
+                { id: 1, nome: "Millennium Falcon LEGO Star Wars", preco: "899.90", img: "https://m.media-amazon.com/images/I/81B9Lh0iAEL._AC_SX679_.jpg" },
+                { id: 2, nome: "Castelo de Hogwarts Harry Potter", preco: "1250.00", img: "https://m.media-amazon.com/images/I/910q2t-K3lL._AC_SL1500_.jpg" },
+                { id: 3, nome: "Ferrari Daytona SP3 Technic", preco: "2499.99", img: "https://m.media-amazon.com/images/I/81x+r2I+4JL._AC_SL1500_.jpg" },
+                { id: 4, nome: "Capacete Darth Vader", preco: "450.00", img: "https://m.media-amazon.com/images/I/81UaE2-vXWL._AC_SL1500_.jpg" },
+                { id: 5, nome: "Blocos Avulsos (1kg)", preco: "89.90", img: "https://http2.mlstatic.com/D_NQ_NP_707909-MLB44492948154_012021-O.webp" },
+                { id: 6, nome: "Base de Montagem Verde", preco: "49.90", img: "https://m.media-amazon.com/images/I/81M+8-e6LSL._AC_SL1500_.jpg" }
+            ],
+
+            init() {
+                console.log("PiraBloco Inline Iniciado");
+                this.render(this.produtos);
+                this.tentarCarregarJsonReal(); // Tenta buscar o JSON real em segundo plano
+            },
+
+            render(lista) {
+                const grid = document.getElementById('grid');
+                grid.innerHTML = "";
                 
-                // 1º: Style (Visual)
-                const resStyle = await fetch('style.html');
-                const textStyle = await resStyle.text();
-                document.head.insertAdjacentHTML('beforeend', textStyle);
+                if(lista.length === 0) {
+                    grid.innerHTML = "<p>Nenhum produto encontrado.</p>";
+                    return;
+                }
 
-                // 2º: Cabeçalho (Hub)
-                const resHeader = await fetch('cabecalho.html');
-                const htmlHeader = await resHeader.text();
-                document.getElementById('header-mount').innerHTML = htmlHeader;
+                lista.forEach(p => {
+                    // Tenta usar imagem local se não for URL, com fallback
+                    let imgSrc = p.img || p.imagem;
+                    if(!imgSrc.startsWith('http')) {
+                        imgSrc = "/storage/emulated/0/pirabloco/imagens/itens/" + imgSrc;
+                    }
 
-                // 3º: Body (Vitrine)
-                const resBody = await fetch('body.html');
-                const htmlBody = await resBody.text();
-                const mainMount = document.getElementById('main-mount');
-                mainMount.innerHTML = htmlBody;
-                mainMount.classList.add('pb-shell-visible'); // Revela o corpo suavemente
+                    grid.innerHTML += `
+                        <div class="pb-card">
+                            <div class="pb-img-box">
+                                <img src="${imgSrc}" onerror="this.src='https://placehold.co/200?text=Bloco'">
+                            </div>
+                            <div class="pb-info">
+                                <h3 class="pb-name">${p.nome}</h3>
+                                <p class="pb-price">R$ ${p.preco}</p>
+                                <button class="pb-btn" onclick="alert('Adicionado: ${p.nome}')">COMPRAR</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            },
 
-                // 4º: Rodapé (Confiança)
-                const resFooter = await fetch('rodape.html');
-                const htmlFooter = await resFooter.text();
-                document.getElementById('footer-mount').innerHTML = htmlFooter;
+            toggleMenu() {
+                document.getElementById('sidebar').classList.toggle('active');
+                document.getElementById('overlay').classList.toggle('active');
+            },
 
-                // 5º: Script.js (O Motor) - Só liga depois de tudo montado
-                const script = document.createElement('script');
-                script.src = 'script.js';
-                document.body.appendChild(script);
+            filtrar() {
+                const termo = document.getElementById('search').value.toLowerCase();
+                const filtrados = this.produtos.filter(p => p.nome.toLowerCase().includes(termo));
+                this.render(filtrados);
+            },
 
-                console.log("PiraBloco: Sistema dos 6 carregado com sucesso.");
-
-            } catch (err) {
-                console.error("Erro Crítico PiraBloco:", err);
-                document.body.innerHTML = "<h2 style='text-align:center; padding:50px;'>Erro de carregamento. Verifique sua conexão.</h2>";
+            async tentarCarregarJsonReal() {
+                try {
+                    const r = await fetch('produtos.json');
+                    if(r.ok) {
+                        const dados = await r.json();
+                        // Se achou o JSON real, substitui os dados simulados
+                        this.produtos = dados;
+                        this.render(this.produtos);
+                        console.log("JSON Real carregado com sucesso!");
+                    }
+                } catch(e) {
+                    console.log("Usando dados de backup inline.");
+                }
             }
-        }
+        };
 
-        window.addEventListener('DOMContentLoaded', bootPiraBloco);
+        // Inicia assim que carregar
+        window.addEventListener('DOMContentLoaded', () => app.init());
     </script>
 </body>
 </html>
