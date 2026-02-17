@@ -1,18 +1,19 @@
 /**
  * MOTOR PIRABLOCO - PROTOCOLO SUPREMO (PRINCÍPIO DOS 6)
- * Orquestração de componentes com Anti-Cache e Lógica de UI
+ * Orquestração: Estrutura + JSON + Anti-Cache
  */
 
 const PiraBloco = {
-    versao: new Date().getTime(), // Chave para matar o cache
+    versao: new Date().getTime(),
 
     async init() {
         console.log("PiraBloco: Iniciando motor v" + this.versao);
         await this.montarEstrutura();
+        await this.carregarProdutos(); // <--- Onde a mágica do JSON acontece
         this.configurarEventosUI();
     },
 
-    // 1. FETCH DOS COMPONENTES (O Shell Fetch com Cache Busting)
+    // 1. MONTAGEM DA ESTRUTURA (HTML)
     async montarEstrutura() {
         const componentes = [
             { id: 'header-mount', url: 'cabecalho.html' },
@@ -22,63 +23,62 @@ const PiraBloco = {
 
         for (const comp of componentes) {
             try {
-                // O segredo anti-cache está aqui: url + timestamp
                 const resp = await fetch(`${comp.url}?v=${this.versao}`);
-                if (!resp.ok) throw new Error(`Erro ao carregar ${comp.url}`);
                 const html = await resp.text();
                 document.getElementById(comp.id).innerHTML = html;
-                console.log(`PiraBloco: ${comp.url} injetado.`);
             } catch (err) {
-                console.error("Erro na montagem:", err);
+                console.error("Erro ao montar " + comp.url, err);
             }
         }
     },
 
-    // 2. LÓGICA DE INTERAÇÃO (Menu, Modal, Login)
+    // 2. BUSCA E INJEÇÃO DE PRODUTOS (JSON)
+    async carregarProdutos() {
+        const vitrine = document.getElementById('pb-product-grid'); // ID que deve estar no seu body.html
+        if (!vitrine) return;
+
+        try {
+            const resp = await fetch(`produtos.json?v=${this.versao}`);
+            const produtos = await resp.json();
+            
+            vitrine.innerHTML = produtos.map(p => `
+                <div class="pb-card">
+                    <img src="${p.imagem}" alt="${p.nome}">
+                    <h3>${p.nome}</h3>
+                    <p class="pb-price">R$ ${p.preco}</p>
+                    <button class="pb-btn-add" onclick="PiraBloco.adicionarAoCarrinho('${p.id}')">Adicionar</button>
+                </div>
+            `).join('');
+            
+            console.log("PiraBloco: Vitrine atualizada com " + produtos.length + " itens.");
+        } catch (err) {
+            console.error("Erro ao carregar produtos.json", err);
+            vitrine.innerHTML = "<p>Erro ao carregar produtos.</p>";
+        }
+    },
+
+    // 3. EVENTOS DE INTERFACE (Menu Hambúrguer)
     configurarEventosUI() {
-        // Elementos do Cabeçalho Mobile
         const btnMenu = document.getElementById('pb-menu-trigger');
-        const btnCloseMenu = document.getElementById('pb-close-menu');
         const sidebar = document.getElementById('pb-mobile-menu');
         const overlay = document.getElementById('pb-overlay-menu');
+        const btnClose = document.getElementById('pb-close-menu');
 
-        // Elementos do Modal de Login
-        const btnLoginTrigger = document.querySelector('.pb-btn-login-trigger');
-        const modalLogin = document.getElementById('pb-login-modal');
-        const btnCloseModal = document.getElementById('pb-close-login');
-
-        // Função abrir/fechar Menu
         const toggleMenu = () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        };
-
-        if (btnMenu) btnMenu.onclick = toggleMenu;
-        if (btnCloseMenu) btnCloseMenu.onclick = toggleMenu;
-        if (overlay) overlay.onclick = toggleMenu;
-
-        // Função abrir/fechar Modal de Login
-        if (btnLoginTrigger) {
-            btnLoginTrigger.onclick = () => {
-                modalLogin.classList.add('show');
-                if(sidebar.classList.contains('active')) toggleMenu(); // Fecha o menu ao abrir login
-            };
-        }
-
-        if (btnCloseModal) {
-            btnCloseModal.onclick = () => modalLogin.classList.remove('show');
-        }
-
-        // Fecha modal ao clicar fora dele
-        window.onclick = (event) => {
-            if (event.target == modalLogin) {
-                modalLogin.classList.remove('show');
+            if(sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
             }
         };
 
-        console.log("PiraBloco: Eventos de UI configurados.");
+        if (btnMenu) btnMenu.onclick = toggleMenu;
+        if (btnClose) btnClose.onclick = toggleMenu;
+        if (overlay) overlay.onclick = toggleMenu;
+    },
+
+    adicionarAoCarrinho(id) {
+        alert("Produto " + id + " adicionado ao carrinho!");
     }
 };
 
-// Inicializa quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => PiraBloco.init());
