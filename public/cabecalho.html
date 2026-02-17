@@ -1,122 +1,186 @@
-<header class="pb-header-main">
+<header class="pb-header-section">
     <div class="pb-header-container">
-        <div class="pb-logo-area">
-            <h1 class="pb-logo-text">Pira<span>Bloco</span></h1>
+        
+        <div class="pb-brand-area">
+            <h1 class="pb-logo">Pira<span>Bloco</span><span class="pb-reg">®</span></h1>
         </div>
 
-        <div class="pb-search-bar">
-            <input type="text" placeholder="Buscar blocos, kits e peças..." id="pb-search-input">
-            <button id="pb-search-btn">🔍</button>
+        <div class="pb-search-box">
+            <input type="text" id="pb-search-input" placeholder="Buscar peças ou kits...">
+            <button id="pb-search-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
         </div>
 
-        <div class="pb-user-actions">
-            <div id="pb-user-auth" class="pb-auth-loading">
-                <div class="pb-user-icon" id="pb-open-auth">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="User" id="pb-user-img">
-                    <span id="pb-user-name">Entrar</span>
+        <div class="pb-user-hub">
+            
+            <div id="pb-user-auth" class="pb-auth-trigger">
+                <div class="pb-user-avatar-frame">
+                    <img id="pb-user-img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Perfil">
+                </div>
+                <div class="pb-user-info">
+                    <span id="pb-user-greeting">Olá, Visitante</span>
+                    <span id="pb-user-action">Entrar / Cadastrar</span>
                 </div>
             </div>
-            
-            <div class="pb-cart-icon" id="pb-open-cart">
-                <span class="pb-cart-count">0</span>
-                🛒
+
+            <div id="pb-cart-trigger" class="pb-cart-area">
+                <div class="pb-cart-icon-wrapper">
+                    <span id="pb-cart-count">0</span>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </div>
             </div>
+
         </div>
     </div>
 
     <style>
-        .pb-header-main {
-            background-color: #195961; /* Cor Mestra Oficial */
-            padding: 15px 20px;
-            color: #FFFFFF;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        /* === ESTILO BASEADO NA PALETA OFICIAL PIRABLOCO === */
+        .pb-header-section {
+            background-color: #195961; /* Turquesa Profundo (Institucional) */
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .pb-header-container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
         }
-        .pb-logo-text {
-            font-size: 1.6rem;
-            margin: 0;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #b3ecec; /* Gelo/Ciano Oficial */
-        }
-        .pb-logo-text span { color: #76c7c0; } /* Turquesa Suave */
 
-        .pb-search-bar {
+        /* LOGO */
+        .pb-logo {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #b3ecec; /* Gelo/Ciano (Brilho) */
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+        .pb-logo span { color: #76c7c0; /* Turquesa Suave */ }
+        .pb-logo .pb-reg { font-size: 0.8rem; vertical-align: super; }
+
+        /* BUSCA */
+        .pb-search-box {
             flex: 1;
+            max-width: 450px;
+            position: relative;
             display: flex;
-            max-width: 500px;
-            background: #FFFFFF;
-            border-radius: 25px;
-            overflow: hidden;
-            padding: 2px 5px;
+            align-items: center;
         }
         #pb-search-input {
-            flex: 1;
-            border: none;
-            padding: 10px 15px;
+            width: 100%;
+            padding: 10px 40px 10px 20px;
+            border-radius: 25px;
+            border: 2px solid transparent;
+            background: rgba(255,255,255,0.1); /* Vidro sutil */
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        #pb-search-input::placeholder { color: #76c7c0; }
+        #pb-search-input:focus {
+            background: #fff;
+            color: #195961;
+            border-color: #2A9D8F;
             outline: none;
-            font-size: 0.9rem;
         }
         #pb-search-btn {
+            position: absolute;
+            right: 10px;
             background: none;
             border: none;
-            padding: 0 15px;
+            color: #76c7c0;
             cursor: pointer;
-            font-size: 1.1rem;
+        }
+        #pb-search-input:focus + #pb-search-btn { color: #195961; }
+
+        /* HUB DO USUÁRIO */
+        .pb-user-hub {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
 
-        .pb-user-actions {
+        .pb-auth-trigger {
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-        .pb-user-icon {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
-            transition: opacity 0.3s;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .pb-auth-trigger:hover { background: rgba(255,255,255,0.1); }
+
+        .pb-user-avatar-frame {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #2A9D8F; /* Turquesa Vibrante */
+            overflow: hidden;
+            background: #fff;
         }
         #pb-user-img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: #b3ecec;
-            border: 2px solid #76c7c0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        #pb-user-name { font-size: 0.85rem; font-weight: 500; }
 
-        .pb-cart-icon {
+        .pb-user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        #pb-user-greeting {
+            font-size: 0.75rem;
+            color: #b3ecec;
+        }
+        #pb-user-action {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* CARRINHO */
+        .pb-cart-area {
             position: relative;
-            font-size: 1.5rem;
             cursor: pointer;
         }
-        .pb-cart-count {
+        .pb-cart-icon-wrapper { position: relative; }
+        #pb-cart-count {
             position: absolute;
             top: -8px;
-            right: -10px;
-            background: #2A9D8F; /* Turquesa Vibrante Oficial */
+            right: -8px;
+            background-color: #d32f2f; /* Vermelho LEGO para Alerta/Ação */
             color: white;
             font-size: 0.7rem;
+            font-weight: bold;
             padding: 2px 6px;
             border-radius: 10px;
-            font-weight: bold;
+            border: 2px solid #195961;
         }
 
-        /* Responsivo */
+        /* RESPONSIVIDADE (Mobile) */
         @media (max-width: 768px) {
-            .pb-search-bar { display: none; } /* Esconde busca no mobile para focar na marca */
-            .pb-logo-text { font-size: 1.3rem; }
+            .pb-search-box { display: none; } /* Oculta busca no mobile para limpar visual */
+            .pb-user-info { display: none; } /* Oculta texto, mantém só ícone */
+            .pb-header-container { justify-content: space-between; }
         }
     </style>
 </header>
