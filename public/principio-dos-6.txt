@@ -1,0 +1,25 @@
+PRINCÍPIO DOS 6 - PROTOCOLO SUPREMO PIRABLOCO
+
+1. A HIERARQUIA DOS 6 ELEMENTOS (SHELL FETCH):
+   A Index.html (A Maestra) deve carregar os componentes nesta ordem exata para evitar conflito visual (FOUC):
+   
+   1º STYLE.HTML: O VISUAL. Injetado no <head> como texto. Define as cores e layout antes de tudo.
+   2º CABECALHO.HTML: O CÉREBRO. Injetado em #header-mount. Contém Login, Foto do Usuário (Storage) e Carrinho.
+   3º BODY.HTML: A VITRINE. Injetado em #main-mount. Contém Banners e Grade de Produtos.
+   4º RODAPE.HTML: A CONFIANÇA. Injetado em #footer-mount. Contém o CNPJ, Copyright e Links Institucionais.
+   5º SCRIPT.JS: O MOTOR. Processa a lógica (JSON/Swipe) somente após os 4 HTMLs estarem carregados.
+   6º INDEX.HTML: A CASCA. O arquivo pai que orquestra tudo e carrega os SDKs do Firebase.
+
+2. FUNÇÕES ESPECÍFICAS E SEGURANÇA:
+   - CABECALHO (HUB): Gerencia estado do usuário. Scripts internos devem ser isolados (IIFE) e nunca chamar a index.
+   - RODAPE (LEGITIMIDADE): Obrigatório conter o CNPJ visível. Não deve ter lógica complexa, apenas links e texto.
+   - BODY (DINÂMICO): Deve manter IDs fixos (#productsGrid) para o Script.js encontrar onde pôr os blocos.
+
+3. REGRA ANTI-LOOP (PROTEÇÃO DE MEMÓRIA):
+   - A Index.html é a ÚNICA que faz fetch de estrutura.
+   - Nenhum componente (1, 2, 3, 4) pode tentar carregar a Index dentro de si.
+
+4. DADOS E DIRETÓRIOS:
+   - Caminho Imagens: /storage/emulated/0/pirabloco/imagens/itens/
+   - Caminho Projeto: ~/loja-v2/public/
+   - Repositório: https://github.com/pirabloco-workspace/loja-v2
