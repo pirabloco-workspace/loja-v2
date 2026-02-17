@@ -1,6 +1,6 @@
 <style>
   /* =================================================================
-     ARQUIVO: style.html (Versão Final - Botão Embaixo / Mobile Perfeito)
+     ARQUIVO: style.html (Versão Final - Botão Embaixo / Mobile Perfeito + Banner Swipe)
      ================================================================= */
 
   :root {
@@ -18,22 +18,22 @@
   * { box-sizing: border-box; }
   
   body { 
-    margin: 0; 
+    margin: 0;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
     background: var(--pb-bg-page); 
     color: var(--pb-text-body); 
-    -webkit-tap-highlight-color: transparent; 
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* =========================
-     1. BANNER (ALINHADO)
+     1. BANNER (ALINHADO E COM SWIPE)
      ========================= */
   .pb-bannerWrap { 
     width: 100%;
     max-width: 1112px; 
     margin: 0 auto;
     padding: 16px 16px 0;
-    overflow: hidden; 
+    overflow: hidden;
   }
   
   .pb-banner {
@@ -50,21 +50,70 @@
     .pb-banner { aspect-ratio: 16/9; } 
   }
 
-  .pb-bannerTrack { display: flex; height: 100%; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-  .pb-bannerSlide { min-width: 100%; height: 100%; display: none; }
-  .pb-bannerSlide.is-active { display: block; animation: fadeIn 0.6s ease; }
-  .pb-bannerSlide img { width: 100%; height: 100%; object-fit: cover; }
-  @keyframes fadeIn { from { opacity: 0.6; } to { opacity: 1; } }
+  /* --- AJUSTE DO SWIPE (NOVO) --- */
+  .pb-bannerTrack { 
+    display: flex; 
+    height: 100%; 
+    overflow-x: auto;            /* Permite rolar para o lado */
+    scroll-snap-type: x mandatory; /* Faz o banner travar na posição certa */
+    scroll-behavior: smooth;     /* Movimento suave */
+    -webkit-overflow-scrolling: touch; /* Essencial para iPhone */
+    scrollbar-width: none;       /* Esconde barra no Firefox */
+  }
+
+  /* Esconde barra no Chrome/Safari */
+  .pb-bannerTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pb-bannerSlide { 
+    flex: 0 0 100%;              /* Garante largura total */
+    min-width: 100%; 
+    height: 100%; 
+    scroll-snap-align: start;    /* Ponto de parada */
+    display: block;              /* Garante que apareça */
+  }
+
+  /* Animação removida pois o scroll nativo substitui o fade */
+  .pb-bannerSlide.is-active { 
+    display: block; 
+  }
+
+  .pb-bannerSlide img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+  }
   
-  .pb-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
-  .pb-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); transition: 0.3s; }
-  .pb-dot.is-active { width: 24px; border-radius: 10px; background: #fff; }
+  .pb-dots { 
+    position: absolute; 
+    bottom: 12px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    display: flex; 
+    gap: 8px; 
+    z-index: 10; 
+  }
+  
+  .pb-dot { 
+    width: 8px; 
+    height: 8px; 
+    border-radius: 50%; 
+    background: rgba(255,255,255,0.6); 
+    transition: 0.3s;
+  }
+  
+  .pb-dot.is-active { 
+    width: 24px; 
+    border-radius: 10px; 
+    background: #fff;
+  }
 
   /* =========================
      2. CONTROLES (ALINHADO)
      ========================= */
   .pb-controls {
-    width: 100%; 
+    width: 100%;
     max-width: 1112px; 
     margin: 0 auto;
     padding: 16px; 
@@ -77,35 +126,39 @@
 
   .pb-searchBox {
     flex: 1; display: flex; align-items: center;
-    background: #fff; border-radius: 12px; padding: 0 16px; height: 48px;
+    background: #fff;
+    border-radius: 12px; padding: 0 16px; height: 48px;
     border: 1px solid rgba(0,0,0,0.05); 
     box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     transition: all 0.2s;
   }
   .pb-searchBox:focus-within { border-color: var(--pb-turq-main); box-shadow: 0 4px 12px rgba(68, 155, 178, 0.15); }
   .pb-searchBox svg { color: var(--pb-text-muted); width: 20px; height: 20px; flex-shrink: 0; }
-  .pb-searchInput { border: none; outline: none; font-size: 16px; width: 100%; height: 100%; margin-left: 10px; background: transparent; color: var(--pb-text-body); font-weight: 600; }
+  .pb-searchInput { border: none;
+    outline: none; font-size: 16px; width: 100%; height: 100%; margin-left: 10px; background: transparent; color: var(--pb-text-body); font-weight: 600;
+  }
 
   .pb-soldBtn {
     background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 12px;
     padding: 0 16px; height: 48px;
     font-weight: 700; color: var(--pb-text-muted); font-size: 12px;
     cursor: pointer; display: flex; align-items: center; gap: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
   }
   .pb-soldBtn:active { transform: scale(0.96); }
-  .pb-soldBtn.is-active { background: var(--pb-danger-bg); color: var(--pb-danger); border-color: #fecaca; }
+  .pb-soldBtn.is-active { background: var(--pb-danger-bg);
+    color: var(--pb-danger); border-color: #fecaca; }
 
   /* =========================
      3. GRADE DE PRODUTOS
      ========================= */
   .pb-gridWrap { 
-    width: 100%; 
+    width: 100%;
     max-width: 1112px; 
     margin: 0 auto;
     padding: 0 16px 40px; 
-    
-    min-height: 50vh; 
+    min-height: 50vh;
   }
   
   .pb-productsGrid {
@@ -123,17 +176,20 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     display: flex; flex-direction: column; gap: 8px;
     position: relative; transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer; border: 1px solid transparent;
+    cursor: pointer;
+    border: 1px solid transparent;
     height: 100%;
   }
   .pb-productCard:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.05); }
   .pb-productCard.is-oos { opacity: 0.75; filter: grayscale(1); }
 
   .pb-productMedia {
-    background: #f8fafc; border-radius: 14px; aspect-ratio: 1/1; 
+    background: #f8fafc; border-radius: 14px;
+    aspect-ratio: 1/1; 
     display: grid; place-items: center; overflow: hidden; margin-bottom: 2px;
   }
-  .pb-productMedia img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.3s; }
+  .pb-productMedia img { width: 100%; height: 100%;
+    object-fit: contain; mix-blend-mode: multiply; transition: transform 0.3s; }
   .pb-productCard:hover .pb-productMedia img { transform: scale(1.08); }
 
   .pb-productName {
@@ -144,13 +200,14 @@
 
   .pb-priceRow { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
   .pb-price { font-size: 15px; font-weight: 900; color: var(--pb-turq-dark); }
-  .pb-stockLabel { font-size: 10px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+  .pb-stockLabel { font-size: 10px; font-weight: 700; color: #64748b;
+    background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
 
-  /* --- AQUI ESTÁ A MUDANÇA: BOTÕES EMPILHADOS --- */
+  /* --- BOTÕES EMPILHADOS --- */
   .pb-cardActions {
-    display: flex; 
-    flex-direction: column; /* Joga um pra baixo do outro */
-    gap: 8px; /* Espaço entre contador e botão */
+    display: flex;
+    flex-direction: column; 
+    gap: 8px;
     margin-top: 6px;
     width: 100%;
   }
@@ -159,19 +216,20 @@
     display: flex; align-items: center; justify-content: space-between;
     border: 1px solid #e2e8f0; border-radius: 8px;
     overflow: hidden;
-    height: 32px; /* Altura do contador */
+    height: 32px;
     width: 100%;
   }
   
   .pb-qtyBtn {
     width: 36px; height: 100%; border: none; background: #f8fafc;
-    color: var(--pb-turq-dark); font-weight: bold; cursor: pointer; font-size: 18px;
+    color: var(--pb-turq-dark);
+    font-weight: bold; cursor: pointer; font-size: 18px;
     display: flex; align-items: center; justify-content: center; transition: background 0.2s;
   }
   .pb-qtyBtn:hover { background: #e0f2f1; }
   
   .pb-qtyInput {
-    flex: 1; /* Estica no meio */
+    flex: 1;
     height: 100%; border: none; text-align: center;
     font-weight: 700; font-size: 14px; color: var(--pb-text-body);
     background: #fff; -moz-appearance: textfield;
@@ -180,11 +238,12 @@
   .pb-qtyInput::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
   .pb-ctaBtn {
-    width: 100%; /* Largura total */
-    height: 36px; /* Altura boa pra dedo */
+    width: 100%; 
+    height: 36px;
     border: none; border-radius: 8px;
     background: linear-gradient(135deg, #1c5e68, #449bb2);
-    color: #fff; font-weight: 800; text-transform: uppercase; cursor: pointer;
+    color: #fff;
+    font-weight: 800; text-transform: uppercase; cursor: pointer;
     font-size: 11px; letter-spacing: 0.5px;
     display: flex; align-items: center; justify-content: center;
   }
@@ -195,7 +254,8 @@
      4. PAGINAÇÃO
      ========================= */
   .pb-paginationWrap {
-    display: flex; justify-content: center; align-items: center; gap: 6px;
+    display: flex;
+    justify-content: center; align-items: center; gap: 6px;
     padding: 24px 0; margin: 0 auto; flex-wrap: wrap;
   }
   .pb-pageBtn {
@@ -244,8 +304,7 @@
   .pb-chip { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; background: #f1f5f9; color: var(--pb-turq-dark); width: fit-content; }
   .pb-chip.is-sold { background: #fee2e2; color: #ef4444; }
   .pb-qtyRow { display: flex; gap: 10px; margin-top: 20px; align-items: center; }
-  .pb-qtyInput { border: 1px solid #cbd5e1; border-radius: 10px; width: 60px; height: 44px; text-align: center; font-weight: 700; font-size: 16px; }
-
+  
   @media (max-width: 650px) {
     .pb-modal { padding: 0; align-items: flex-end; }
     .pb-modalPanel { max-height: 85vh; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }

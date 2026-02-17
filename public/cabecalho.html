@@ -1,148 +1,62 @@
-<style>
-  :root{
-    --pb-turq-dark: #1c5e68;
-    --pb-turq-light: #449bb2;
-    --pb-bg-header: rgba(255, 255, 255, 0.96);
-    --pb-text-main: #111827;
-    --pb-header-h: 70px; 
-    --pb-btn-size: 40px;
-  }
-
-  header.mk-header{
-    position: sticky; top: 0; z-index: 999;
-    background: var(--pb-bg-header);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    height: var(--pb-header-h);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5%;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-  }
-
-  .mk-logo { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: var(--pb-turq-dark); display: flex; align-items: center; gap: 8px; }
-  .mk-logo span { color: var(--pb-turq-light); }
-
-  .mk-actions { display: flex; gap: 15px; align-items: center; }
-
-  .mk-btn {
-    width: var(--pb-btn-size); height: var(--pb-btn-size); border-radius: 50%;
-    background: #f3f4f6; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; position: relative; transition: all 0.2s; border: 1px solid transparent;
-  }
-  .mk-btn:hover { background: #e5e7eb; transform: translateY(-1px); }
-  
-  .mk-badge {
-    position: absolute; top: -2px; right: -2px;
-    background: #ef4444; color: white;
-    font-size: 10px; font-weight: bold;
-    height: 16px; min-width: 16px; padding: 0 4px;
-    border-radius: 10px; display: none; align-items: center; justify-content: center; border: 2px solid #fff;
-  }
-  .mk-badge.visible { display: flex; }
-
-  .mk-user-circle { overflow: hidden; background-size: cover; background-position: center; }
-  .mk-user-circle img { width: 100%; height: 100%; object-fit: cover; display: none; }
-  .mk-user-circle.has-img img { display: block; }
-  .mk-user-circle.has-img svg { display: none; }
-</style>
-
-<header class="mk-header">
-  <a href="/" class="mk-logo">Pira<span>Bloco</span>®</a>
-  <div class="mk-actions">
-    <a href="/minha-conta" class="mk-btn mk-user-circle" id="btn-user">
-      <svg id="icon-user-default" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <img id="user-img-tag" alt="User">
-    </a>
-    <a href="/carrinho" class="mk-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-      <span class="mk-badge" id="cart-count">0</span>
-    </a>
-  </div>
+cat > ~/loja-v2/public/cabecalho.html << 'EOF'
+<header class="pb-header">
+    <div class="pb-logo-container">
+        <h1 class="pb-logo-text">
+            PiraBloco<sup class="pb-registered">&reg;</sup>
+        </h1>
+    </div>
 </header>
 
-<script type="module">
-  // 🔥 LÓGICA BLINDADA
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  const app = window.firebaseApp || initializeApp({
-    apiKey: "AIzaSyC6sLct8J7NY7080Yb8s9tlYhdnakIXC1o",
-    authDomain: "percivalbrics-cf3cc.firebaseapp.com",
-    projectId: "percivalbrics-cf3cc",
-    storageBucket: "percivalbrics-cf3cc.firebasestorage.app",
-    messagingSenderId: "918076916066",
-    appId: "1:918076916066:web:86a3b3c8e42a39ecc46c3b"
-  });
-
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const CART_KEY = 'pb_cart_v2'; 
-
-  function normalize(items){
-    if(!Array.isArray(items)) return [];
-    return items.map(x => ({ sku: String(x.sku).trim(), qty: Math.max(1, parseInt(x.qty)||1) })).filter(x=>x.sku);
-  }
-
-  function updateBadge(items){
-    const total = items.reduce((acc, i) => acc + i.qty, 0);
-    const el = document.getElementById('cart-count');
-    if(el){ el.innerText = total; el.classList.toggle('visible', total > 0); }
-  }
-
-  // --- API BLINDADA ---
-  window.pbCart = {
-    get: () => { try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; } },
-    
-    // 🛡️ O PARÂMETRO MÁGICO: fromCloud
-    set: async (items, fromCloud = false) => {
-      const clean = normalize(items);
-      const json = JSON.stringify(clean);
-      
-      if(localStorage.getItem(CART_KEY) !== json){
-        localStorage.setItem(CART_KEY, json);
-        updateBadge(clean);
-        window.dispatchEvent(new CustomEvent('pb:cart-updated', { detail: { items: clean } }));
-      }
-
-      // 🛑 SÓ SALVA NO CLOUD SE NÃO VEIO DE LÁ
-      const user = auth.currentUser;
-      if(user && !fromCloud){ 
-        await setDoc(doc(db, "carts", user.uid), { items: clean }, { merge: true });
-      }
-    },
-
-    add: async (sku, qty = 1) => {
-      const cur = window.pbCart.get();
-      const idx = cur.findIndex(i => i.sku === sku);
-      if(idx >= 0) cur[idx].qty += qty; else cur.push({ sku, qty });
-      await window.pbCart.set(cur); // Aqui fromCloud é false (padrão), então salva no Cloud.
+<style>
+    /* O Container do Cabeçalho - Fundo Branco Limpo */
+    .pb-header {
+        width: 100%;
+        height: 70px; /* Altura fixa para não empurrar o layout */
+        background: #ffffff; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06); /* Sombra suave */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        /* Garante que fique no topo sempre */
+        position: sticky; 
+        top: 0;
+        z-index: 999; 
     }
-  };
 
-  updateBadge(window.pbCart.get());
-
-  onAuthStateChanged(auth, (user) => {
-    const btn = document.getElementById('btn-user');
-    const img = document.getElementById('user-img-tag');
-    if(user){
-      if(user.photoURL && img && btn) { img.src = user.photoURL; btn.classList.add('has-img'); }
-      
-      // 🛡️ LISTENER QUE USA A TRAVA
-      onSnapshot(doc(db, "carts", user.uid), (snap) => {
-        if(snap.exists()){
-          const cloud = normalize(snap.data().items);
-          const local = window.pbCart.get();
-          if(JSON.stringify(cloud) !== JSON.stringify(local)){
-            // ✅ AQUI: Passamos 'true' para avisar que veio do cloud
-            // O set() vai atualizar a tela mas NÃO vai devolver pro cloud.
-            window.pbCart.set(cloud, true); 
-          }
-        }
-      });
-    } else {
-      if(btn) btn.classList.remove('has-img');
+    /* O Texto PiraBloco com Degradê "Deep Turquoise" */
+    .pb-logo-text {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-size: 28px;
+        font-weight: 900; /* Extra Grosso para a marca */
+        margin: 0;
+        letter-spacing: -0.5px;
+        line-height: 1;
+        
+        /* O Efeito de Degradê Escuro */
+        background: linear-gradient(135deg, #0e3d45 0%, #1c5e68 50%, #2a8a9c 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: #1c5e68; /* Fallback se o navegador não aceitar degradê */
     }
-  });
-</script>
+
+    /* O Ajuste do "R" - Pequeno, Fino e Nítido */
+    .pb-registered {
+        font-size: 10px; /* Tamanho fixo para leitura */
+        vertical-align: top; /* Joga para cima */
+        margin-left: 2px;
+        margin-top: 2px;
+        display: inline-block;
+        
+        /* O SEGREDO: Tirar o peso bold para não borrar */
+        font-weight: 500; 
+        
+        /* Cor sólida (sem o degradê) para ficar bem nítido */
+        -webkit-text-fill-color: #1c5e68; 
+        color: #1c5e68;
+        opacity: 0.8;
+    }
+</style>
+EOF
 
