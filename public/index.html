@@ -28,9 +28,12 @@
         .pb-brand { font-size: 1.4rem; font-weight: 800; color: var(--pb-light); }
         .pb-brand span { color: #76c7c0; }
         
+        /* Ícones do Header */
         .pb-header-icons { display: flex; align-items: center; gap: 15px; }
-        .pb-user-icon { color: var(--pb-light); cursor: pointer; }
-
+        .pb-user-icon { 
+            color: var(--pb-light); cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        
         /* --- 3. BANNER --- */
         .pb-banner-container { width: 100%; position: relative; overflow: hidden; background: #ddd; min-height: 150px; }
         .pb-banner-track { display: flex; transition: transform 0.5s ease-in-out; width: 100%; }
@@ -61,6 +64,7 @@
         }
         .pb-page-btn.active { background: var(--pb-dark); color: #fff; border-color: var(--pb-dark); }
         .pb-page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .pb-dots-sep { padding: 0 5px; color: #888; }
 
         /* --- 6. CARD --- */
         .pb-card {
@@ -70,7 +74,7 @@
         }
         .pb-img-box {
             height: 160px; background: #fff; padding: 10px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; align-items: center; justify-content: center; position: relative;
         }
         .pb-img-box img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
         
@@ -97,10 +101,10 @@
         }
         .pb-btn-buy:disabled { background: #ccc; }
 
-        /* --- 7. MODAL (CORRIGIDO) --- */
+        /* --- 7. MODAL --- */
         .pb-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 99999; /* PRIORIDADE MÁXIMA */
+            background: rgba(0,0,0,0.85); z-index: 99999; /* Z-INDEX ALTO */
             display: none; justify-content: center; align-items: center; padding: 10px;
         }
         .pb-modal-content {
@@ -141,6 +145,7 @@
         .pb-overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: none; }
         .pb-overlay-menu.active { display: block; }
         
+        /* LOGIN NO MENU */
         .pb-menu-login {
             background: var(--pb-dark); color: white; padding: 20px;
             display: flex; flex-direction: column; align-items: center; text-align: center;
@@ -161,7 +166,7 @@
         <div onclick="app.toggleMenu()" style="cursor:pointer; padding:5px;"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#b3ecec" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
         <div class="pb-brand">Pira<span>Bloco</span>®</div>
         <div class="pb-header-icons">
-            <div class="pb-user-icon" onclick="alert('Login em breve!')">
+            <div class="pb-user-icon" onclick="alert('Área de usuário em breve!')">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             </div>
             <div style="position:relative;">
@@ -184,7 +189,7 @@
         <div class="pb-menu-login">
             <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#b3ecec" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             <p style="margin:5px 0 0 0; font-size:0.9rem;">Bem-vindo</p>
-            <button class="pb-btn-login-menu" onclick="alert('Sistema de login em breve')">ENTRAR / CADASTRAR</button>
+            <button class="pb-btn-login-menu" onclick="alert('Sistema de login em desenvolvimento')">ENTRAR / CADASTRAR</button>
         </div>
         <div style="background:#195961; color:white; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #378fae;">
             <h3 style="margin:0">Menu</h3><span onclick="app.toggleMenu()" style="font-size:1.5rem; cursor:pointer;">&times;</span>
@@ -250,7 +255,6 @@
 
             async init() {
                 this.loopBanner();
-                // Fecha modal no click fora
                 document.getElementById('modalProduto').addEventListener('click', (e) => {
                     if (e.target.id === 'modalProduto') this.fecharModal();
                 });
@@ -261,13 +265,21 @@
                 try {
                     const r = await fetch('./produtos.json?v=' + Date.now());
                     const json = await r.json();
-                    // Filtra o _meta e pega só produtos ativos
-                    this.dados = Object.values(json).filter(i => i.nome && i.ativo);
+                    
+                    // --- AQUI ESTA O SEGREDO DO "UNDEFINED" ---
+                    // Convertemos o JSON (Objeto) em Array, mas SALVAMOS A CHAVE (SKU) dentro do item
+                    this.dados = Object.entries(json)
+                        .filter(([key, item]) => key !== '_meta' && item.nome && item.ativo)
+                        .map(([key, item]) => {
+                            // Se o item não tem skuBase, usamos a chave (Ex: I001)
+                            return { ...item, skuBase: item.skuBase || key };
+                        });
+
                     this.filtrados = this.dados;
                     this.renderizarPagina();
                 } catch (e) {
                     console.error(e);
-                    document.getElementById('grid').innerHTML = "<p>Erro ao ler JSON.</p>";
+                    document.getElementById('grid').innerHTML = "<p>Erro ao carregar galáxia (JSON).</p>";
                 }
             },
 
@@ -297,13 +309,10 @@
                 const totalPags = Math.ceil(this.filtrados.length / this.itensPorPagina);
 
                 fatia.forEach(p => {
-                    // Pega o SKU real ou gera um ID temp
-                    // O JSON tem keys como "I001", mas o objeto dentro tem skuBase?
-                    // Vamos tentar usar o SKU Base do objeto
-                    const sku = p.skuBase || "ID"+Math.floor(Math.random()*1000);
+                    const sku = p.skuBase; // Agora temos certeza que isso existe!
                     const estoque = p.estoque || 0;
                     
-                    // GERAÇÃO DO LINK DO GITHUB
+                    // GERAÇÃO CORRETA DA IMAGEM DO GITHUB
                     const imgUrl = this.gerarUrlImagem(p, 1);
                     
                     const preco = (p.precoCentavos/100).toLocaleString('pt-BR', {minimumFractionDigits:2});
@@ -330,9 +339,8 @@
                             <div class="pb-actions">${acoes}</div>
                         </div>`;
                     
-                    // Vincula clique na imagem para abrir modal
                     div.querySelector('.pb-img-box').addEventListener('click', () => {
-                        app.abrirModal(sku); // Passa o SKU para achar o produto
+                        app.abrirModal(sku);
                     });
 
                     grid.appendChild(div);
@@ -341,24 +349,23 @@
                 this.renderPaginacao(totalPags);
             },
 
-            // GERA URL GITHUB RAW: Base + Pasta + SKU + Suffix + Ext
+            // --- FUNÇÃO CORRIGIDA PARA GITHUB RAW ---
             gerarUrlImagem(p, num) {
                 const baseUrl = "https://raw.githubusercontent.com/pirabloco-workspace/loja-v2/main/public/";
+                
                 if (p.imagens && p.imagens.pasta) {
-                    // Remove "public/" se estiver na pasta do json pra não duplicar
+                    // Remove 'public/' do caminho se existir para não duplicar
                     let pasta = p.imagens.pasta.replace('public/', '');
-                    // Garante que não comece com /
-                    if(pasta.startsWith('/')) pasta = pasta.substring(1);
+                    // Remove barras extras
+                    pasta = pasta.replace(/^\/+|\/+$/g, '');
                     
-                    // Usa a chave do objeto se skuBase não existir?
-                    // No seu JSON o skuBase está lá. Ex: I001
-                    const sku = p.skuBase || "IMG";
+                    const sku = p.skuBase; // Ex: I001
                     const ext = p.imagens.ext || "webp";
                     
-                    // Padrão: I001-1.webp
+                    // Resultado: .../imagens/itens/I001-1.webp
                     return `${baseUrl}${pasta}/${sku}-${num}.${ext}`;
                 }
-                return p.imagem || "https://placehold.co/200";
+                return "https://placehold.co/200?text=Sem+Foto";
             },
 
             renderPaginacao(total) {
@@ -387,7 +394,7 @@
             },
 
             abrirModal(sku) {
-                // Busca o produto na lista carregada
+                console.log("Abrindo modal:", sku);
                 const p = this.dados.find(i => i.skuBase === sku);
                 if(!p) return;
 
@@ -425,7 +432,7 @@
                 const thumbsDiv = document.getElementById('modalThumbs');
                 thumbsDiv.innerHTML = "";
                 const qtd = (p.imagens && p.imagens.qtd) ? p.imagens.qtd : 1;
-                const max = Math.min(qtd, 6);
+                const max = Math.min(qtd, 6); // Máximo 6 fotos
                 
                 main.src = this.gerarUrlImagem(p, 1);
 
