@@ -28,22 +28,15 @@
         .pb-brand { font-size: 1.4rem; font-weight: 800; color: var(--pb-light); }
         .pb-brand span { color: #76c7c0; }
         
-        /* --- 3. BANNER ROTATIVO (NOVO) --- */
+        /* --- 3. BANNER ROTATIVO --- */
         .pb-banner-container {
             width: 100%; position: relative; overflow: hidden;
-            background: #ddd; min-height: 150px; /* Evita pulo de layout */
+            background: #ddd; min-height: 150px;
         }
         .pb-banner-track {
-            display: flex; transition: transform 0.5s ease-in-out;
-            width: 100%;
+            display: flex; transition: transform 0.5s ease-in-out; width: 100%;
         }
-        .pb-banner-slide {
-            min-width: 100%; box-sizing: border-box;
-        }
-        .pb-banner-slide img {
-            width: 100%; height: auto; object-fit: cover;
-        }
-        /* Bolinhas de navegação */
+        .pb-banner-slide { min-width: 100%; box-sizing: border-box; }
         .pb-dots {
             position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 8px;
@@ -54,22 +47,51 @@
         }
         .pb-dot.active { background: #fff; transform: scale(1.2); }
 
-        /* --- 4. LAYOUT DA LOJA --- */
+        /* --- 4. LAYOUT & BUSCA RESPONSIVA --- */
         .pb-container { max-width: 1200px; margin: 0 auto; padding: 15px; min-height: 60vh; }
         
         .pb-search-box {
-            display: flex; background: #fff; border-radius: 25px;
-            padding: 5px 15px; margin: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex; align-items: center;
+            background: #fff; border-radius: 30px;
+            padding: 8px 20px; margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0; transition: border-color 0.3s;
         }
-        .pb-search-box input { flex: 1; border: none; padding: 10px; font-size: 1rem; }
+        .pb-search-box:focus-within { border-color: var(--pb-mid); }
+        .pb-search-box input { 
+            flex: 1; border: none; padding: 10px; font-size: 1rem; color: #333;
+        }
+        .pb-search-icon { font-size: 1.2rem; color: #888; margin-left: 10px; }
 
+        /* GRID DE PRODUTOS */
         .pb-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
         }
         @media(min-width: 768px) { .pb-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* --- 5. CARD DE PRODUTO (TURBINADO) --- */
+        /* PAGINAÇÃO */
+        .pb-pagination {
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            margin-top: 30px; padding: 20px 0;
+        }
+        .pb-page-btn {
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid #ddd; background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: var(--pb-dark); cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pb-page-btn.active {
+            background: var(--pb-dark); color: #fff; border-color: var(--pb-dark);
+        }
+        .pb-page-btn:hover:not(.active):not(:disabled) {
+            background: #f0f0f0;
+        }
+        .pb-page-btn:disabled {
+            opacity: 0.5; cursor: not-allowed;
+        }
+
+        /* --- 5. CARD DE PRODUTO --- */
         .pb-card {
             background: #fff; border-radius: 12px; overflow: hidden;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
@@ -91,12 +113,11 @@
         .pb-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
         .pb-price { color: var(--pb-action); font-weight: 800; font-size: 1.2rem; }
 
-        /* CONTROLE DE QUANTIDADE (+/-) */
+        /* CONTROLES QTD */
         .pb-actions { margin-top: auto; padding-top: 10px; }
         .pb-qty-box {
             display: flex; align-items: center; justify-content: space-between;
-            background: #f0f0f0; border-radius: 20px; margin-bottom: 8px;
-            padding: 2px;
+            background: #f0f0f0; border-radius: 20px; margin-bottom: 8px; padding: 2px;
         }
         .pb-qty-btn {
             width: 30px; height: 30px; border: none; background: #fff;
@@ -104,16 +125,11 @@
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .pb-qty-btn:active { transform: scale(0.9); }
-        .pb-qty-val { font-weight: bold; color: #333; min-width: 20px; text-align: center; }
-
         .pb-btn-buy {
             background: var(--pb-action); color: #fff; border: none;
             padding: 10px; width: 100%; border-radius: 20px;
             font-weight: bold; cursor: pointer; transition: background 0.2s;
         }
-        .pb-btn-buy:active { background: #1f7a6f; }
-        .pb-btn-buy:disabled { background: #ccc; cursor: not-allowed; }
 
         /* --- 6. MENU LATERAL --- */
         .pb-sidebar {
@@ -127,8 +143,8 @@
             background: rgba(0,0,0,0.5); z-index: 1500; display: none;
         }
         .pb-overlay.active { display: block; }
-        
-        /* --- 7. RODAPÉ OFICIAL --- */
+
+        /* --- 7. RODAPÉ --- */
         .pb-footer {
             background-color: #195961; color: #FFFFFF; padding: 40px 20px;
             font-family: sans-serif; border-top: 4px solid #76c7c0; margin-top: 30px;
@@ -137,8 +153,6 @@
             display: flex; justify-content: space-around; flex-wrap: wrap;
             max-width: 1000px; margin: 0 auto; gap: 20px;
         }
-        .pb-logo-ft { color: #b3ecec; font-size: 1.5rem; margin: 0; }
-        .pb-logo-ft span { color: #76c7c0; }
         .pb-col h4 { color: #76c7c0; margin-bottom: 10px; }
         .pb-col a { color: #b3ecec; text-decoration: none; display: block; font-size: 0.9rem; margin: 5px 0; }
         .pb-legal {
@@ -165,13 +179,13 @@
             <div class="pb-banner-slide">
                 <picture>
                     <source media="(max-width: 600px)" srcset="imagens/banners/banner-pb1-mobile.svg">
-                    <img src="imagens/banners/banner-pb1.svg" alt="Bem-vindo ao PiraBloco">
+                    <img src="imagens/banners/banner-pb1.svg" alt="Banner 1">
                 </picture>
             </div>
             <div class="pb-banner-slide">
                 <picture>
                     <source media="(max-width: 600px)" srcset="imagens/banners/banner-pb2-mobile.svg">
-                    <img src="imagens/banners/banner-pb2.svg" alt="Ofertas Especiais">
+                    <img src="imagens/banners/banner-pb2.svg" alt="Banner 2">
                 </picture>
             </div>
         </div>
@@ -187,16 +201,16 @@
             <h3>Menu</h3><span onclick="app.toggleMenu()" style="font-size:1.5rem;">&times;</span>
         </div>
         <div style="padding:20px;">
-            <p style="padding:10px; border-bottom:1px solid #eee;">🏠 Início</p>
-            <p style="padding:10px; border-bottom:1px solid #eee;">📦 Meus Pedidos</p>
-            <p style="padding:10px; border-bottom:1px solid #eee;">👤 Minha Conta</p>
+            <p>🏠 Início</p>
+            <p>📦 Meus Pedidos</p>
+            <p>👤 Minha Conta</p>
         </div>
     </aside>
 
     <main class="pb-container">
         <div class="pb-search-box">
-            <input type="text" id="searchInput" placeholder="Buscar blocos, kits ou peças..." oninput="app.filtrar()">
-            <span style="font-size:1.2rem; color:#ccc;">🔍</span>
+            <input type="text" id="searchInput" placeholder="O que você procura hoje?" oninput="app.filtrar(this.value)">
+            <span class="pb-search-icon">🔍</span>
         </div>
 
         <h3 style="color:#195961; margin: 10px 0; border-left: 4px solid #2A9D8F; padding-left: 10px;">Destaques da Galáxia</h3>
@@ -204,12 +218,15 @@
         <div id="grid" class="pb-grid">
             <p style="grid-column: span 2; text-align:center; padding:40px; color:#666;">Carregando sistema...</p>
         </div>
+
+        <div id="paginacao" class="pb-pagination">
+            </div>
     </main>
 
     <footer class="pb-footer">
         <div class="pb-footer-grid">
             <div class="pb-col">
-                <h3 class="pb-logo-ft">PiraBloco<span>®</span></h3>
+                <h3>PiraBloco<span>®</span></h3>
                 <p>Sua loja oficial de blocos de montar.</p>
             </div>
             <div class="pb-col">
@@ -219,49 +236,44 @@
             </div>
         </div>
         <div class="pb-legal">
-            <p><strong> PiraBloco®</strong></p>
             <p>CNPJ: 65.101.505/0001-98 | Inscrição Estadual: 158.100.899.115</p>
-            <p>| &copy; 2026 Todos os direitos reservados.</p>
+            <p>&copy; 2026 Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <script>
         const app = {
-            dados: [],
+            dadosCompletos: [], // Todos os produtos
+            dadosFiltrados: [], // Produtos após a busca
             carrinho: 0,
             bannerIndex: 0,
-            quantidades: {}, // Armazena qtd selecionada por SKU temporariamente
+            quantidades: {},
+            
+            // Configuração da Paginação
+            paginaAtual: 1,
+            itensPorPagina: 4, // 4 Itens por página
 
             async init() {
-                console.log("Iniciando PiraBloco V2...");
                 this.iniciarBannerLoop();
                 await this.buscarProdutos();
             },
 
-            // --- LÓGICA DO BANNER ---
+            // --- BANNERS ---
             iniciarBannerLoop() {
                 setInterval(() => {
                     this.bannerIndex = (this.bannerIndex === 0) ? 1 : 0;
                     this.atualizarBanner();
-                }, 5000); // Troca a cada 5 segundos
+                }, 5000);
             },
-            
-            mudarBanner(index) {
-                this.bannerIndex = index;
-                this.atualizarBanner();
-            },
-
+            mudarBanner(i) { this.bannerIndex = i; this.atualizarBanner(); },
             atualizarBanner() {
                 const track = document.getElementById('bannerTrack');
                 const dots = document.querySelectorAll('.pb-dot');
-                
                 track.style.transform = `translateX(-${this.bannerIndex * 100}%)`;
-                dots.forEach((d, i) => {
-                    d.classList.toggle('active', i === this.bannerIndex);
-                });
+                dots.forEach((d, i) => d.classList.toggle('active', i === this.bannerIndex));
             },
 
-            // --- LÓGICA DE DADOS ---
+            // --- DADOS ---
             async buscarProdutos() {
                 const grid = document.getElementById('grid');
                 try {
@@ -269,122 +281,137 @@
                     if (!r.ok) throw new Error("JSON Off");
                     const jsonRaw = await r.json();
 
-                    // Converte Objeto para Lista e tira o Lixo (_meta)
-                    this.dados = Object.values(jsonRaw).filter(i => i.nome && i.ativo === true);
-                    this.renderizar(this.dados);
+                    this.dadosCompletos = Object.values(jsonRaw).filter(i => i.nome && i.ativo === true);
+                    this.dadosFiltrados = this.dadosCompletos; // Começa mostrando tudo
+                    
+                    this.paginaAtual = 1;
+                    this.renderizarPagina();
 
                 } catch (e) {
                     console.error(e);
-                    grid.innerHTML = "<p style='color:red; text-align:center; grid-column:span 2'>Erro ao carregar blocos.</p>";
+                    grid.innerHTML = "<p style='color:red; text-align:center;'>Erro ao carregar blocos.</p>";
                 }
             },
 
-            // --- CONTROLE DE QUANTIDADE (+/-) ---
-            alterarQtd(sku, delta, estoqueMax) {
-                // Se ainda não tem no objeto, inicia com 1
+            // --- BUSCA VIVA ---
+            filtrar(termo) {
+                const t = termo.toLowerCase();
+                // Filtra a lista completa
+                this.dadosFiltrados = this.dadosCompletos.filter(p => 
+                    p.nome.toLowerCase().includes(t) || 
+                    (p.tema && p.tema.toLowerCase().includes(t))
+                );
+                // Volta para página 1 ao pesquisar
+                this.paginaAtual = 1;
+                this.renderizarPagina();
+            },
+
+            // --- RENDERIZAÇÃO COM PAGINAÇÃO ---
+            renderizarPagina() {
+                const grid = document.getElementById('grid');
+                const paginacaoDiv = document.getElementById('paginacao');
+                
+                grid.innerHTML = "";
+                paginacaoDiv.innerHTML = "";
+
+                // Se não tem nada
+                if (this.dadosFiltrados.length === 0) {
+                    grid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding:20px;'>Nenhum bloco encontrado com esse nome.</p>";
+                    return;
+                }
+
+                // Cálculo dos cortes
+                const inicio = (this.paginaAtual - 1) * this.itensPorPagina;
+                const fim = inicio + this.itensPorPagina;
+                const itensDaPagina = this.dadosFiltrados.slice(inicio, fim);
+                const totalPaginas = Math.ceil(this.dadosFiltrados.length / this.itensPorPagina);
+
+                // Renderiza os Cards
+                itensDaPagina.forEach(p => {
+                    const sku = p.skuBase || "ID" + Math.random().toString(36).substr(2, 5);
+                    let imgUrl = "https://placehold.co/200?text=Sem+Foto";
+                    
+                    if (p.imagens && p.imagens.pasta) {
+                        const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
+                        imgUrl = `${pasta}/${sku}.${p.imagens.ext || 'webp'}`;
+                    } else if (typeof p.imagem === 'string') imgUrl = p.imagem;
+
+                    let preco = p.precoCentavos ? (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : "0,00";
+                    const estoque = p.estoque || 0;
+                    const semEstoque = estoque <= 0;
+
+                    let htmlAcoes = semEstoque 
+                        ? `<button class="pb-btn-buy" disabled style="background:#ccc">ESGOTADO</button>` 
+                        : `<div class="pb-qty-box">
+                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', -1, ${estoque})">-</button>
+                                <span class="pb-qty-val" id="qtd-display-${sku}">1</span>
+                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', 1, ${estoque})">+</button>
+                           </div>
+                           <button class="pb-btn-buy" onclick="app.adicionarAoCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>`;
+
+                    grid.innerHTML += `
+                        <div class="pb-card">
+                            <div class="pb-img-box"><img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Foto'"></div>
+                            <div class="pb-info">
+                                <div class="pb-meta"><span>${p.tema || 'LEGO'}</span><span>${estoque} un.</span></div>
+                                <h3 class="pb-name">${p.nome}</h3>
+                                <p class="pb-price">R$ ${preco}</p>
+                                <div class="pb-actions">${htmlAcoes}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                // Renderiza Botões de Paginação
+                if (totalPaginas > 1) {
+                    // Botão Voltar (<)
+                    const btnPrev = document.createElement('button');
+                    btnPrev.className = 'pb-page-btn';
+                    btnPrev.innerHTML = '&#8249;'; // Seta esquerda
+                    btnPrev.disabled = this.paginaAtual === 1;
+                    btnPrev.onclick = () => { this.paginaAtual--; this.renderizarPagina(); };
+                    paginacaoDiv.appendChild(btnPrev);
+
+                    // Números (1, 2, 3...)
+                    for (let i = 1; i <= totalPaginas; i++) {
+                        const btn = document.createElement('button');
+                        btn.className = `pb-page-btn ${i === this.paginaAtual ? 'active' : ''}`;
+                        btn.innerText = i;
+                        btn.onclick = () => { this.paginaAtual = i; this.renderizarPagina(); };
+                        paginacaoDiv.appendChild(btn);
+                    }
+
+                    // Botão Avançar (>)
+                    const btnNext = document.createElement('button');
+                    btnNext.className = 'pb-page-btn';
+                    btnNext.innerHTML = '&#8250;'; // Seta direita
+                    btnNext.disabled = this.paginaAtual === totalPaginas;
+                    btnNext.onclick = () => { this.paginaAtual++; this.renderizarPagina(); };
+                    paginacaoDiv.appendChild(btnNext);
+                }
+            },
+
+            // --- CARRINHO & INTERAÇÃO ---
+            alterarQtd(sku, delta, max) {
                 if (!this.quantidades[sku]) this.quantidades[sku] = 1;
-                
-                const novaQtd = this.quantidades[sku] + delta;
-                
-                // Validação: não pode ser menor que 1 nem maior que estoque
-                if (novaQtd >= 1 && novaQtd <= estoqueMax) {
-                    this.quantidades[sku] = novaQtd;
-                    // Atualiza só o numerozinho na tela
-                    const display = document.getElementById(`qtd-display-${sku}`);
-                    if(display) display.innerText = novaQtd;
+                const novo = this.quantidades[sku] + delta;
+                if (novo >= 1 && novo <= max) {
+                    this.quantidades[sku] = novo;
+                    document.getElementById(`qtd-display-${sku}`).innerText = novo;
                 }
             },
-
             adicionarAoCarrinho(sku, nome) {
                 const qtd = this.quantidades[sku] || 1;
                 this.carrinho += qtd;
                 document.getElementById('cart-badge').innerText = this.carrinho;
                 alert(`Adicionado: ${qtd}x ${nome}`);
-                
-                // Reset visual para 1
                 this.quantidades[sku] = 1;
-                const display = document.getElementById(`qtd-display-${sku}`);
-                if(display) display.innerText = 1;
+                const d = document.getElementById(`qtd-display-${sku}`);
+                if(d) d.innerText = 1;
             },
-
-            // --- RENDERIZAÇÃO ---
-            renderizar(lista) {
-                const grid = document.getElementById('grid');
-                grid.innerHTML = "";
-
-                if (lista.length === 0) {
-                    grid.innerHTML = "<p>Nenhum produto encontrado.</p>";
-                    return;
-                }
-
-                lista.forEach(p => {
-                    // ID único para controle
-                    const sku = p.skuBase || "ID" + Math.random().toString(36).substr(2, 5);
-                    
-                    // Imagem
-                    let imgUrl = "https://placehold.co/200?text=Sem+Foto";
-                    if (p.imagens && p.imagens.pasta) {
-                        const pasta = "/storage/emulated/0/pirabloco/" + p.imagens.pasta.replace('imagens/', '');
-                        imgUrl = `${pasta}/${sku}.${p.imagens.ext || 'webp'}`;
-                    } else if (typeof p.imagem === 'string') {
-                         imgUrl = p.imagem;
-                    }
-
-                    // Preço
-                    let preco = p.precoCentavos ? (p.precoCentavos / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : "0,00";
-                    
-                    // Estoque
-                    const estoque = p.estoque || 0;
-                    const semEstoque = estoque <= 0;
-
-                    // HTML dos Botões de Ação
-                    let htmlAcoes = "";
-                    if (semEstoque) {
-                        htmlAcoes = `<button class="pb-btn-buy" disabled style="background:#ccc">ESGOTADO</button>`;
-                    } else {
-                        htmlAcoes = `
-                            <div class="pb-qty-box">
-                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', -1, ${estoque})">-</button>
-                                <span class="pb-qty-val" id="qtd-display-${sku}">1</span>
-                                <button class="pb-qty-btn" onclick="app.alterarQtd('${sku}', 1, ${estoque})">+</button>
-                            </div>
-                            <button class="pb-btn-buy" onclick="app.adicionarAoCarrinho('${sku}', '${p.nome}')">ADICIONAR</button>
-                        `;
-                    }
-
-                    grid.innerHTML += `
-                        <div class="pb-card">
-                            <div class="pb-img-box">
-                                <img src="${imgUrl}" alt="${p.nome}" onerror="this.src='https://placehold.co/200?text=Foto'">
-                            </div>
-                            <div class="pb-info">
-                                <div class="pb-meta">
-                                    <span>${p.tema || 'LEGO'}</span>
-                                    <span>${estoque} un.</span>
-                                </div>
-                                <h3 class="pb-name">${p.nome}</h3>
-                                <p class="pb-price">R$ ${preco}</p>
-                                
-                                <div class="pb-actions">
-                                    ${htmlAcoes}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-            },
-
-            filtrar() {
-                const termo = document.getElementById('searchInput').value.toLowerCase();
-                const filtrados = this.dados.filter(p => p.nome.toLowerCase().includes(termo));
-                this.renderizar(filtrados);
-            },
-
             toggleMenu() {
-                const sb = document.getElementById('sidebar');
-                const ov = document.getElementById('overlay');
-                sb.classList.toggle('active');
-                ov.classList.toggle('active');
+                document.getElementById('sidebar').classList.toggle('active');
+                document.getElementById('overlay').classList.toggle('active');
             }
         };
 
